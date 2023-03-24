@@ -10,7 +10,7 @@ OBJS = $(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(SRCS))
 TSTS = $(shell find $(TDIR) -name "*.c")
 OUTS = $(patsubst $(TDIR)/%.c, $(TDIR)/%.exe, $(TSTS))
 
-LIB = libmrstr.a
+LIB = mrstr.so
 
 make: $(LIB)
 
@@ -22,13 +22,13 @@ test: $(LIB) $(OUTS)
 	for test in $(OUTS) ; do $$test ; done
 
 $(LIB): $(OBJS)
-	ar -r $(LIB) $(OBJS)
+	$(CC) -shared -o $(LIB) $(OBJS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -fPIC -o $@ $< -I .
 
 $(TDIR)/%.exe: $(TDIR)/%.c
-	$(CC) $(CFLAGS) $< $(LIB) -o $@ -lcriterion
+	$(CC) $(CFLAGS) $< $(LIB) -o $@ -I .
 
 clean:
 	@rm -f $(shell find $(ODIR) -name "*.o")
