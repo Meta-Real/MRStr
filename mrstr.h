@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define __MRSTR_DEBUG__ 0
+#define __MRSTR_DBG__
 
 struct __mrstr__
 {
@@ -18,27 +18,40 @@ struct __mrstr__
 };
 
 typedef struct __mrstr__ mrstr_t[1];
-typedef const struct __mrstr__ mrstr_tc[1];
+typedef struct __mrstr__* mrstr_p;
+typedef const struct __mrstr__* mrstr_pc;
 
 #define MRSTR_DATA(x) ((x)->_data)
 #define MRSTR_SIZE(x) ((x)->_size)
 
-/* functions */
+/* init functions */
 
-void mrstr_init(mrstr_t mrstr);
-void mrstr_init2(mrstr_t mrstr, char* data);
-void mrstr_init3(mrstr_t mrstr, char* data, size_t size);
+void mrstr_init(mrstr_p str);
+void mrstr_inits(mrstr_p str, ...);
 
-void mrstr_clear(mrstr_t mrstr);
+void mrstr_init2(mrstr_p str, char* data);
+void mrstr_init3(mrstr_p str, char* data, size_t size);
 
-char mrstr_set(mrstr_t dst, mrstr_tc src);
-char mrstr_set_str(mrstr_t dst, const char* src);
-char mrstr_set_char(mrstr_t dst, char src);
+void mrstr_clear(mrstr_p str);
+void mrstr_clears(mrstr_p str, ...);
 
-char mrstr_nset(mrstr_t dst, mrstr_tc src, size_t size);
-char mrstr_nset_str(mrstr_t dst, const char* src, size_t size);
+/* set functions */
 
-// alloc system
+char mrstr_set(mrstr_p dst, mrstr_pc src);
+char mrstr_set_str(mrstr_p dst, const char* src);
+char mrstr_set_char(mrstr_p dst, char src);
+
+char mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size);
+char mrstr_nset_str(mrstr_p dst, const char* src, size_t size);
+
+char mrstr_oset(mrstr_p dst, mrstr_pc src, size_t offset);
+
+char mrstr_onset(mrstr_p dst, mrstr_pc src, size_t size, size_t offset);
+
+void mrstr_link(mrstr_p dst, mrstr_p src);
+void mrstr_swap(mrstr_p str1, mrstr_p str2);
+
+/* alloc system */
 
 #define __VAR_ATTR__ static __attribute__((unused))
 

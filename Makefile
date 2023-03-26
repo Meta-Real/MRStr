@@ -20,6 +20,7 @@ all: clean $(LIB) test
 
 test: $(LIB) $(OUTS)
 	for test in $(OUTS) ; do $$test ; done
+	@rm -f $(shell find $(TDIR) -name "*.exe")
 
 $(LIB): $(OBJS)
 	$(CC) -shared -o $(LIB) $(OBJS)

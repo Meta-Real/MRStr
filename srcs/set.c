@@ -1,18 +1,29 @@
 /*/
  * MetaReal String Library version 1.0.0
+ *
+ * mrstr_set(mrstr_p, mrstr_pc)
+ * Sets the destination data with the source data
+ *
+ * input reqs:
+ *  (dst) pointer must be valid
+ *  (dst) must not be allocated (except when (dst) == (src)) (memory leak)
+ *  (src) pointer must be valid
 /*/
 
 #include <mrstr.h>
 
-char mrstr_set(mrstr_t dst, mrstr_tc src)
+char mrstr_set(mrstr_p dst, mrstr_pc src)
 {
+    if (!MRSTR_SIZE(src) || dst == src)
+        return 0;
+
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_SIZE(src) + 1);
 
     if (!MRSTR_DATA(dst))
     {
-#if __MRSTR_DEBUG__
+#ifdef __MRSTR_DBG__
         fprintf(stderr,
-            "MRSTR mrstr_set function: can not allocate %llu bytes from memory\n",
+            "(MRSTR_ERR) mrstr_set function: can not allocate %llu bytes from memory\n",
             MRSTR_SIZE(src) + 1
         );
         abort();
