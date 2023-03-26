@@ -8,18 +8,20 @@
  *  (dst) pointer must be valid
  *  (dst) must not be allocated (memory leak)
  *  (src) pointer must be valid
- *  (src) pointer must not be NULL
 /*/
 
 #include <mrstr.h>
 #include <string.h>
 
-char mrstr_set_str(mrstr_p dst, const char* src)
+void mrstr_set_str(mrstr_p dst, const char* src)
 {
+    if (!src)
+        return;
+
     size_t size = strlen(src);
 
     if (!size)
-        return 0;
+        return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(size + 1);
 
@@ -32,7 +34,8 @@ char mrstr_set_str(mrstr_p dst, const char* src)
         );
         abort();
 #else
-        return 1;
+        err_code = ALLOC_ERR;
+        return;
 #endif
     }
 
@@ -41,6 +44,4 @@ char mrstr_set_str(mrstr_p dst, const char* src)
     do
         MRSTR_DATA(dst)[size] = src[size];
     while (size--);
-
-    return 0;
 }

@@ -11,7 +11,7 @@
 
 #include <mrstr.h>
 
-char mrstr_set_char(mrstr_p dst, char src)
+void mrstr_set_char(mrstr_p dst, char src)
 {
     MRSTR_DATA(dst) = __mrstr_das_alloc(2);
 
@@ -21,7 +21,8 @@ char mrstr_set_char(mrstr_p dst, char src)
         fputs("(MRSTR_ERR) mrstr_set_char function: can not allocate 2 bytes from memory\n", stderr);
         abort();
 #else
-        return 1;
+        err_code = ALLOC_ERR;
+        return;
 #endif
     }
 
@@ -29,6 +30,4 @@ char mrstr_set_char(mrstr_p dst, char src)
     MRSTR_DATA(dst)[1] = '\0';
 
     MRSTR_SIZE(dst) = 1;
-
-    return 0;
 }

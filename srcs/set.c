@@ -12,10 +12,10 @@
 
 #include <mrstr.h>
 
-char mrstr_set(mrstr_p dst, mrstr_pc src)
+void mrstr_set(mrstr_p dst, mrstr_pc src)
 {
     if (!MRSTR_SIZE(src) || dst == src)
-        return 0;
+        return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_SIZE(src) + 1);
 
@@ -28,7 +28,8 @@ char mrstr_set(mrstr_p dst, mrstr_pc src)
         );
         abort();
 #else
-        return 1;
+        err_code = ALLOC_ERR;
+        return;
 #endif
     }
 
@@ -37,6 +38,4 @@ char mrstr_set(mrstr_p dst, mrstr_pc src)
         MRSTR_DATA(dst)[i] = MRSTR_DATA(src)[i];
 
     MRSTR_SIZE(dst) = MRSTR_SIZE(src);
-
-    return 0;
 }

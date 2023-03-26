@@ -37,27 +37,47 @@ void mrstr_clears(mrstr_p str, ...);
 
 /* set functions */
 
-char mrstr_set(mrstr_p dst, mrstr_pc src);
-char mrstr_set_str(mrstr_p dst, const char* src);
-char mrstr_set_char(mrstr_p dst, char src);
+void mrstr_set(mrstr_p dst, mrstr_pc src);
+void mrstr_set_str(mrstr_p dst, const char* src);
+void mrstr_set_char(mrstr_p dst, char src);
 
-char mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size);
-char mrstr_nset_str(mrstr_p dst, const char* src, size_t size);
+void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size);
+void mrstr_nset_str(mrstr_p dst, const char* src, size_t size);
 
-char mrstr_oset(mrstr_p dst, mrstr_pc src, size_t offset);
+void mrstr_oset(mrstr_p dst, mrstr_pc src, size_t offset);
 
-char mrstr_onset(mrstr_p dst, mrstr_pc src, size_t size, size_t offset);
+void mrstr_noset(mrstr_p dst, mrstr_pc src, size_t size, size_t offset);
 
 void mrstr_link(mrstr_p dst, mrstr_p src);
 void mrstr_swap(mrstr_p str1, mrstr_p str2);
 
+/* get functions */
+
+char* mrstr_get_str(mrstr_pc src);
+char mrstr_get_char(mrstr_pc src, size_t idx);
+
+char* mrstr_nget_str(mrstr_pc src, size_t size);
+
+char* mrstr_oget_str(mrstr_pc src, size_t offset);
+
+char* mrstr_noget_str(mrstr_pc src, size_t size, size_t offset);
+
+/* manual debugging system */
+
+enum _err_codes_
+{
+    NONE_ERR, // nothing
+    ALOC_ERR, // allocation error
+    ORNG_ERR  // out of range error
+};
+
+extern char err_code;
+
 /* alloc system */
 
-#define __VAR_ATTR__ static __attribute__((unused))
-
-__VAR_ATTR__ void* (*__mrstr_das_alloc)(size_t size)  = malloc;
-__VAR_ATTR__ void* (*__mrstr_das_realloc)(void* block, size_t size) = realloc;
-__VAR_ATTR__ void (*__mrstr_das_free)(void* block) = free;
+extern void* (*__mrstr_das_alloc)(size_t size);
+extern void* (*__mrstr_das_realloc)(void* block, size_t size);
+extern void (*__mrstr_das_free)(void* block);
 
 void mrstr_set_def_alloc_sys(
     void* (*mrstr_alloc)(size_t size),

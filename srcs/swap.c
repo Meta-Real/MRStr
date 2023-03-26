@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_anchor(mrstr_p, mrstr_p)
+ * mrstr_swap(mrstr_p, mrstr_p)
  * Swaps the values of str1 and str2
  *
  * input reqs:
