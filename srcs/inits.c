@@ -21,6 +21,9 @@ void mrstr_inits(mrstr_p str, ...)
     do
     {
         MRSTR_SIZE(str) = 0;
+        MRSTR_LEN(str) = 0;
+
+        MRSTR_OFFSET(str) = 0;
 
         str = va_arg(ap, mrstr_p);
     } while (str);

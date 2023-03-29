@@ -13,17 +13,19 @@
 
 void mrstr_swap(mrstr_p str1, mrstr_p str2)
 {
-    if (MRSTR_DATA(str1) == MRSTR_DATA(str2))
-        return;
-
     char* t_data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
     MRSTR_DATA(str2) = t_data;
 
-    if (MRSTR_SIZE(str1) == MRSTR_SIZE(str2))
-        return;
-
     size_t t_size = MRSTR_SIZE(str1);
     MRSTR_SIZE(str1) = MRSTR_SIZE(str2);
     MRSTR_SIZE(str2) = t_size;
+
+    t_size = MRSTR_LEN(str1);
+    MRSTR_LEN(str1) = MRSTR_LEN(str2);
+    MRSTR_LEN(str2) = t_size;
+
+    t_size = MRSTR_OFFSET(str1);
+    MRSTR_OFFSET(str1) = MRSTR_OFFSET(str2);
+    MRSTR_OFFSET(str2) = t_size;
 }

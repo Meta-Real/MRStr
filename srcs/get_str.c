@@ -12,17 +12,17 @@
 
 char* mrstr_get_str(mrstr_pc src)
 {
-    if (!MRSTR_SIZE(src))
+    if (!MRSTR_LEN(src))
         return NULL;
 
-    char* dst = __mrstr_das_alloc(MRSTR_SIZE(src) + 1);
+    char* dst = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
 
     if (!dst)
     {
 #ifdef __MRSTR_DBG__
         fprintf(stderr,
             "(MRSTR_ERR) mrstr_get_str function: can not allocate %llu bytes from memory\n",
-            MRSTR_SIZE(src) + 1);
+            MRSTR_LEN(src) + 1);
         abort();
 #else
         err_code = ALLOC_ERR;
@@ -31,7 +31,7 @@ char* mrstr_get_str(mrstr_pc src)
     }
 
     size_t i;
-    for (i = 0; i <= MRSTR_SIZE(src); i++)
+    for (i = 0; i <= MRSTR_LEN(src); i++)
         dst[i] = MRSTR_DATA(src)[i];
 
     return dst;

@@ -15,12 +15,17 @@
 
 void mrstr_init2(mrstr_p str, char* data)
 {
+    MRSTR_OFFSET(str) = 0;
+
     if (!data)
     {
         MRSTR_SIZE(str) = 0;
+        MRSTR_LEN(str) = 0;
         return;
     }
 
     MRSTR_DATA(str) = data;
+
     MRSTR_SIZE(str) = strlen(data);
+    MRSTR_LEN(str) = MRSTR_SIZE(str);
 }

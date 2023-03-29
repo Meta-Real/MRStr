@@ -12,11 +12,11 @@
 
 char* mrstr_nget_str(mrstr_pc src, size_t size)
 {
-    if (!MRSTR_SIZE(src) || !size)
+    if (!MRSTR_LEN(src) || !size)
         return NULL;
 
-    if (size > MRSTR_SIZE(src))
-        size = MRSTR_SIZE(src);
+    if (size > MRSTR_LEN(src))
+        size = MRSTR_LEN(src);
 
     char* dst = __mrstr_das_alloc(size + 1);
 

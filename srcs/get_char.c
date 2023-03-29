@@ -12,12 +12,12 @@
 
 char mrstr_get_char(mrstr_pc src, size_t idx)
 {
-    if (idx >= MRSTR_SIZE(src))
+    if (idx >= MRSTR_LEN(src))
     {
 #ifdef __MRSTR_DBG__
         fprintf(stderr,
-            "(MRSTR_ERR) mrstr_get_char function: index out of range (%llu out of %llu range)\n",
-            idx, MRSTR_SIZE(src));
+            "(MRSTR_ERR) mrstr_get_char function: index out of range (idx: %llu, len: %llu)\n",
+            idx, MRSTR_LEN(src));
         abort();
 #else
         err_code = ORNG_ERR;

@@ -19,9 +19,12 @@ void mrstr_clears(mrstr_p str, ...)
 
     do
     {
-        __mrstr_das_free(MRSTR_DATA(str));
+        __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));
 
         MRSTR_SIZE(str) = 0;
+        MRSTR_LEN(str) = 0;
+
+        MRSTR_OFFSET(str) = 0;
 
         str = va_arg(ap, mrstr_p);
     } while (str);

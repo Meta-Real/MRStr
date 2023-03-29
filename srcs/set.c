@@ -14,17 +14,62 @@
 
 void mrstr_set(mrstr_p dst, mrstr_pc src)
 {
-    if (!MRSTR_SIZE(src) || dst == src)
+    if (dst == src)
+    {
+        if (!MRSTR_OFFSET(dst) || !MRSTR_SIZE(dst))
+            return;
+
+        if (!MRSTR_LEN(dst))
+        {
+            __mrstr_das_free(MRSTR_DATA(dst) - MRSTR_OFFSET(dst));
+
+            MRSTR_SIZE(dst) = 0;
+            MRSTR_OFFSET(dst) = 0;
+
+            return;
+        }
+
+        MRSTR_DATA(dst) -= MRSTR_OFFSET(dst);
+
+        size_t i;
+        for (i = 0; i <= MRSTR_LEN(dst); i++)
+            MRSTR_DATA(dst)[i] = MRSTR_DATA(dst)[i + MRSTR_OFFSET(dst)];
+
+        char* t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
+
+        if (!t_data)
+        {
+#ifdef __MRSTR_DBG__
+            fprintf(stderr,
+                "(MRSTR_ERR) mrstr_set function: can not allocate %llu bytes from memory\n",
+                MRSTR_LEN(dst) + 1
+            );
+            abort();
+#else
+            err_code = ALLOC_ERR;
+            return;
+#endif
+        }
+
+        MRSTR_DATA(dst) = t_data;
+
+        MRSTR_SIZE(dst) = MRSTR_LEN(dst);
+        MRSTR_OFFSET(dst) = 0;
+
+        return;
+    }
+
+    if (!MRSTR_LEN(src))
         return;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_SIZE(src) + 1);
+    MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
 
     if (!MRSTR_DATA(dst))
     {
 #ifdef __MRSTR_DBG__
         fprintf(stderr,
             "(MRSTR_ERR) mrstr_set function: can not allocate %llu bytes from memory\n",
-            MRSTR_SIZE(src) + 1
+            MRSTR_LEN(src) + 1
         );
         abort();
 #else
@@ -34,8 +79,9 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
     }
 
     size_t i;
-    for (i = 0; i <= MRSTR_SIZE(src); i++)
+    for (i = 0; i <= MRSTR_LEN(src); i++)
         MRSTR_DATA(dst)[i] = MRSTR_DATA(src)[i];
 
     MRSTR_SIZE(dst) = MRSTR_SIZE(src);
+    MRSTR_LEN(dst) = MRSTR_SIZE(src);
 }
