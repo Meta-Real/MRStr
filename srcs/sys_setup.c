@@ -6,7 +6,9 @@
 
 #include <mrstr.h>
 
-char err_code = NONE_ERR;
+#ifndef __MRSTR_DBG__
+err_code_t err_code = NONE_ERR;
+#endif
 
 void* (*__mrstr_das_alloc)(size_t size) = malloc;
 void* (*__mrstr_das_realloc)(void* block, size_t size) = realloc;

@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mstr_nset_str(mrstr_p, const char*, size_t)
+ * mstr_nset_str(mrstr_p, mrstr_cstr, mrstr_size)
  * Sets the destination data with the source (up to the specified size)
  *
  * input reqs:
@@ -13,12 +13,12 @@
 #include <mrstr.h>
 #include <string.h>
 
-void mrstr_nset_str(mrstr_p dst, const char* src, size_t size)
+void mrstr_nset_str(mrstr_p dst, mrstr_cstr src, mrstr_size size)
 {
     if (!size || !src)
         return;
 
-    size_t len = strlen(src);
+    mrstr_size len = strlen(src);
     if (!len)
         return;
 
@@ -36,7 +36,7 @@ void mrstr_nset_str(mrstr_p dst, const char* src, size_t size)
         );
         abort();
 #else
-        err_code = ALLOC_ERR;
+        err_code = ALOC_ERR;
         return;
 #endif
     }

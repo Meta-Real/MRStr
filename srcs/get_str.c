@@ -10,12 +10,12 @@
 
 #include <mrstr.h>
 
-char* mrstr_get_str(mrstr_pc src)
+mrstr_str mrstr_get_str(mrstr_pc src)
 {
     if (!MRSTR_LEN(src))
         return NULL;
 
-    char* dst = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
+    mrstr_str dst = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
 
     if (!dst)
     {
@@ -25,12 +25,12 @@ char* mrstr_get_str(mrstr_pc src)
             MRSTR_LEN(src) + 1);
         abort();
 #else
-        err_code = ALLOC_ERR;
+        err_code = ALOC_ERR;
         return NULL;
 #endif
     }
 
-    size_t i;
+    mrstr_size i;
     for (i = 0; i <= MRSTR_LEN(src); i++)
         dst[i] = MRSTR_DATA(src)[i];
 

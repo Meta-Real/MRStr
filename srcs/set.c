@@ -31,11 +31,11 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
 
         MRSTR_DATA(dst) -= MRSTR_OFFSET(dst);
 
-        size_t i;
+        mrstr_size i;
         for (i = 0; i <= MRSTR_LEN(dst); i++)
             MRSTR_DATA(dst)[i] = MRSTR_DATA(dst)[i + MRSTR_OFFSET(dst)];
 
-        char* t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
+        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
 
         if (!t_data)
         {
@@ -46,7 +46,7 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
             );
             abort();
 #else
-            err_code = ALLOC_ERR;
+            err_code = ALOC_ERR;
             return;
 #endif
         }
@@ -73,12 +73,12 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
         );
         abort();
 #else
-        err_code = ALLOC_ERR;
+        err_code = ALOC_ERR;
         return;
 #endif
     }
 
-    size_t i;
+    mrstr_size i;
     for (i = 0; i <= MRSTR_LEN(src); i++)
         MRSTR_DATA(dst)[i] = MRSTR_DATA(src)[i];
 

@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_nget_str(mrstr_pc, size_t)
+ * mrstr_nget_str(mrstr_pc, mrstr_size)
  * Returns the data of source in string form (up to specified size)
  *
  * input reqs:
@@ -10,7 +10,7 @@
 
 #include <mrstr.h>
 
-char* mrstr_nget_str(mrstr_pc src, size_t size)
+mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size size)
 {
     if (!MRSTR_LEN(src) || !size)
         return NULL;
@@ -18,7 +18,7 @@ char* mrstr_nget_str(mrstr_pc src, size_t size)
     if (size > MRSTR_LEN(src))
         size = MRSTR_LEN(src);
 
-    char* dst = __mrstr_das_alloc(size + 1);
+    mrstr_str dst = __mrstr_das_alloc(size + 1);
 
     if (!dst)
     {
@@ -28,7 +28,7 @@ char* mrstr_nget_str(mrstr_pc src, size_t size)
             size + 1);
         abort();
 #else
-        err_code = ALLOC_ERR;
+        err_code = ALOC_ERR;
         return NULL;
 #endif
     }

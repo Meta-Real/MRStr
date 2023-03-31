@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_nset(mrstr_p, mrstr_pc, size_t)
+ * mrstr_nset(mrstr_p, mrstr_pc, mrstr_size)
  * Sets the destination data with the source data (up to the specified size)
  *
  * input reqs:
@@ -12,7 +12,7 @@
 
 #include <mrstr.h>
 
-void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
+void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size)
 {
     if (dst == src)
     {
@@ -34,7 +34,7 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
             if (size >= MRSTR_LEN(dst))
                 return;
 
-            char* t_data = __mrstr_das_realloc(MRSTR_DATA(dst), size + 1);
+            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), size + 1);
 
             if (!t_data)
             {
@@ -45,7 +45,7 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
                 );
                 abort();
 #else
-                err_code = ALLOC_ERR;
+                err_code = ALOC_ERR;
                 return;
 #endif
             }
@@ -69,11 +69,11 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
 
         MRSTR_DATA(dst) -= MRSTR_OFFSET(dst);
 
-        size_t i;
+        mrstr_size i;
         for (i = 0; i <= size; i++)
             MRSTR_DATA(dst)[i] = MRSTR_DATA(dst)[i + MRSTR_OFFSET(dst)];
 
-        char* t_data = __mrstr_das_realloc(MRSTR_DATA(dst), size + 1);
+        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), size + 1);
 
         if (!t_data)
         {
@@ -84,7 +84,7 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
             );
             abort();
 #else
-            err_code = ALLOC_ERR;
+            err_code = ALOC_ERR;
             return;
 #endif
         }
@@ -113,7 +113,7 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, size_t size)
         );
         abort();
 #else
-        err_code = ALLOC_ERR;
+        err_code = ALOC_ERR;
         return;
 #endif
     }
