@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "initializer_list": "c",
+        "type_traits": "c",
+        "xutility": "c"
+    }
+}

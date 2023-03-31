@@ -6,6 +6,7 @@
  *
  * input reqs:
  *  (str1) pointer must be valid
+ *  (str1) and (str2) must be distinct pointers
  *  (str2) pointer must be valid
 /*/
 
@@ -13,9 +14,6 @@
 
 void mrstr_swap(mrstr_p str1, mrstr_p str2)
 {
-    if (str1 == str2)
-        return;
-
     mrstr_str t_data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
     MRSTR_DATA(str2) = t_data;

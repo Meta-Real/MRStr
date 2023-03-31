@@ -7,6 +7,7 @@
  * input reqs:
  *  (str) pointers must be valid
  *  (str)s must not be allocated (memory leak)
+ *  (str)s must be distinct pointers
  *  there must be a NULL pointer as the last argument
 /*/
 

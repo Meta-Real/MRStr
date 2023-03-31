@@ -60,8 +60,8 @@ void mrstr_set_chr(mrstr_p dst, mrstr_chr src);
 void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size);
 void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size size);
 
-void mrstr_link(mrstr_p dst, mrstr_p src);
-void mrstr_swap(mrstr_p str1, mrstr_p str2);
+void mrstr_link(mrstr_p restrict dst, mrstr_p restrict src);
+void mrstr_swap(mrstr_p restrict str1, mrstr_p restrict str2);
 
 /* get functions */
 
@@ -91,17 +91,17 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count); //
 
 /* unary operation functions */
 
-void mrstr_reverse(mrstr_p res, mrstr_pc str); //
+void mrstr_reverse(mrstr_p res, mrstr_pc str);
 
 /* comparison functions */
 
-mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2); //
+mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2);
 
 /* find functions */
 
-mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr); //
-mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr); //
-mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr); //
+mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr);
+mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr);
 
 /* manual debugging system */
 
