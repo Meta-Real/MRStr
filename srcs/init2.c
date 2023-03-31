@@ -13,19 +13,15 @@
 #include <mrstr.h>
 #include <string.h>
 
-void mrstr_init2(mrstr_p str, mrstr_str data)
+void mrstr_init2(mrstr_p restrict str, mrstr_str restrict data)
 {
     MRSTR_OFFSET(str) = 0;
 
     if (!data)
-    {
-        MRSTR_SIZE(str) = 0;
         MRSTR_LEN(str) = 0;
-        return;
+    else
+    {
+        MRSTR_DATA(str) = data;
+        MRSTR_LEN(str) = strlen(data);
     }
-
-    MRSTR_DATA(str) = data;
-
-    MRSTR_SIZE(str) = strlen(data);
-    MRSTR_LEN(str) = MRSTR_SIZE(str);
 }

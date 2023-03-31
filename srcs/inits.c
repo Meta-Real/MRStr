@@ -13,19 +13,18 @@
 #include <mrstr.h>
 #include <stdarg.h>
 
-void mrstr_inits(mrstr_p str, ...)
+void mrstr_inits(mrstr_p restrict str, ...)
 {
     va_list ap;
     va_start(ap, str);
 
     do
     {
-        MRSTR_SIZE(str) = 0;
         MRSTR_LEN(str) = 0;
 
         MRSTR_OFFSET(str) = 0;
 
-        str = va_arg(ap, mrstr_p);
+        str = va_arg(ap, mrstr_p restrict);
     } while (str);
 
     va_end (ap);

@@ -13,15 +13,14 @@
 
 void mrstr_swap(mrstr_p str1, mrstr_p str2)
 {
+    if (str1 == str2)
+        return;
+
     mrstr_str t_data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
     MRSTR_DATA(str2) = t_data;
 
-    mrstr_size t_size = MRSTR_SIZE(str1);
-    MRSTR_SIZE(str1) = MRSTR_SIZE(str2);
-    MRSTR_SIZE(str2) = t_size;
-
-    t_size = MRSTR_LEN(str1);
+    mrstr_size t_size = MRSTR_LEN(str1);
     MRSTR_LEN(str1) = MRSTR_LEN(str2);
     MRSTR_LEN(str2) = t_size;
 

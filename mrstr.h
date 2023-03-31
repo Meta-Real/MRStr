@@ -27,8 +27,6 @@ typedef char mrstr_bool;
 struct __mrstr__
 {
     mrstr_str _data;
-
-    mrstr_size _size;
     mrstr_size _len;
 
     mrstr_idx _offset;
@@ -39,29 +37,28 @@ typedef struct __mrstr__* mrstr_p;
 typedef const struct __mrstr__* mrstr_pc;
 
 #define MRSTR_DATA(x) ((x)->_data)
-#define MRSTR_SIZE(x) ((x)->_size)
 #define MRSTR_LEN(x) ((x)->_len)
 #define MRSTR_OFFSET(x) ((x)->_offset)
 
 /* init functions */
 
 void mrstr_init(mrstr_p str);
-void mrstr_inits(mrstr_p str, ...);
+void mrstr_inits(mrstr_p restrict str, ...);
 
-void mrstr_init2(mrstr_p str, mrstr_str data);
-void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size size, mrstr_idx offset);
+void mrstr_init2(mrstr_p restrict str, mrstr_str restrict data);
+void mrstr_init3(mrstr_p restrict str, mrstr_str restrict data, mrstr_size len, mrstr_idx offset);
 
 void mrstr_clear(mrstr_p str);
-void mrstr_clears(mrstr_p str, ...);
+void mrstr_clears(mrstr_p restrict str, ...);
 
 /* set functions */
 
 void mrstr_set(mrstr_p dst, mrstr_pc src);
-void mrstr_set_str(mrstr_p dst, mrstr_cstr src);
+void mrstr_set_str(mrstr_p restrict dst, mrstr_cstr restrict src);
 void mrstr_set_chr(mrstr_p dst, mrstr_chr src);
 
 void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size);
-void mrstr_nset_str(mrstr_p dst, mrstr_cstr, mrstr_size size);
+void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size size);
 
 void mrstr_link(mrstr_p dst, mrstr_p src);
 void mrstr_swap(mrstr_p str1, mrstr_p str2);
@@ -73,13 +70,13 @@ mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_idx idx);
 
 mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size size);
 
-/* input and output functions */
+/* io functions */
 
-void mrstr_inp(mrstr_p dst, FILE* src);
-void mrstr_ninp(mrstr_p dst, FILE* src, mrstr_size size);
+void mrstr_inp(mrstr_p restrict dst, FILE* restrict src);
+void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size size);
 
-void mrstr_out(FILE* dst, mrstr_pc src);
-void mrstr_nout(FILE* dst, mrstr_pc src, mrstr_size size);
+void mrstr_out(FILE* restrict dst, mrstr_pc restrict src);
+void mrstr_nout(FILE* restrict dst, mrstr_pc restrict src, mrstr_size size);
 
 /* binary operation functions */
 

@@ -16,14 +16,13 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
 {
     if (dst == src)
     {
-        if (!MRSTR_OFFSET(dst) || !MRSTR_SIZE(dst))
+        if (!MRSTR_OFFSET(dst))
             return;
 
         if (!MRSTR_LEN(dst))
         {
             __mrstr_das_free(MRSTR_DATA(dst) - MRSTR_OFFSET(dst));
 
-            MRSTR_SIZE(dst) = 0;
             MRSTR_OFFSET(dst) = 0;
 
             return;
@@ -53,7 +52,6 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
 
         MRSTR_DATA(dst) = t_data;
 
-        MRSTR_SIZE(dst) = MRSTR_LEN(dst);
         MRSTR_OFFSET(dst) = 0;
 
         return;
@@ -82,6 +80,5 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
     for (i = 0; i <= MRSTR_LEN(src); i++)
         MRSTR_DATA(dst)[i] = MRSTR_DATA(src)[i];
 
-    MRSTR_SIZE(dst) = MRSTR_SIZE(src);
-    MRSTR_LEN(dst) = MRSTR_SIZE(src);
+    MRSTR_LEN(dst) = MRSTR_LEN(src);
 }

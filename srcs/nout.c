@@ -11,16 +11,16 @@
 
 #include <mrstr.h>
 
-void mrstr_nout(FILE* dst, mrstr_pc src, mrstr_size size)
+void mrstr_nout(FILE* restrict dst, mrstr_pc restrict src, mrstr_size size)
 {
-    if (!MRSTR_SIZE(src) || !size)
+    if (!MRSTR_LEN(src) || !size)
         return;
 
     if (!dst)
         dst = stdout;
 
-    if (size > MRSTR_SIZE(src))
-        size = MRSTR_SIZE(src);
+    if (size > MRSTR_LEN(src))
+        size = MRSTR_LEN(src);
 
     fwrite(MRSTR_DATA(src), 1, size, dst);
 }

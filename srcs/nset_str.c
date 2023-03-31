@@ -13,7 +13,7 @@
 #include <mrstr.h>
 #include <string.h>
 
-void mrstr_nset_str(mrstr_p dst, mrstr_cstr src, mrstr_size size)
+void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size size)
 {
     if (!size || !src)
         return;
@@ -41,7 +41,7 @@ void mrstr_nset_str(mrstr_p dst, mrstr_cstr src, mrstr_size size)
 #endif
     }
 
-    MRSTR_SIZE(dst) = size;
+    MRSTR_LEN(dst) = size;
     MRSTR_DATA(dst)[size--] = '\0';
 
     do

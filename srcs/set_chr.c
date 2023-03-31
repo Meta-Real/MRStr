@@ -29,5 +29,5 @@ void mrstr_set_chr(mrstr_p dst, mrstr_chr src)
     MRSTR_DATA(dst)[0] = src;
     MRSTR_DATA(dst)[1] = '\0';
 
-    MRSTR_SIZE(dst) = 1;
+    MRSTR_LEN(dst) = 1;
 }

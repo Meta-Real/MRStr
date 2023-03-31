@@ -16,14 +16,13 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size)
 {
     if (dst == src)
     {
-        if (!MRSTR_SIZE(dst))
+        if (!MRSTR_LEN(dst) && !MRSTR_OFFSET(dst))
             return;
 
         if (!MRSTR_LEN(dst) || !size)
         {
             __mrstr_das_free(MRSTR_DATA(dst) - MRSTR_OFFSET(dst));
 
-            MRSTR_SIZE(dst) = 0;
             MRSTR_OFFSET(dst) = 0;
 
             return;
@@ -53,34 +52,28 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size)
             MRSTR_DATA(dst) = t_data;
             MRSTR_DATA(dst)[size] = '\0';
 
-            MRSTR_SIZE(dst) = size;
             MRSTR_LEN(dst) = size;
 
             return;
         }
 
-        if (size >= MRSTR_LEN(dst))
-            size = MRSTR_LEN(dst);
-        else
+        if (MRSTR_LEN(dst) > size)
             MRSTR_LEN(dst) = size;
-
-        if (!MRSTR_OFFSET(dst))
-            return;
 
         MRSTR_DATA(dst) -= MRSTR_OFFSET(dst);
 
         mrstr_size i;
-        for (i = 0; i <= size; i++)
+        for (i = 0; i <= MRSTR_LEN(dst); i++)
             MRSTR_DATA(dst)[i] = MRSTR_DATA(dst)[i + MRSTR_OFFSET(dst)];
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), size + 1);
+        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
 
         if (!t_data)
         {
 #ifdef __MRSTR_DBG__
             fprintf(stderr,
                 "(MRSTR_ERR) mrstr_nset function: can not allocate %llu bytes from memory\n",
-                size + 1
+                MRSTR_LEN(dst) + 1
             );
             abort();
 #else
@@ -90,7 +83,7 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size)
         }
 
         MRSTR_DATA(dst) = t_data;
-        MRSTR_SIZE(dst) = size;
+
         MRSTR_OFFSET(dst) = 0;
 
         return;
@@ -118,14 +111,10 @@ void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size)
 #endif
     }
 
-    MRSTR_SIZE(dst) = size;
     MRSTR_LEN(dst) = size;
-
     MRSTR_DATA(dst)[size--] = '\0';
 
     do
         MRSTR_DATA(dst)[size] = MRSTR_DATA(src)[size];
     while (size--);
-
-    MRSTR_OFFSET(dst) = 0;
 }
