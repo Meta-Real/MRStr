@@ -27,24 +27,20 @@ mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr)
 
     if (MRSTR_LEN(str) == len)
     {
-        mrstr_size i;
-        for (i = 0; i < MRSTR_LEN(str); i++)
-            if (MRSTR_DATA(str)[i] != substr[i])
-                return MRSTR_FALSE;
-
-        return MRSTR_TRUE;
+        if (!memcmp(MRSTR_DATA(str), substr, len))
+            return MRSTR_TRUE;
+        return MRSTR_FALSE;
     }
 
-    mrstr_size i;
+    mrstr_size i, l;
     for (i = 0; i <= MRSTR_LEN(str) - len; i++)
         if (MRSTR_DATA(str)[i] == *substr)
         {
-            mrstr_size j, k;
-            for (j = ++i, k = 1; j < MRSTR_LEN(str) && k < len; j++, k++)
-                if (MRSTR_DATA(str)[j] != substr[k])
-                    break;
+            l = MRSTR_LEN(str) - i;
+            if (l > len)
+                l = len;
 
-            if (k == len)
+            if (!memcmp(MRSTR_DATA(str) + i + 1, substr + 1, l - 1))
                 return MRSTR_TRUE;
         }
 

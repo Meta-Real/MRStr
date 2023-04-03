@@ -38,7 +38,7 @@ void mrstr_reverse(mrstr_p res, mrstr_pc str)
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
 
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_reverse", MRSTR_LEN(str) + 1,);
+        mrstr_dbg_aloc_err("mrstr_reverse", MRSTR_LEN(str) + 1, );
 
     mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)

@@ -10,6 +10,7 @@
 /*/
 
 #include <mrstr.h>
+#include <string.h>
 
 mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr)
 {
@@ -24,24 +25,20 @@ mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr)
 
     if (MRSTR_LEN(str) == MRSTR_LEN(substr))
     {
-        mrstr_size i;
-        for (i = 0; i < MRSTR_LEN(str); i++)
-            if (MRSTR_DATA(str)[i] != MRSTR_DATA(substr)[i])
-                return MRSTR_FALSE;
-
-        return MRSTR_TRUE;
+        if (!memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)))
+            return MRSTR_TRUE;
+        return MRSTR_FALSE;
     }
 
-    mrstr_size i;
+    mrstr_size i, l;
     for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(substr); i++)
         if (MRSTR_DATA(str)[i] == *MRSTR_DATA(substr))
         {
-            mrstr_size j, k;
-            for (j = ++i, k = 1; j < MRSTR_LEN(str) && k < MRSTR_LEN(substr); j++, k++)
-                if (MRSTR_DATA(str)[j] != MRSTR_DATA(substr)[k])
-                    break;
+            l = MRSTR_LEN(str) - i;
+            if (l > MRSTR_LEN(substr))
+                l = MRSTR_LEN(substr);
 
-            if (k == MRSTR_LEN(substr))
+            if (!memcmp(MRSTR_DATA(str) + i + 1, MRSTR_DATA(substr) + 1, l - 1))
                 return MRSTR_TRUE;
         }
 

@@ -10,23 +10,22 @@
 
 #ifdef __MRSTR_DBG__
 
-#define mrstr_dbg_aloc_err(f, s, r)                                               \
-    do                                                                            \
-    {                                                                             \
-        fprintf(stderr,                                                           \
-            "(MRSTR_ERR) %s function: can not allocate %llu bytes from memory\n", \
-            f, s                                                                  \
-        );                                                                        \
-        abort();                                                                  \
+#define mrstr_dbg_aloc_err(f, s, r)                                                   \
+    do                                                                                \
+    {                                                                                 \
+        fprintf(stderr,                                                               \
+                "(MRSTR_ERR) %s function: can not allocate %llu bytes from memory\n", \
+                f, s);                                                                \
+        abort();                                                                      \
     } while (0)
 
-#define mrstr_dbg_orng_err(f, i, s, r)                                              \
-    do                                                                              \
-    {                                                                               \
-        fprintf(stderr,                                                             \
-            "(MRSTR_ERR) %s function: index out of range (idx: %llu, len: %llu)\n", \
-            f, i, s);                                                               \
-        abort();                                                                    \
+#define mrstr_dbg_orng_err(f, i, s, r)                                                  \
+    do                                                                                  \
+    {                                                                                   \
+        fprintf(stderr,                                                                 \
+                "(MRSTR_ERR) %s function: index out of range (idx: %llu, len: %llu)\n", \
+                f, i, s);                                                               \
+        abort();                                                                        \
     } while (0)
 
 #else

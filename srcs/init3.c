@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_init3(mrstr_p, mrstr_str, mrstr_size, mrstr_idx)
+ * void mrstr_init3(mrstr_p restrict, mrstr_str restrict, mrstr_size, mrstr_idx)
  * Initializes the string with default data, len and offset
  *
  * input reqs:

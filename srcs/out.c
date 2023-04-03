@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_out(FILE*, mrstr_pc)
+ * void mrstr_out(FILE *restrict, mrstr_pc restrict)
  * Sets the destination file with the source data
  *
  * input reqs:
@@ -11,7 +11,7 @@
 
 #include <mrstr.h>
 
-void mrstr_out(FILE* restrict dst, mrstr_pc restrict src)
+void mrstr_out(FILE *restrict dst, mrstr_pc restrict src)
 {
     if (!MRSTR_LEN(src))
         return;

@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_ninp(mrstr_p, FILE*, mrstr_size)
- * Sets the destination data with the source file (up to the specified length)
+ * void mrstr_n_inp(mrstr_p restrict, FILE *restrict, mrstr_size)
+ * Sets the destination data with the source file up to the specified length
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -13,7 +13,7 @@
 #include "intern.h"
 #include <string.h>
 
-void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len)
+void mrstr_n_inp(mrstr_p restrict dst, FILE *restrict src, mrstr_size len)
 {
     if (!len)
         return;
@@ -23,7 +23,7 @@ void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len)
         MRSTR_DATA(dst) = __mrstr_das_alloc(++len);
 
         if (!MRSTR_DATA(dst))
-            mrstr_dbg_aloc_err("mrstr_ninp", len,);
+            mrstr_dbg_aloc_err("mrstr_n_inp", len, );
 
         fgets(MRSTR_DATA(dst), len, stdin);
         MRSTR_LEN(dst) = strlen(MRSTR_DATA(dst));
@@ -40,7 +40,7 @@ void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len)
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
 
         if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_ninp", MRSTR_LEN(dst) + 1,);
+            mrstr_dbg_aloc_err("mrstr_n_inp", MRSTR_LEN(dst) + 1, );
 
         MRSTR_DATA(dst) = t_data;
 
@@ -60,7 +60,7 @@ void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len)
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(dst) + 1);
 
     if (!MRSTR_DATA(dst))
-        mrstr_dbg_aloc_err("mrstr_ninp", MRSTR_LEN(dst) + 1,);
+        mrstr_dbg_aloc_err("mrstr_n_inp", MRSTR_LEN(dst) + 1, );
 
     fread(MRSTR_DATA(dst), 1, MRSTR_LEN(dst), src);
     MRSTR_DATA(dst)[MRSTR_LEN(dst)] = '\0';

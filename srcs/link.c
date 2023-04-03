@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_link(mrstr_p, mrstr_p)
+ * void mrstr_link(mrstr_p restrict, mrstr_p restrict)
  * Links destination to the source
  *
  * input reqs:

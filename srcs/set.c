@@ -21,7 +21,7 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
 
     if (!MRSTR_DATA(dst))
-        mrstr_dbg_aloc_err("mrstr_set", MRSTR_LEN(src) + 1,);
+        mrstr_dbg_aloc_err("mrstr_set", MRSTR_LEN(src) + 1, );
 
     memcpy(MRSTR_DATA(dst), MRSTR_DATA(src), MRSTR_LEN(src) + 1);
     MRSTR_LEN(dst) = MRSTR_LEN(src);

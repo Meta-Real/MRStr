@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_inits(mrstr_p, ...)
+ * void mrstr_inits(mrstr_p restrict, ...)
  * Initializes strings with the null value
  *
  * input reqs:
@@ -28,5 +28,5 @@ void mrstr_inits(mrstr_p restrict str, ...)
         str = va_arg(ap, mrstr_p restrict);
     } while (str);
 
-    va_end (ap);
+    va_end(ap);
 }

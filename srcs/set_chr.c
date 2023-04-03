@@ -16,7 +16,7 @@ void mrstr_set_chr(mrstr_p dst, mrstr_chr src)
     MRSTR_DATA(dst) = __mrstr_das_alloc(2);
 
     if (!MRSTR_DATA(dst))
-        mrstr_dbg_aloc_err("mrstr_set_chr", 2,);
+        mrstr_dbg_aloc_err("mrstr_set_chr", 2, );
 
     *MRSTR_DATA(dst) = src;
     MRSTR_DATA(dst)[1] = '\0';

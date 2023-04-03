@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mstr_nset_str(mrstr_p, mrstr_cstr, mrstr_size)
- * Sets the destination data with the source (up to the specified length)
+ * void mstr_n_set_str(mrstr_p restrict, mrstr_cstr restrict, mrstr_size)
+ * Sets the destination data with the source up to the specified length
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -13,7 +13,7 @@
 #include "intern.h"
 #include <string.h>
 
-void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size len)
+void mrstr_n_set_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size len)
 {
     if (!len || !src)
         return;
@@ -28,7 +28,7 @@ void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size le
     MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
 
     if (!MRSTR_DATA(dst))
-        mrstr_dbg_aloc_err("mrstr_nset_str", len + 1,);
+        mrstr_dbg_aloc_err("mrstr_n_set_str", len + 1, );
 
     memcpy(MRSTR_DATA(dst), src, len);
     MRSTR_DATA(dst)[len] = '\0';
