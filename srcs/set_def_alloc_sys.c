@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_set_def_alloc_sys(void* (*)(size_t), void* (*)(void*, size_t), void (*)(void*))
+ * void mrstr_set_def_alloc_sys(void* (*)(size_t), void* (*)(void*, size_t), void (*)(void*))
  * Replaces the default allocation system
  *
  * input reqs:

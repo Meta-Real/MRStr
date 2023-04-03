@@ -19,8 +19,6 @@ typedef size_t mrstr_idx;
 
 typedef char mrstr_bool;
 
-#define MRSTR_DEF_SIZE 128
-
 #define MRSTR_TRUE 1
 #define MRSTR_FALSE 0
 
@@ -51,14 +49,16 @@ void mrstr_init3(mrstr_p restrict str, mrstr_str restrict data, mrstr_size len, 
 void mrstr_clear(mrstr_p str);
 void mrstr_clears(mrstr_p restrict str, ...);
 
+void mrstr_offset(mrstr_p str, mrstr_idx offset);
+
 /* set functions */
 
 void mrstr_set(mrstr_p dst, mrstr_pc src);
 void mrstr_set_str(mrstr_p restrict dst, mrstr_cstr restrict src);
 void mrstr_set_chr(mrstr_p dst, mrstr_chr src);
 
-void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size size);
-void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size size);
+void mrstr_nset(mrstr_p dst, mrstr_pc src, mrstr_size len);
+void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size len);
 
 void mrstr_link(mrstr_p restrict dst, mrstr_p restrict src);
 void mrstr_swap(mrstr_p restrict str1, mrstr_p restrict str2);
@@ -68,26 +68,26 @@ void mrstr_swap(mrstr_p restrict str1, mrstr_p restrict str2);
 mrstr_str mrstr_get_str(mrstr_pc src);
 mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_idx idx);
 
-mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size size);
+mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size len);
 
 /* io functions */
 
 void mrstr_inp(mrstr_p restrict dst, FILE* restrict src);
-void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size size);
+void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len);
 
 void mrstr_out(FILE* restrict dst, mrstr_pc restrict src);
-void mrstr_nout(FILE* restrict dst, mrstr_pc restrict src, mrstr_size size);
+void mrstr_nout(FILE* restrict dst, mrstr_pc restrict src, mrstr_size len);
 
 /* binary operation functions */
 
-void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2); //
-void mrstr_nconcat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size size); //
+void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
+void mrstr_nconcat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len); //
+void mrstr_nnconcat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len1, mrstr_size len2); //
 
-void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx); //
-void mrstr_eremove(mrstr_p res, mrstr_p str, mrstr_idx eidx); //
-void mrstr_rremove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx); //
+void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx);
+void mrstr_rremove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx);
 
-void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count); //
+void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count);
 
 /* unary operation functions */
 
@@ -104,6 +104,8 @@ mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr);
 mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr);
 
 /* manual debugging system */
+
+//#define __MRSTR_DBG__
 
 #ifndef __MRSTR_DBG__
 
@@ -122,14 +124,18 @@ extern err_code_t err_code;
 
 /* alloc system */
 
-extern void* (*__mrstr_das_alloc)(size_t size);
-extern void* (*__mrstr_das_realloc)(void* block, size_t size);
+extern void* (*__mrstr_das_alloc)(mrstr_size size);
+extern void* (*__mrstr_das_realloc)(void* block, mrstr_size size);
 extern void (*__mrstr_das_free)(void* block);
 
 void mrstr_set_def_alloc_sys(
-    void* (*mrstr_alloc)(size_t size),
-    void* (*mrstr_realloc)(void* block, size_t size),
+    void* (*mrstr_alloc)(mrstr_size size),
+    void* (*mrstr_realloc)(void* block, mrstr_size size),
     void (*mrstr_free)(void* block)
 );
+
+void* mrstr_def_alloc(mrstr_size size);
+void* mrstr_def_realloc(void* block, mrstr_size size);
+void mrstr_def_free(void* block);
 
 #endif /* __MRSTR__ */

@@ -1,43 +1,31 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_nget_str(mrstr_pc, mrstr_size)
- * Returns the data of source in string form (up to specified size)
+ * mrstr_str mrstr_nget_str(mrstr_pc, mrstr_size)
+ * Returns the data of source in string form (up to specified length)
  *
  * input reqs:
  *  (src) pointer must be valid
 /*/
 
-#include <mrstr.h>
+#include "intern.h"
+#include <string.h>
 
-mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size size)
+mrstr_str mrstr_nget_str(mrstr_pc src, mrstr_size len)
 {
-    if (!MRSTR_LEN(src) || !size)
+    if (!MRSTR_LEN(src) || !len)
         return NULL;
 
-    if (size > MRSTR_LEN(src))
-        size = MRSTR_LEN(src);
+    if (len > MRSTR_LEN(src))
+        len = MRSTR_LEN(src);
 
-    mrstr_str dst = __mrstr_das_alloc(size + 1);
+    mrstr_str dst = __mrstr_das_alloc(len + 1);
 
     if (!dst)
-    {
-#ifdef __MRSTR_DBG__
-        fprintf(stderr,
-            "(MRSTR_ERR) mrstr_nget_str function: can not allocate %llu bytes from memory\n",
-            size + 1);
-        abort();
-#else
-        err_code = ALOC_ERR;
-        return NULL;
-#endif
-    }
+        mrstr_dbg_aloc_err("mrstr_nget_str", len + 1, NULL);
 
-    dst[size--] = '\0';
-
-    do
-        dst[size] = MRSTR_DATA(src)[size];
-    while (size--);
+    memcpy(dst, MRSTR_DATA(src), len);
+    dst[len] = '\0';
 
     return dst;
 }

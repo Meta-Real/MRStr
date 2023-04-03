@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mstr_nset_str(mrstr_p, mrstr_cstr, mrstr_size)
- * Sets the destination data with the source (up to the specified size)
+ * void mstr_nset_str(mrstr_p, mrstr_cstr, mrstr_size)
+ * Sets the destination data with the source (up to the specified length)
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -10,41 +10,28 @@
  *  (src) pointer must be valid
 /*/
 
-#include <mrstr.h>
+#include "intern.h"
 #include <string.h>
 
-void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size size)
+void mrstr_nset_str(mrstr_p restrict dst, mrstr_cstr restrict src, mrstr_size len)
 {
-    if (!size || !src)
+    if (!len || !src)
         return;
 
-    mrstr_size len = strlen(src);
-    if (!len)
+    mrstr_size src_len = strlen(src);
+    if (!src_len)
         return;
 
-    if (size > len)
-        size = len;
+    if (len > src_len)
+        len = src_len;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(size + 1);
+    MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
 
     if (!MRSTR_DATA(dst))
-    {
-#ifdef __MRSTR_DBG__
-        fprintf(stderr,
-            "(MRSTR_ERR) mrstr_nset_str function: can not allocate %llu bytes from memory\n",
-            size + 1
-        );
-        abort();
-#else
-        err_code = ALOC_ERR;
-        return;
-#endif
-    }
+        mrstr_dbg_aloc_err("mrstr_nset_str", len + 1,);
 
-    MRSTR_LEN(dst) = size;
-    MRSTR_DATA(dst)[size--] = '\0';
+    memcpy(MRSTR_DATA(dst), src, len);
+    MRSTR_DATA(dst)[len] = '\0';
 
-    do
-        MRSTR_DATA(dst)[size] = src[size];
-    while (size--);
+    MRSTR_LEN(dst) = len;
 }

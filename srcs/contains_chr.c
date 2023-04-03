@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_contains_chr(mrstr_pc, mrstr_chr)
+ * mrstr_bool mrstr_contains_chr(mrstr_pc, mrstr_chr)
  * Checks the existence of character within the string
  *
  * input reqs:

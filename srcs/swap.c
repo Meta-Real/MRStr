@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_swap(mrstr_p, mrstr_p)
+ * void mrstr_swap(mrstr_p, mrstr_p)
  * Swaps the values of str1 and str2
  *
  * input reqs:
@@ -18,9 +18,9 @@ void mrstr_swap(mrstr_p str1, mrstr_p str2)
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
     MRSTR_DATA(str2) = t_data;
 
-    mrstr_size t_size = MRSTR_LEN(str1);
+    mrstr_size t_len = MRSTR_LEN(str1);
     MRSTR_LEN(str1) = MRSTR_LEN(str2);
-    MRSTR_LEN(str2) = t_size;
+    MRSTR_LEN(str2) = t_len;
 
     mrstr_idx t_offset = MRSTR_OFFSET(str1);
     MRSTR_OFFSET(str1) = MRSTR_OFFSET(str2);

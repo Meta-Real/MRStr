@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_contains(mrstr_pc, mrstr_pc)
+ * mrstr_bool mrstr_contains(mrstr_pc, mrstr_pc)
  * Checks the existence of substring within the string
  *
  * input reqs:

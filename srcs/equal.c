@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_equal(mrstr_pc, mrstr_pc)
+ * mrstr_bool mrstr_equal(mrstr_pc, mrstr_pc)
  * Compares str1 and str2
  *
  * input reqs:

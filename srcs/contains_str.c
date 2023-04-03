@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_contains_str(mrstr_pc, mrstr_cstr)
+ * mrstr_bool mrstr_contains_str(mrstr_pc, mrstr_cstr)
  * Checks the existence of substring within the string
  *
  * input reqs:
@@ -17,15 +17,15 @@ mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr)
     if (!substr)
         return MRSTR_TRUE;
 
-    size_t size = strlen(substr);
+    size_t len = strlen(substr);
 
-    if (!size)
+    if (!len)
         return MRSTR_TRUE;
 
-    if (size > MRSTR_LEN(str))
+    if (len > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (MRSTR_LEN(str) == size)
+    if (MRSTR_LEN(str) == len)
     {
         mrstr_size i;
         for (i = 0; i < MRSTR_LEN(str); i++)
@@ -36,15 +36,15 @@ mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr)
     }
 
     mrstr_size i;
-    for (i = 0; i <= MRSTR_LEN(str) - size; i++)
+    for (i = 0; i <= MRSTR_LEN(str) - len; i++)
         if (MRSTR_DATA(str)[i] == *substr)
         {
             mrstr_size j, k;
-            for (j = ++i, k = 1; j < MRSTR_LEN(str) && k < size; j++, k++)
+            for (j = ++i, k = 1; j < MRSTR_LEN(str) && k < len; j++, k++)
                 if (MRSTR_DATA(str)[j] != substr[k])
                     break;
 
-            if (k == size)
+            if (k == len)
                 return MRSTR_TRUE;
         }
 

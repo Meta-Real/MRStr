@@ -1,14 +1,14 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_init3(mrstr_p, mrstr_str, mrstr_size, mrstr_idx)
+ * void mrstr_init3(mrstr_p, mrstr_str, mrstr_size, mrstr_idx)
  * Initializes the string with default data, len and offset
  *
  * input reqs:
  *  (str) pointer must be valid
  *  (str) must not be allocated (memory leak)
  *  (data) pointer must be valid
- *  (len) must be equal to the size of the string (non-fatal error)
+ *  (len) must be equal to the length of the string (non-fatal error)
 /*/
 
 #include <mrstr.h>

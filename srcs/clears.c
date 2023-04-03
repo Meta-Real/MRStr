@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_clears(mrstr_p, ...)
+ * void mrstr_clears(mrstr_p, ...)
  * Deallocates the space occupied by string data in multiple strings
  *
  * input reqs:
@@ -20,10 +20,13 @@ void mrstr_clears(mrstr_p restrict str, ...)
 
     do
     {
-        __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));
-        MRSTR_LEN(str) = 0;
+        if (MRSTR_LEN(str) || MRSTR_OFFSET(str))
+        {
+            __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));
+            MRSTR_LEN(str) = 0;
 
-        MRSTR_OFFSET(str) = 0;
+            MRSTR_OFFSET(str) = 0;
+        }
 
         str = va_arg(ap, mrstr_p restrict);
     } while (str);

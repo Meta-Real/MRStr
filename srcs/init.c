@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_init(mrstr_p)
+ * void mrstr_init(mrstr_p)
  * Initializes the string with the null value
  *
  * input reqs:

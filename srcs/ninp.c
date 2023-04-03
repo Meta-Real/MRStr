@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_ninp(mrstr_p, FILE*, mrstr_size)
- * Sets the destination data with the source file (up to the specified size)
+ * void mrstr_ninp(mrstr_p, FILE*, mrstr_size)
+ * Sets the destination data with the source file (up to the specified length)
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -10,32 +10,22 @@
  *  (src) pointer must be valid
 /*/
 
-#include <mrstr.h>
+#include "intern.h"
 #include <string.h>
 
-void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size size)
+void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size len)
 {
-    if (!size)
+    if (!len)
         return;
 
     if (src == stdin || !src)
     {
-        MRSTR_DATA(dst) = __mrstr_das_alloc(++size);
+        MRSTR_DATA(dst) = __mrstr_das_alloc(++len);
 
         if (!MRSTR_DATA(dst))
-        {
-#ifdef __MRSTR_DBG__
-            fprintf(stderr,
-                "(MRSTR_ERR) mrstr_ninp function: can not allocate %llu bytes from memory\n",
-                size);
-            abort();
-#else
-            err_code = ALOC_ERR;
-            return;
-#endif
-        }
+            mrstr_dbg_aloc_err("mrstr_ninp", len,);
 
-        fgets(MRSTR_DATA(dst), size, stdin);
+        fgets(MRSTR_DATA(dst), len, stdin);
         MRSTR_LEN(dst) = strlen(MRSTR_DATA(dst));
 
         if (!MRSTR_LEN(dst))
@@ -44,23 +34,13 @@ void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size size)
             return;
         }
 
-        if (MRSTR_LEN(dst) + 1 != size)
+        if (MRSTR_LEN(dst) + 1 != len)
             MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
 
         if (!t_data)
-        {
-#ifdef __MRSTR_DBG__
-            fprintf(stderr,
-                "(MRSTR_ERR) mrstr_ninp function: can not allocate %llu bytes from memory\n",
-                MRSTR_LEN(dst) + 1);
-            abort();
-#else
-            err_code = ALOC_ERR;
-            return;
-#endif
-        }
+            mrstr_dbg_aloc_err("mrstr_ninp", MRSTR_LEN(dst) + 1,);
 
         MRSTR_DATA(dst) = t_data;
 
@@ -74,23 +54,13 @@ void mrstr_ninp(mrstr_p restrict dst, FILE* restrict src, mrstr_size size)
     if (!MRSTR_LEN(dst))
         return;
 
-    if (MRSTR_LEN(dst) > size)
-        MRSTR_LEN(dst) = size;
+    if (MRSTR_LEN(dst) > len)
+        MRSTR_LEN(dst) = len;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(dst) + 1);
 
     if (!MRSTR_DATA(dst))
-    {
-#ifdef __MRSTR_DBG__
-        fprintf(stderr,
-            "(MRSTR_ERR) mrstr_inp function: can not allocate %llu bytes from memory\n",
-            MRSTR_LEN(src) + 1);
-        abort();
-#else
-        err_code = ALOC_ERR;
-        return;
-#endif
-    }
+        mrstr_dbg_aloc_err("mrstr_ninp", MRSTR_LEN(dst) + 1,);
 
     fread(MRSTR_DATA(dst), 1, MRSTR_LEN(dst), src);
     MRSTR_DATA(dst)[MRSTR_LEN(dst)] = '\0';
