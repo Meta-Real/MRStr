@@ -82,24 +82,25 @@ void mrstr_n_out(FILE *restrict dst, mrstr_pc restrict src, mrstr_size len);
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
 void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
 void mrstr_n_concat2(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
-void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2); //
+void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2);
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx);
 void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx);
-void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_idx idx, mrstr_size len); //
+void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_idx idx, mrstr_size len);
 
 void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count);
+void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count);
 
 /* unary operation functions */
 
 void mrstr_reverse(mrstr_p res, mrstr_pc str);
-
-void mrstr_n_reverse(mrstr_p res, mrstr_pc str); //
+void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len);
 
 /* comparison functions */
 
 mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2);
 mrstr_bool mrstr_equal_str(mrstr_pc str1, mrstr_cstr str2);
+mrstr_bool mrstr_equal_chr(mrstr_pc str, mrstr_chr chr);
 
 mrstr_bool mrstr_n_equal(mrstr_pc str1, mrstr_pc str2, mrstr_size len);
 mrstr_bool mrstr_n_equal_str(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
@@ -150,13 +151,18 @@ mrstr_bool mrstr_n_isupper(mrstr_pc str, mrstr_size len);
 mrstr_bool mrstr_islower(mrstr_pc str);
 mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
+/* customizable functions */
+
+mrstr_bool mrstr_check_chrs(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
+mrstr_bool mrstr_n_check_chrs(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
+
 /* property functions */
 
 void mrstr_offset(mrstr_p str, mrstr_idx offset);
 
 /* manual debugging system */
 
-// #define __MRSTR_DBG__
+#define __MRSTR_DBG__
 
 #ifndef __MRSTR_DBG__
 

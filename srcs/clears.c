@@ -23,6 +23,7 @@ void mrstr_clears(mrstr_p restrict str, ...)
         if (MRSTR_LEN(str) || MRSTR_OFFSET(str))
         {
             __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));
+            MRSTR_DATA(str) = NULL;
             MRSTR_LEN(str) = 0;
 
             MRSTR_OFFSET(str) = 0;

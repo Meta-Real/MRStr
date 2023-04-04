@@ -15,13 +15,12 @@
 
 void mrstr_init2(mrstr_p restrict str, mrstr_str restrict data)
 {
+    MRSTR_DATA(str) = data;
+
     MRSTR_OFFSET(str) = 0;
 
     if (!data)
         MRSTR_LEN(str) = 0;
     else
-    {
-        MRSTR_DATA(str) = data;
         MRSTR_LEN(str) = strlen(data);
-    }
 }

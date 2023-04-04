@@ -25,15 +25,11 @@ mrstr_bool mrstr_n_equal(mrstr_pc str1, mrstr_pc str2, mrstr_size len)
         if (len > MRSTR_LEN(str1))
             len = MRSTR_LEN(str1);
 
-        if (!memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), len))
-            return MRSTR_TRUE;
-        return MRSTR_FALSE;
+        return memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), len) ? MRSTR_FALSE : MRSTR_TRUE;
     }
 
     if (MRSTR_LEN(str1) < len || MRSTR_LEN(str2) < len)
         return MRSTR_FALSE;
 
-    if (!memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), len))
-        return MRSTR_TRUE;
-    return MRSTR_FALSE;
+    return memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), len) ? MRSTR_FALSE : MRSTR_TRUE;
 }

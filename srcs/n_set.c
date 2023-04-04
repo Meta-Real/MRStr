@@ -23,6 +23,7 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
         if (!len && !MRSTR_OFFSET(dst))
         {
             __mrstr_das_free(MRSTR_DATA(dst));
+            MRSTR_DATA(dst) = NULL;
             MRSTR_LEN(dst) = 0;
 
             return;

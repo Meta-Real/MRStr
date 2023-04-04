@@ -25,6 +25,7 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
             if (!MRSTR_OFFSET(res))
             {
                 __mrstr_das_free(MRSTR_DATA(res));
+                MRSTR_DATA(res) = NULL;
                 MRSTR_LEN(res) = 0;
 
                 return;
@@ -69,13 +70,10 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
             MRSTR_LEN(res) *= 2;
         }
 
-        if (len -= MRSTR_LEN(res))
-        {
-            memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len);
-            MRSTR_LEN(res) += len;
-        }
-
+        memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len - MRSTR_LEN(res));
         MRSTR_DATA(res)[len] = '\0';
+
+        MRSTR_LEN(res) = len;
 
         return;
     }
@@ -116,11 +114,8 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
         MRSTR_LEN(res) *= 2;
     }
 
-    if (len -= MRSTR_LEN(res))
-    {
-        memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len);
-        MRSTR_LEN(res) += len;
-    }
-
+    memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len - MRSTR_LEN(res));
     MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+
+    MRSTR_LEN(res) = len;
 }

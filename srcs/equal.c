@@ -23,7 +23,5 @@ mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2)
     if (!MRSTR_LEN(str1))
         return MRSTR_TRUE;
 
-    if (!memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), MRSTR_LEN(str1)))
-        return MRSTR_TRUE;
-    return MRSTR_FALSE;
+    return memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), MRSTR_LEN(str1)) ? MRSTR_TRUE : MRSTR_FALSE;
 }

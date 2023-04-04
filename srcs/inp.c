@@ -43,6 +43,7 @@ void mrstr_inp(mrstr_p restrict dst, FILE *restrict src)
         if (!MRSTR_LEN(dst))
         {
             __mrstr_das_free(MRSTR_DATA(dst));
+            MRSTR_DATA(dst) = NULL;
             return;
         }
 
