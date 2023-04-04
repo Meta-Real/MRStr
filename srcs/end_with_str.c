@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_end_with_str(mrstr_pc, mrstr_cstr)
- * Checks if the string ends with the substring
+ * Checks that the string ends with the substring
  *
  * input reqs:
  *  (str) pointer must be valid

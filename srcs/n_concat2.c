@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_concat2(mrstr_p, mrstr_pc, mrstr_pc, mrstr_size)
- * Concatenates the first string up to the specified size and the second string
+ * Concatenates the first string up to the specified length and the second string
  *
  * input reqs:
  *  (res) pointer must be valid

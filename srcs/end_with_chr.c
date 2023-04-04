@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_end_with_chr(mrstr_pc, mrstr_chr)
- * Checks if the string ends with the character
+ * Checks that the string ends with the character
  *
  * input reqs:
  *  (str) pointer must be valid

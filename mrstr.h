@@ -120,35 +120,35 @@ mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc substr);
 mrstr_bool mrstr_end_with_str(mrstr_pc str, mrstr_cstr substr);
 mrstr_bool mrstr_end_with_chr(mrstr_pc str, mrstr_chr chr);
 
-mrstr_bool mrstr_isdigit(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isdigit(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isdigit(mrstr_pc str);
+mrstr_bool mrstr_n_isdigit(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isbdigit(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isbdigit(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isbdigit(mrstr_pc str);
+mrstr_bool mrstr_n_isbdigit(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isodigit(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isodigit(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isodigit(mrstr_pc str);
+mrstr_bool mrstr_n_isodigit(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isxdigit(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isxdigit(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isxdigit(mrstr_pc str);
+mrstr_bool mrstr_n_isxdigit(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isalpha(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isalpha(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isalpha(mrstr_pc str);
+mrstr_bool mrstr_n_isalpha(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isalnum(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isalnum(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isalnum(mrstr_pc str);
+mrstr_bool mrstr_n_isalnum(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isspace(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isspace(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isspace(mrstr_pc str);
+mrstr_bool mrstr_n_isspace(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isblank(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isblank(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isblank(mrstr_pc str);
+mrstr_bool mrstr_n_isblank(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_isupper(mrstr_pc str);                   //
-mrstr_bool mrstr_n_isupper(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_isupper(mrstr_pc str);
+mrstr_bool mrstr_n_isupper(mrstr_pc str, mrstr_size len);
 
-mrstr_bool mrstr_islower(mrstr_pc str);                   //
-mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len); //
+mrstr_bool mrstr_islower(mrstr_pc str);
+mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
 /* property functions */
 
