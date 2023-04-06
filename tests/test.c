@@ -3,14 +3,25 @@
 
 int main()
 {
-    mrstr_t a, b, c;
-    mrstr_inits(a, b, c, NULL);
+    mrstr_t a, b;
+    mrstr_inits(a, b, NULL);
 
-    mrstr_set_str(a, "Hello World");
-    mrstr_rremove(c, a, 4, 6);
+    clock_t l = 0;
 
-    printf("%s\n", c->_data);
+    for (int i = 0; i < 100; i++)
+    {
+        mrstr_set_str(a, "H");
 
-    mrstr_clears(a, b, c, NULL);
+        clock_t s = clock();
+
+        mrstr_repeat(b, a, 1000000);
+
+        l += clock() - s;
+
+        mrstr_clears(a, b, NULL);
+    }
+
+    printf("%lf miliseconds\n", l / 100.0);
+
     return 0;
 }

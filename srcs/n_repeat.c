@@ -17,7 +17,7 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 {
     if (res == str)
     {
-        if (!MRSTR_LEN(res) || count == 1)
+        if (!MRSTR_LEN(res))
             return;
 
         if (!len || !count)
@@ -26,6 +26,7 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
+
                 MRSTR_LEN(res) = 0;
 
                 return;
@@ -45,10 +46,33 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
             return;
         }
 
+        if (count == 1)
+        {
+            if (len >= MRSTR_LEN(res))
+                return;
+
+            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                   len + MRSTR_OFFSET(res) + 1);
+
+            if (!t_data)
+                mrstr_dbg_aloc_err("mrstr_n_repeat", len + MRSTR_OFFSET(res) + 1, );
+
+            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res)[len] = '\0';
+
+            MRSTR_LEN(res) = len;
+
+            return;
+        }
+
         if (len > MRSTR_LEN(res))
             len = MRSTR_LEN(res);
 
         MRSTR_LEN(res) = len * count;
+
+        if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
+            mrstr_dbg_movf_err("mrstr_n_repeat", );
+
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
 
@@ -84,6 +108,10 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         len = MRSTR_LEN(str);
 
     MRSTR_LEN(res) = len * count;
+
+    if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
+        mrstr_dbg_movf_err("mrstr_n_repeat", );
+
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(res) + 1);
 
     if (!MRSTR_DATA(res))

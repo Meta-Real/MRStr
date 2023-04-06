@@ -44,6 +44,7 @@ void mrstr_inp(mrstr_p restrict dst, FILE *restrict src)
         {
             __mrstr_das_free(MRSTR_DATA(dst));
             MRSTR_DATA(dst) = NULL;
+
             return;
         }
 

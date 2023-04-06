@@ -34,6 +34,7 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
+
                 MRSTR_LEN(res) = 0;
 
                 return;

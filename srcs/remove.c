@@ -26,6 +26,7 @@ void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
+
                 MRSTR_LEN(res) = 0;
 
                 return;

@@ -1,18 +1,18 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_check_chrs(mrstr_pc, mrstr_bool (*)(mrstr_chr))
+ * mrstr_bool mrstr_check(mrstr_pc, mrstr_bool (*)(mrstr_chr))
  * Checks that all the string characters match with the condition
  *
  * input reqs:
  *  (str) pointer must be valid
  *  (func) pointer must be valid
- *  (func) must return MRSTR_TRUE if the condition satisfied and MRSTR_FALSE otherwise
+ *  (func) must return MRSTR_TRUE if the condition satisfied and MRSTR_FALSE otherwise (non-fatal error)
 /*/
 
 #include <mrstr.h>
 
-mrstr_bool mrstr_check_chrs(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr))
+mrstr_bool mrstr_check(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr))
 {
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
