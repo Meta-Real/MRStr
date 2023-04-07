@@ -10,7 +10,7 @@
  *  (src) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 #include <string.h>
 
 void mrstr_set_str(mrstr_p restrict dst, mrstr_cstr restrict src)

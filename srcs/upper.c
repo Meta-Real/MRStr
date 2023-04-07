@@ -9,7 +9,7 @@
  *  (str) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 
 void mrstr_upper(mrstr_p res, mrstr_pc str)
 {

@@ -10,7 +10,7 @@
  *  (src) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 #include <string.h>
 
 void mrstr_n_inp(mrstr_p restrict dst, FILE *restrict src, mrstr_size len)

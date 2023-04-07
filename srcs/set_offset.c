@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_offset(mrstr_p, mrstr_idx)
+ * void mrstr_set_offset(mrstr_p, mrstr_idx)
  * Offsets the string with the specified offset
  *
  * input reqs:
@@ -10,7 +10,7 @@
 
 #include <mrstr.h>
 
-void mrstr_offset(mrstr_p str, mrstr_idx offset)
+void mrstr_set_offset(mrstr_p str, mrstr_idx offset)
 {
     if (MRSTR_OFFSET(str) == offset)
         return;

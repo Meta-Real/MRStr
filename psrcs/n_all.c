@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_n_check(mrstr_pc, mrstr_size, mrstr_bool (*)(mrstr_chr))
+ * mrstr_bool mrstr_n_all(mrstr_pc, mrstr_size, mrstr_bool (*)(mrstr_chr))
  * Checks that all the string characters up to the specified length match with the condition
  *
  * input reqs:
@@ -12,7 +12,7 @@
 
 #include <mrstr.h>
 
-mrstr_bool mrstr_n_check(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr))
+mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr))
 {
     if (!MRSTR_LEN(str) || !len)
         return MRSTR_TRUE;

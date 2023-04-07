@@ -8,7 +8,7 @@
  *  (src) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 #include <string.h>
 
 mrstr_str mrstr_n_get_str(mrstr_pc src, mrstr_size len)

@@ -1,1 +1,1 @@
-MetaReal String Library version 1.0.0
+# MetaReal String Library version 1.0.0

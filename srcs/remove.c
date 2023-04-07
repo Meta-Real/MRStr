@@ -10,7 +10,7 @@
  *  (str) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 #include <string.h>
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)

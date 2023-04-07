@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_repeat(mrstr_p, mrstr_pc, mrstr_size, mrstr_size)
- * Repeats the string up to the specified size with specified count
+ * Repeats the string up to the specified length with specified count
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -10,7 +10,7 @@
  *  (str) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 #include <string.h>
 
 void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)

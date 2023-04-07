@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_idx mrstr_find_str(mrstr_pc restrict, mrstr_cstr restrict)
- * Returns the index of the substring within the string (MRSTR_NF if it does not exist)
+ * mrstr_idx mrstr_find_str(mrstr_pc restrict, mrstr_size, mrstr_cstr restrict)
+ * Returns the index of the substring within the string up to the specified length (MRSTR_NF if it does not exist)
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -12,15 +12,18 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_idx mrstr_find_str(mrstr_pc restrict str, mrstr_cstr restrict substr)
+mrstr_idx mrstr_n_find_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr)
 {
     if (!substr)
         return 0;
 
-    size_t len = strlen(substr);
+    size_t substr_len = strlen(substr);
 
-    if (!len)
+    if (!substr_len)
         return 0;
+
+    if (len > substr_len)
+        len = substr_len;
 
     if (len > MRSTR_LEN(str))
         return MRSTR_NF;

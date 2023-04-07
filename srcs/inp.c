@@ -10,7 +10,7 @@
  *  (src) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 
 void mrstr_inp(mrstr_p restrict dst, FILE *restrict src)
 {

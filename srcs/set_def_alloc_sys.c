@@ -13,8 +13,8 @@
 #include <mrstr.h>
 
 void mrstr_set_def_alloc_sys(
-    void *(*mrstr_alloc)(size_t size),
-    void *(*mrstr_realloc)(void *block, size_t size),
+    void *(*mrstr_alloc)(mrstr_size size),
+    void *(*mrstr_realloc)(void *block, mrstr_size size),
     void (*mrstr_free)(void *block))
 {
     if (mrstr_alloc)

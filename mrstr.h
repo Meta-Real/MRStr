@@ -11,17 +11,28 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+/* type defines */
+
 typedef char mrstr_chr;
+
 typedef mrstr_chr *mrstr_str;
 typedef const mrstr_chr *mrstr_cstr;
 
 typedef uint64_t mrstr_size;
 typedef uint64_t mrstr_idx;
 
+#define MRSTR_NF ((mrstr_idx)-1)
+
 typedef uint8_t mrstr_bool;
 
-#define MRSTR_TRUE 1
-#define MRSTR_FALSE 0
+#define MRSTR_TRUE ((mrstr_bool)1)
+#define MRSTR_FALSE ((mrstr_bool)0)
+
+typedef int8_t mrstr_cmpr;
+
+#define MRSTR_LEFT ((mrstr_cmpr)-1)
+#define MRSTR_EQUAL ((mrstr_cmpr)0)
+#define MRSTR_RIGHT ((mrstr_cmpr)1)
 
 struct __mrstr__
 {
@@ -34,6 +45,8 @@ struct __mrstr__
 typedef struct __mrstr__ mrstr_t[1];
 typedef struct __mrstr__ *mrstr_p;
 typedef const struct __mrstr__ *mrstr_pc;
+
+typedef mrstr_t* mrstr_lst;
 
 #define MRSTR_DATA(x) ((x)->_data)
 #define MRSTR_LEN(x) ((x)->_len)
@@ -80,8 +93,8 @@ void mrstr_n_out(FILE *restrict dst, mrstr_pc restrict src, mrstr_size len);
 /* binary operation functions */
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
-void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2); //
-void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr); //
+void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
+void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 
 void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
 void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2); //
@@ -106,8 +119,11 @@ void mrstr_n_trim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 void mrstr_ltrim(mrstr_p res, mrstr_pc str, mrstr_chr chr); //
 void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 
-void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr); //
+void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_n_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+
+void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new);
+void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new);
 
 mrstr_t* mrstr_split(mrstr_pc str, mrstr_chr chr); //
 mrstr_t* mrstr_n_split(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
@@ -135,69 +151,69 @@ mrstr_bool mrstr_n_equal_str(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 /* find functions */
 
 mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr);
-mrstr_bool mrstr_contains_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_bool mrstr_contains_str(mrstr_pc restrict str, mrstr_cstr restrict substr);
 mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr);
 
-mrstr_bool mrstr_n_contains(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
-mrstr_bool mrstr_n_contains_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
-mrstr_bool mrstr_n_contains_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+mrstr_bool mrstr_n_contains(mrstr_pc str, mrstr_size len, mrstr_pc substr);
+mrstr_bool mrstr_n_contains_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr);
+mrstr_bool mrstr_n_contains_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 mrstr_bool mrstr_n2_contains(mrstr_pc str, mrstr_pc substr, mrstr_size len); //
-mrstr_bool mrstr_n2_contains_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len); //
+mrstr_bool mrstr_n2_contains_str(mrstr_pc restrict str, mrstr_cstr restrict substr, mrstr_size len); //
 
 mrstr_bool mrstr_nn_contains(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2); //
-mrstr_bool mrstr_nn_contains_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2); //
+mrstr_bool mrstr_nn_contains_str(mrstr_pc restrict str, mrstr_size len1, mrstr_cstr restrict substr, mrstr_size len2); //
 
 mrstr_idx mrstr_find(mrstr_pc str, mrstr_pc substr);
-mrstr_idx mrstr_find_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_idx mrstr_find_str(mrstr_pc restrict str, mrstr_cstr restrict substr);
 mrstr_idx mrstr_find_chr(mrstr_pc str, mrstr_chr chr);
 
-mrstr_idx mrstr_n_find(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
-mrstr_idx mrstr_n_find_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
+mrstr_idx mrstr_n_find(mrstr_pc str, mrstr_size len, mrstr_pc substr);
+mrstr_idx mrstr_n_find_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr);
 mrstr_idx mrstr_n_find_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 mrstr_idx mrstr_n2_find(mrstr_pc str, mrstr_pc substr, mrstr_size len); //
-mrstr_idx mrstr_n2_find_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len); //
+mrstr_idx mrstr_n2_find_str(mrstr_pc restrict str, mrstr_cstr restrict substr, mrstr_size len); //
 
 mrstr_idx mrstr_nn_find(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2); //
-mrstr_idx mrstr_nn_find_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2); //
+mrstr_idx mrstr_nn_find_str(mrstr_pc restrict str, mrstr_size len1, mrstr_cstr restrict substr, mrstr_size len2); //
 
 mrstr_idx mrstr_rfind(mrstr_pc str, mrstr_pc substr); //
-mrstr_idx mrstr_rfind_str(mrstr_pc str, mrstr_cstr substr); //
+mrstr_idx mrstr_rfind_str(mrstr_pc restrict str, mrstr_cstr restrict substr); //
 mrstr_idx mrstr_rfind_chr(mrstr_pc str, mrstr_chr chr); //
 
 mrstr_idx mrstr_n_rfind(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
-mrstr_idx mrstr_n_rfind_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
+mrstr_idx mrstr_n_rfind_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr); //
 mrstr_idx mrstr_n_rfind_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 
 mrstr_idx mrstr_n2_rfind(mrstr_pc str, mrstr_pc substr, mrstr_size len); //
-mrstr_idx mrstr_n2_rfind_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len); //
+mrstr_idx mrstr_n2_rfind_str(mrstr_pc restrict str, mrstr_cstr restrict substr, mrstr_size len); //
 
 mrstr_idx mrstr_nn_rfind(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2); //
-mrstr_idx mrstr_nn_rfind_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2); //
+mrstr_idx mrstr_nn_rfind_str(mrstr_pc restrict str, mrstr_size len1, mrstr_cstr restrict substr, mrstr_size len2); //
 
 mrstr_idx* mrstr_find_all(mrstr_pc str, mrstr_pc substr); //
-mrstr_idx* mrstr_find_all_str(mrstr_pc str, mrstr_cstr substr); //
+mrstr_idx* mrstr_find_all_str(mrstr_pc restrict str, mrstr_cstr restrict substr); //
 mrstr_idx* mrstr_find_all_chr(mrstr_pc str, mrstr_chr chr); //
 
 mrstr_idx* mrstr_n_find_all(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
-mrstr_idx* mrstr_n_find_all_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
+mrstr_idx* mrstr_n_find_all_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr); //
 mrstr_idx* mrstr_n_find_all_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 
 mrstr_idx* mrstr_n2_find_all(mrstr_pc str, mrstr_pc substr, mrstr_size len); //
-mrstr_idx* mrstr_n2_find_all_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len); //
+mrstr_idx* mrstr_n2_find_all_str(mrstr_pc restrict str, mrstr_cstr restrict substr, mrstr_size len); //
 
 mrstr_idx* mrstr_nn_find_all(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2); //
-mrstr_idx* mrstr_nn_find_all_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2); //
+mrstr_idx* mrstr_nn_find_all_str(mrstr_pc restrict str, mrstr_size len1, mrstr_cstr restrict substr, mrstr_size len2); //
 
 /* check functions */
 
 mrstr_bool mrstr_start_with(mrstr_pc str, mrstr_pc substr);
-mrstr_bool mrstr_start_with_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_bool mrstr_start_with_str(mrstr_pc restrict str, mrstr_cstr restrict substr);
 mrstr_bool mrstr_start_with_chr(mrstr_pc str, mrstr_chr chr);
 
 mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc substr);
-mrstr_bool mrstr_end_with_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_bool mrstr_end_with_str(mrstr_pc restrict str, mrstr_cstr restrict substr);
 mrstr_bool mrstr_end_with_chr(mrstr_pc str, mrstr_chr chr);
 
 mrstr_bool mrstr_isdigit(mrstr_pc str);
@@ -232,15 +248,40 @@ mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
 /* customizable functions */
 
-mrstr_bool mrstr_check(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
-mrstr_bool mrstr_n_check(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
+mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
+mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
 
-void mrstr_change(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr)); //
-void mrstr_n_change(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr)); //
+void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
+void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
 
 /* property functions */
 
-void mrstr_offset(mrstr_p str, mrstr_idx offset);
+void mrstr_set_offset(mrstr_p str, mrstr_idx offset);
+
+static inline mrstr_str mrstr_data(mrstr_pc str)
+{
+    return MRSTR_DATA(str);
+}
+
+static inline mrstr_str mrstr_end(mrstr_pc str)
+{
+    return MRSTR_DATA(str) + MRSTR_LEN(str);
+}
+
+static inline mrstr_size mrstr_len(mrstr_pc str)
+{
+    return MRSTR_LEN(str);
+}
+
+static inline mrstr_idx mrstr_offset(mrstr_pc str)
+{
+    return MRSTR_OFFSET(str);
+}
+
+static inline mrstr_bool mrstr_isempty(mrstr_pc str)
+{
+    return MRSTR_LEN(str) ? MRSTR_FALSE : MRSTR_TRUE;
+}
 
 /* manual debugging system */
 

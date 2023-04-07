@@ -1,27 +1,16 @@
 #include <mrstr.h>
-#include <time.h>
 
 int main()
 {
-    mrstr_t a, b;
-    mrstr_inits(a, b, NULL);
+    mrstr_t a;
+    mrstr_init(a);
 
-    clock_t l = 0;
+    mrstr_set_str(a, "Hello World");
 
-    for (int i = 0; i < 100; i++)
-    {
-        mrstr_set_str(a, "H");
+    mrstr_rtrim(a, a, 'd');
 
-        clock_t s = clock();
+    mrstr_out(stdout, a);
 
-        mrstr_repeat(b, a, 1000000);
-
-        l += clock() - s;
-
-        mrstr_clears(a, b, NULL);
-    }
-
-    printf("%lf miliseconds\n", l / 100.0);
-
+    mrstr_clear(a);
     return 0;
 }

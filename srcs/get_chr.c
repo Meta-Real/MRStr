@@ -8,7 +8,7 @@
  *  (src) pointer must be valid
 /*/
 
-#include "intern.h"
+#include <intern.h>
 
 mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_idx idx)
 {

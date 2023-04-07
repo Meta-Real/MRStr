@@ -9,7 +9,7 @@
  *  (dst) must not be allocated (memory leak)
 /*/
 
-#include "intern.h"
+#include <intern.h>
 
 void mrstr_set_chr(mrstr_p dst, mrstr_chr src)
 {

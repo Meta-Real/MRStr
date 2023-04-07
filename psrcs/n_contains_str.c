@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_contains_str(mrstr_pc restrict, mrstr_cstr restrict)
- * Checks the existence of substring within the string
+ * mrstr_bool mrstr_n_contains_str(mrstr_pc restrict, mrstr_size, mrstr_cstr restrict)
+ * Checks the existence of substring within the string up to the specified length
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -12,15 +12,18 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_contains_str(mrstr_pc restrict str, mrstr_cstr restrict substr)
+mrstr_bool mrstr_n_contains_str(mrstr_pc restrict str, mrstr_size len, mrstr_cstr restrict substr)
 {
     if (!substr)
         return MRSTR_TRUE;
 
-    size_t len = strlen(substr);
+    size_t substr_len = strlen(substr);
 
-    if (!len)
+    if (!substr_len)
         return MRSTR_TRUE;
+
+    if (len > substr_len)
+        len = substr_len;
 
     if (len > MRSTR_LEN(str))
         return MRSTR_FALSE;
