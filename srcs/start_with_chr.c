@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_start_with_chr(mrstr_pc, mrstr_chr)
- * Checks whether the string starts with the character
+ * Checks whether the string starts with the character or not
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -15,7 +15,5 @@ mrstr_bool mrstr_start_with_chr(mrstr_pc str, mrstr_chr chr)
     if (!MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (*MRSTR_DATA(str) == chr)
-        return MRSTR_TRUE;
-    return MRSTR_FALSE;
+    return *MRSTR_DATA(str) == chr ? MRSTR_TRUE : MRSTR_FALSE;
 }

@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_set_offset(mrstr_p, mrstr_idx)
- * Offsets the string with the specified offset
+ * Offsets the string by the specified offset
  *
  * input reqs:
  *  (str) pointer must be valid

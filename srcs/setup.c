@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * Setting up manual debugging (if enabled) and allocation system
+ * Setup file for manual debugging (if enabled) and allocation system
 /*/
 
 #include <mrstr.h>

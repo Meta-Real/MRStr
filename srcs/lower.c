@@ -40,5 +40,5 @@ void mrstr_lower(mrstr_p res, mrstr_pc str)
             MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
-    MRSTR_DATA(res)[MRSTR_LEN(str)] = '\0';
+    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
 }

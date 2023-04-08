@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_set_def_alloc_sys(void *(*)(size_t), void *(*)(void*, size_t), void (*)(void*))
- * Replaces the default allocation system
+ * Replaces the default allocation system (DAS) functions
  *
  * input reqs:
  *  (mrstr_alloc) pointer must be valid

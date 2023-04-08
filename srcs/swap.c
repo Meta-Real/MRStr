@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_swap(mrstr_p, mrstr_p)
- * Swaps the values of str1 and str2
+ * Swaps the values of the first string and the second string
  *
  * input reqs:
  *  (str1) pointer must be valid

@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_set_chr(mrstr_p, mrstr_chr)
- * Sets the destination data with the source
+ * Sets the destination string with the source character
  *
  * input reqs:
  *  (dst) pointer must be valid

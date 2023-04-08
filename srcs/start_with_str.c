@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_start_with_str(mrstr_pc, mrstr_cstr)
- * Checks whether the string starts with the substring
+ * Checks whether the string starts with the substring or not
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -14,18 +14,12 @@
 
 mrstr_bool mrstr_start_with_str(mrstr_pc str, mrstr_cstr substr)
 {
-    if (!substr)
+    mrstr_size slen;
+    if (!substr || !(slen = strlen(substr)))
         return MRSTR_TRUE;
 
-    mrstr_size len = strlen(substr);
-
-    if (!len)
-        return MRSTR_TRUE;
-
-    if (len > MRSTR_LEN(str))
+    if (slen > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (!memcmp(MRSTR_DATA(str), substr, len))
-        return MRSTR_TRUE;
-    return MRSTR_FALSE;
+    return memcmp(MRSTR_DATA(str), substr, slen) ? MRSTR_FALSE : MRSTR_TRUE;
 }

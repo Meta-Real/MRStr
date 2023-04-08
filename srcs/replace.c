@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_replace(mrstr_p, mrstr_pc, mrstr_chr, mrstr_chr)
- * Replaces all the old characters from th string with the new character
+ * Replaces all the old characters from the string with the new character
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -32,15 +32,13 @@ void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_replace", MRSTR_LEN(str) + 1, );
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str); i++)
+    for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)
     {
-        if (MRSTR_DATA(str)[i] == old)
-            MRSTR_DATA(res)[i] = new;
+        if (MRSTR_DATA(str)[MRSTR_LEN(res)] == old)
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = new;
         else
-            MRSTR_DATA(res)[i] = MRSTR_DATA(str)[i];
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
-    MRSTR_DATA(res)[i] = '\0';
-    MRSTR_LEN(res) = i;
+    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
 }
