@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_repeat(mrstr_p, mrstr_pc, mrstr_size)
- * Repeats the string with specified count
+ * Repeats the string up to the count
+ * Throws MOVF_ERR if the length of the result string exceeds the mrstr_size limit
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -48,7 +49,7 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
 
         mrstr_size len = MRSTR_LEN(res) * count;
 
-        if (!len || len / MRSTR_LEN(res) != count)
+        if (len / MRSTR_LEN(res) != count)
             mrstr_dbg_movf_err("mrstr_repeat", );
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
@@ -88,7 +89,7 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
 
     mrstr_size len = MRSTR_LEN(str) * count;
 
-    if (!len || len / MRSTR_LEN(str) != count)
+    if (len / MRSTR_LEN(str) != count)
         mrstr_dbg_movf_err("mrstr_repeat", );
 
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);

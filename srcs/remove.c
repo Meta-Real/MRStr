@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_remove(mrstr_p, mrstr_pc, mrstr_idx)
- * Removes the nth charater of the string
+ * Removes the character from the string at the index
+ * Throws ORNG_ERR if the index exceeds the length of the string
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -55,8 +56,7 @@ void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)
             mrstr_dbg_aloc_err("mrstr_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res), );
 
         MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_LEN(res)
-        --;
+        MRSTR_LEN(res)--;
 
         return;
     }

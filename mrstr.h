@@ -44,7 +44,7 @@ struct __mrstr__
 
 typedef struct __mrstr__ mrstr_t[1];
 typedef struct __mrstr__ *mrstr_p;
-typedef const struct __mrstr__ *mrstr_pc;
+typedef const mrstr_p mrstr_pc;
 
 typedef mrstr_t* mrstr_lst;
 
@@ -61,6 +61,10 @@ struct __mrstr_chr_data__
     mrstr_chr prev;
     mrstr_chr next;
 };
+
+typedef struct __mrstr_chr_data__ mrstr_chr_data_t;
+typedef mrstr_chr_data_t *mrstr_chr_data_p;
+typedef const mrstr_chr_data_p mrstr_chr_data_pc; 
 
 #define MRSTR_ALPHA_LOW "abcdefghijklmnopqrstuvwxyz"
 #define MRSTR_ALPHA_HIGH "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -277,6 +281,9 @@ mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_ch
 
 void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
+
+void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
 
 /* property functions */
 
