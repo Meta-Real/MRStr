@@ -1,19 +1,21 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_swap(mrstr_p restrict, mrstr_p restrict)
+ * void mrstr_swap(mrstr_p, mrstr_p)
  * Swaps the values of str1 and str2
  *
  * input reqs:
  *  (str1) pointer must be valid
- *  (str1) and (str2) must be distinct pointers
  *  (str2) pointer must be valid
 /*/
 
 #include <mrstr.h>
 
-void mrstr_swap(mrstr_p restrict str1, mrstr_p restrict str2)
+void mrstr_swap(mrstr_p str1, mrstr_p str2)
 {
+    if (str1 == str2)
+        return;
+
     mrstr_str t_data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
     MRSTR_DATA(str2) = t_data;

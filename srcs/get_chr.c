@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_chr mrstr_get_chr(mrstr_pc, mrstr_idx)
- * Returns the character in the specified index from the source data
+ * Returns the character at the index from the source string
+ * Throws ORNG_ERR if the index exceeds the length of the source string
  *
  * input reqs:
  *  (src) pointer must be valid

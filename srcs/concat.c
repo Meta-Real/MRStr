@@ -3,11 +3,12 @@
  *
  * void mrstr_concat(mrstr_p, mrstr_pc, mrstr_pc)
  * Concatenates the first string and the second string
+ * if result and first string pointers were the same, then the second string will be added to the first string
  *
  * input reqs:
  *  (res) pointer must be valid
  *  (res) must not be allocated (except when (res) pointer equals (str1) pointer) (memory leak)
- *  (res) pointer must not be equal to (str2) pointer
+ *  (res) pointer must not be equal to the (str2) pointer
  *  (str1) pointer must be valid
  *  (str2) pointer must be valid
 /*/

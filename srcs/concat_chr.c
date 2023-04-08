@@ -3,6 +3,7 @@
  *
  * void mrstr_concat(mrstr_p, mrstr_pc, mrstr_chr)
  * Concatenates the string and the character
+ * if result and string pointers were the same, then the character will be added to the string
  *
  * input reqs:
  *  (res) pointer must be valid

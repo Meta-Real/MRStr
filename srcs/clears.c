@@ -1,19 +1,19 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_clears(mrstr_p restrict, ...)
- * Deallocates the space occupied by string data in multiple strings
+ * void mrstr_clears(mrstr_p, ...)
+ * Deallocates the space occupied by the string in multiple strings
+ * Offsetting the strings does not affect the deallocation process
  *
  * input reqs:
  *  (str) pointers must be valid
- *  (str)s must be distinct pointers
  *  there must be a NULL pointer as the last argument
 /*/
 
 #include <mrstr.h>
 #include <stdarg.h>
 
-void mrstr_clears(mrstr_p restrict str, ...)
+void mrstr_clears(mrstr_p str, ...)
 {
     va_list ap;
     va_start(ap, str);
@@ -30,7 +30,7 @@ void mrstr_clears(mrstr_p restrict str, ...)
             MRSTR_OFFSET(str) = 0;
         }
 
-        str = va_arg(ap, mrstr_p restrict);
+        str = va_arg(ap, mrstr_p);
     } while (str);
 
     va_end(ap);

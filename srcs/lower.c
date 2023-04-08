@@ -2,10 +2,11 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_lower(mrstr_p, mrstr_pc)
- * Lowers the uppercase characters of the string data
+ * Lowers the uppercase alphabet characters of the string
  *
  * input reqs:
  *  (res) pointer must be valid
+ *  (res) must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
  *  (str) pointer must be valid
 /*/
 
@@ -31,15 +32,13 @@ void mrstr_lower(mrstr_p res, mrstr_pc str)
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_lower", MRSTR_LEN(str) + 1, );
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str); i++)
+    for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)
     {
-        if (MRSTR_DATA(str)[i] >= 'A' && MRSTR_DATA(str)[i] <= 'Z')
-            MRSTR_DATA(res)[i] = MRSTR_DATA(str)[i] + MRSTR_DIFF_CHR;
+        if (MRSTR_DATA(str)[MRSTR_LEN(res)] >= 'A' && MRSTR_DATA(str)[MRSTR_LEN(res)] <= 'Z')
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)] + MRSTR_DIFF_CHR;
         else
-            MRSTR_DATA(res)[i] = MRSTR_DATA(str)[i];
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
     MRSTR_DATA(res)[MRSTR_LEN(str)] = '\0';
-    MRSTR_LEN(res) = MRSTR_LEN(str);
 }

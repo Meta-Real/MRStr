@@ -42,5 +42,5 @@ void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
     }
 
     MRSTR_DATA(res)[i] = '\0';
-    MRSTR_LEN(res) = MRSTR_LEN(res);
+    MRSTR_LEN(res) = i;
 }

@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_inp(mrstr_p restrict, FILE *restrict)
- * Sets the destination data with the source file
+ * void mrstr_inp(mrstr_p, FILE*)
+ * Reads the content of the source file and stores it in the destination string
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -12,7 +12,7 @@
 
 #include <intern.h>
 
-void mrstr_inp(mrstr_p restrict dst, FILE *restrict src)
+void mrstr_inp(mrstr_p dst, FILE *src)
 {
     if (src == stdin || !src)
     {

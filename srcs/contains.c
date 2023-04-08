@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_contains(mrstr_pc, mrstr_pc)
- * Checks the existence of substring within the string
+ * Checks the existence of the substring within the string
  *
  * input reqs:
  *  (str) pointer must be valid

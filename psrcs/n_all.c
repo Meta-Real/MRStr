@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_n_all(mrstr_pc, mrstr_size, mrstr_bool (*)(mrstr_chr))
- * Checks that all the string characters up to the specified length match with the condition
+ * Checks whether all the string characters up to the specified length match with the condition
  *
  * input reqs:
  *  (str) pointer must be valid

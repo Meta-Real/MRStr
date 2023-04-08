@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_end_with_str(mrstr_pc restrict, mrstr_cstr restrict)
- * Checks that the string ends with the substring
+ * mrstr_bool mrstr_end_with_str(mrstr_pc, mrstr_cstr)
+ * Checks whether the string ends with the substring
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -12,20 +12,14 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_end_with_str(mrstr_pc restrict str, mrstr_cstr restrict substr)
+mrstr_bool mrstr_end_with_str(mrstr_pc str, mrstr_cstr substr)
 {
-    if (!substr)
+    mrstr_size slen;
+    if (!substr || !(slen = strlen(substr)))
         return MRSTR_TRUE;
 
-    mrstr_size len = strlen(substr);
-
-    if (!len)
-        return MRSTR_TRUE;
-
-    if (len > MRSTR_LEN(str))
+    if (slen > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (!memcmp(MRSTR_DATA(str) + MRSTR_LEN(str) - len, substr, len))
-        return MRSTR_TRUE;
-    return MRSTR_FALSE;
+    return memcmp(MRSTR_DATA(str) + MRSTR_LEN(str) - slen, substr, slen) ? MRSTR_FALSE : MRSTR_TRUE;
 }

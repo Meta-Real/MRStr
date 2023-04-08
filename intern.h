@@ -39,6 +39,15 @@
         abort();                                                                        \
     } while (0)
 
+#define mrstr_dbg_lmch_err(f, s1, s2, r)                                                  \
+    do                                                                                    \
+    {                                                                                     \
+        fprintf(stderr,                                                                   \
+                "(MRSTR_ERR) %s function: string lengths do not match (%llu and %llu)\n", \
+                f, s1, s2);                                                               \
+        abort();                                                                          \
+    } while (0)
+
 #else
 
 #define mrstr_dbg_aloc_err(f, s, r) \
@@ -59,6 +68,13 @@
     do                                 \
     {                                  \
         err_code = ORNG_ERR;           \
+        return r;                      \
+    } while (0)
+
+#define mrstr_dbg_lmch_err(f, i, s, r) \
+    do                                 \
+    {                                  \
+        err_code = LMCH_ERR;           \
         return r;                      \
     } while (0)
 

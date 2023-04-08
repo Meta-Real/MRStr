@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_str mrstr_get_str(mrstr_pc)
- * Returns the data of source in string form
+ * Returns the source string in the form of standard c string
  *
  * input reqs:
  *  (src) pointer must be valid

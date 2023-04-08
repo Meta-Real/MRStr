@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_n_inp(mrstr_p restrict, FILE *restrict, mrstr_size)
+ * void mrstr_n_inp(mrstr_p, FILE*, mrstr_size)
  * Sets the destination data with the source file up to the specified length
  *
  * input reqs:
@@ -13,7 +13,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_n_inp(mrstr_p restrict dst, FILE *restrict src, mrstr_size len)
+void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len)
 {
     if (!len)
         return;

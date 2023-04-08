@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_equal(mrstr_pc, mrstr_pc)
- * Compares str1 and str2
+ * Checks whether the first string equals the second string
  *
  * input reqs:
  *  (str1) pointer must be valid
@@ -23,5 +23,5 @@ mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2)
     if (!MRSTR_LEN(str1))
         return MRSTR_TRUE;
 
-    return memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), MRSTR_LEN(str1)) ? MRSTR_TRUE : MRSTR_FALSE;
+    return memcmp(MRSTR_DATA(str1), MRSTR_DATA(str2), MRSTR_LEN(str1)) ? MRSTR_FALSE : MRSTR_TRUE;
 }

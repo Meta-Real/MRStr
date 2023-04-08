@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_isbdigit(mrstr_pc)
- * Checks that the string consists of only binary digits
+ * Checks whether the string consists of only binary digits
  *
  * input reqs:
  *  (str) pointer must be valid

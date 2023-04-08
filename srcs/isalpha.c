@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_isalpha(mrstr_pc)
- * Checks that the string consists of only alphabets
+ * Checks whether the string consists of only alphabets
  *
  * input reqs:
  *  (str) pointer must be valid

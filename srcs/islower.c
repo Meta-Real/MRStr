@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_islower(mrstr_pc)
- * Checks that the string not consists of upper characters
+ * Checks whether the string does not contain the uppercase alphabet characters
  *
  * input reqs:
  *  (str) pointer must be valid

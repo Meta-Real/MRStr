@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_set_str(mrstr_p restrict, mrstr_cstr restrict)
+ * void mrstr_set_str(mrstr_p, mrstr_cstr)
  * Sets the destination data with the source
  *
  * input reqs:
@@ -13,7 +13,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_set_str(mrstr_p restrict dst, mrstr_cstr restrict src)
+void mrstr_set_str(mrstr_p dst, mrstr_cstr src)
 {
     if (!src)
         return;

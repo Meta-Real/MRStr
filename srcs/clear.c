@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_clear(mrstr_p)
- * Deallocates the space occupied by string data
+ * Deallocates the space occupied by the string
+ * Offsetting the string does not affect the deallocation process
  *
  * input reqs:
  *  (str) pointer must be valid

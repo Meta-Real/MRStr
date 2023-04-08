@@ -1,20 +1,19 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_inits(mrstr_p restrict, ...)
- * Initializes strings with the null value
+ * void mrstr_inits(mrstr_p, ...)
+ * Initializes the strings with the null value
  *
  * input reqs:
  *  (str) pointers must be valid
  *  (str)s must not be allocated (memory leak)
- *  (str)s must be distinct pointers
  *  there must be a NULL pointer as the last argument
 /*/
 
 #include <mrstr.h>
 #include <stdarg.h>
 
-void mrstr_inits(mrstr_p restrict str, ...)
+void mrstr_inits(mrstr_p str, ...)
 {
     va_list ap;
     va_start(ap, str);
@@ -26,7 +25,7 @@ void mrstr_inits(mrstr_p restrict str, ...)
 
         MRSTR_OFFSET(str) = 0;
 
-        str = va_arg(ap, mrstr_p restrict);
+        str = va_arg(ap, mrstr_p);
     } while (str);
 
     va_end(ap);

@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_n_isspace(mrstr_pc)
- * Checks that the string consists of spaces (' ', '\f', '\n', '\r', '\t', '\v') up to the specified length
+ * Checks whether the string consists of spaces (' ', '\f', '\n', '\r', '\t', '\v') up to the specified length
  *
  * input reqs:
  *  (str) pointer must be valid

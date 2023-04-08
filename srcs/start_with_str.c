@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_start_with_str(mrstr_pc restrict, mrstr_cstr restrict)
- * Checks that the string starts with the substring
+ * mrstr_bool mrstr_start_with_str(mrstr_pc, mrstr_cstr)
+ * Checks whether the string starts with the substring
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -12,7 +12,7 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_start_with_str(mrstr_pc restrict str, mrstr_cstr restrict substr)
+mrstr_bool mrstr_start_with_str(mrstr_pc str, mrstr_cstr substr)
 {
     if (!substr)
         return MRSTR_TRUE;

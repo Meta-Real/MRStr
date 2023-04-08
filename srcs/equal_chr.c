@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_equal_chr(mrstr_pc, mrstr_chr)
- * Compares string and character
+ * Checks whether the string equals the character
  *
  * input reqs:
  *  (str) pointer must be valid
