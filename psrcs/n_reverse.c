@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_reverse(mrstr_p, mrstr_pc, mrstr_size)
- * Reverses the order of string data up to the specified length
+ * Reverses the order of the string up to the length
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -21,12 +21,12 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
     {
         if (!len)
         {
+            MRSTR_LEN(res) = 0;
+
             if (!MRSTR_OFFSET(res))
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-
-                MRSTR_LEN(res) = 0;
 
                 return;
             }
@@ -40,36 +40,27 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
 
-            MRSTR_LEN(res) = 0;
-
             return;
         }
 
         if (MRSTR_LEN(res) == 1 || len == 1)
             return;
 
-        if (len >= MRSTR_LEN(res))
+        if (len < MRSTR_LEN(res))
         {
-            char t_chr;
-            mrstr_size i, j;
-            for (i = 0; i < MRSTR_LEN(res) / 2; i++)
-            {
-                t_chr = MRSTR_DATA(res)[i];
+            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                   len + MRSTR_OFFSET(res) + 1);
 
-                j = MRSTR_LEN(res) - i - 1;
-                MRSTR_DATA(res)[i] = MRSTR_DATA(res)[j];
-                MRSTR_DATA(res)[j] = t_chr;
-            }
+            if (!t_data)
+                mrstr_dbg_aloc_err("mrstr_n_reverse", len + MRSTR_OFFSET(res) + 1, );
+
+            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res)[len] = '\0';
+
+            MRSTR_LEN(res) = len;
         }
-
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               len + MRSTR_OFFSET(res) + 1);
-
-        if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_n_reverse", len + MRSTR_OFFSET(res) + 1, );
-
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_DATA(res)[len] = '\0';
+        else if (len > MRSTR_LEN(res))
+            len = MRSTR_LEN(res);
 
         char t_chr;
         mrstr_size i, j;
@@ -81,8 +72,6 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
             MRSTR_DATA(res)[i] = MRSTR_DATA(res)[j];
             MRSTR_DATA(res)[j] = t_chr;
         }
-
-        MRSTR_LEN(res) = len;
 
         return;
     }
@@ -98,10 +87,8 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_reverse", len + 1, );
 
-    mrstr_size i;
-    for (i = 0; i < len; i++)
-        MRSTR_DATA(res)[i] = MRSTR_DATA(str)[len - i - 1];
+    for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
+        MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[len - MRSTR_LEN(res) - 1];
 
     MRSTR_DATA(res)[len] = '\0';
-    MRSTR_LEN(res) = len;
 }

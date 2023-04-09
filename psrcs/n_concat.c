@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_concat(mrstr_p, mrstr_pc, mrstr_pc, mrstr_size)
- * Concatenates the first string up to the specified length and the second string
+ * Concatenates the first string and the second string up to the length
+ * if result and first string pointers were the same, then the second string will be added to the first string
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -40,19 +41,19 @@ void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2)
 
         if (!MRSTR_LEN(str2))
         {
-            if (len < MRSTR_LEN(res))
-            {
-                mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                       len + MRSTR_OFFSET(res) + 1);
+            if (len >= MRSTR_LEN(res))
+                return;
 
-                if (!t_data)
-                    mrstr_dbg_aloc_err("mrstr_n_concat", len + MRSTR_OFFSET(res) + 1, );
+            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                    len + MRSTR_OFFSET(res) + 1);
 
-                MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-                MRSTR_DATA(res)[len] = '\0';
+            if (!t_data)
+                mrstr_dbg_aloc_err("mrstr_n_concat", len + MRSTR_OFFSET(res) + 1, );
 
-                MRSTR_LEN(res) = len;
-            }
+            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res)[len] = '\0';
+
+            MRSTR_LEN(res) = len;
 
             return;
         }

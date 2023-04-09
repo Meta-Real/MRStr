@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_n_contains_str(mrstr_pc, mrstr_size, mrstr_cstr)
- * Checks the existence of substring within the string up to the specified length
+ * Checks the existence of the substring within the string up to the length
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -14,30 +14,26 @@
 
 mrstr_bool mrstr_n_contains_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr)
 {
-    if (!substr)
+    mrstr_size slen;
+    if (!substr || !(slen = strlen(substr)))
         return MRSTR_TRUE;
-
-    size_t substr_len = strlen(substr);
-
-    if (!substr_len)
-        return MRSTR_TRUE;
-
-    if (len > substr_len)
-        len = substr_len;
 
     if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
+
+    if (slen > len)
         return MRSTR_FALSE;
 
-    if (MRSTR_LEN(str) == len)
+    if (len == slen)
         return memcmp(MRSTR_DATA(str), substr, len) ? MRSTR_FALSE : MRSTR_TRUE;
 
     mrstr_size i, l;
-    for (i = 0; i <= MRSTR_LEN(str) - len; i++)
+    for (i = 0; i <= len - slen; i++)
         if (MRSTR_DATA(str)[i] == *substr)
         {
-            l = MRSTR_LEN(str) - i;
-            if (l > len)
-                l = len;
+            l = len - i;
+            if (l > slen)
+                l = slen;
 
             if (!memcmp(MRSTR_DATA(str) + i + 1, substr + 1, l - 1))
                 return MRSTR_TRUE;

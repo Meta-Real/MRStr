@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_n_equal(mrstr_pc, mrstr_pc, mrstr_size)
- * Compares str1 and str2 up to the specified length
+ * Checks whether the first string equals the second string up to the length
  *
  * input reqs:
  *  (str1) pointer must be valid

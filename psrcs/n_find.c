@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_idx mrstr_n_find(mrstr_pc, mrstr_size, mrstr_pc)
- * Returns the index of the substring within the string up to the specified length (MRSTR_NF if it does not exist)
+ * Returns the index of the substring within the string up to the length (MRSTR_NF if it does not exist)
  *
  * input reqs:
  *  (str) pointer must be valid

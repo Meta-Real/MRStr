@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_start_with_str(mrstr_pc, mrstr_cstr)
- * Checks whether the string starts with the substring or not
+ * Checks whether the string starts with the substring
  *
  * input reqs:
  *  (str) pointer must be valid
