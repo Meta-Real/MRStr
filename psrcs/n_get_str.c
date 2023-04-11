@@ -20,12 +20,10 @@ mrstr_str mrstr_n_get_str(mrstr_pc src, mrstr_size len)
         len = MRSTR_LEN(src);
 
     mrstr_str dst = __mrstr_das_alloc(len + 1);
-
     if (!dst)
         mrstr_dbg_aloc_err("mrstr_n_get_str", len + 1, NULL);
 
     memcpy(dst, MRSTR_DATA(src), len);
     dst[len] = '\0';
-
     return dst;
 }

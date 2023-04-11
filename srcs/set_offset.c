@@ -21,19 +21,15 @@ void mrstr_set_offset(mrstr_p str, mrstr_idx offset)
 
         MRSTR_DATA(str) -= diff;
         MRSTR_LEN(str) += diff;
-
         MRSTR_OFFSET(str) = offset;
-
         return;
     }
 
     mrstr_idx diff = offset - MRSTR_OFFSET(str);
-
     if (diff > MRSTR_LEN(str))
         diff = MRSTR_LEN(str);
 
     MRSTR_DATA(str) += diff;
     MRSTR_LEN(str) -= diff;
-
     MRSTR_OFFSET(str) = offset;
 }

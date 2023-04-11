@@ -21,6 +21,5 @@ void mrstr_link(mrstr_p dst, mrstr_p src)
 
     MRSTR_DATA(dst) = MRSTR_DATA(src);
     MRSTR_LEN(dst) = MRSTR_LEN(src);
-
     MRSTR_OFFSET(dst) = MRSTR_OFFSET(src);
 }

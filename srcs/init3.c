@@ -20,6 +20,5 @@ void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size len, mrstr_idx offset)
 
     MRSTR_DATA(str) = data + offset;
     MRSTR_LEN(str) = len - offset;
-
     MRSTR_OFFSET(str) = offset;
 }

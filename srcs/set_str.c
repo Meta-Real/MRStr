@@ -20,7 +20,6 @@ void mrstr_set_str(mrstr_p dst, mrstr_cstr src)
         return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(slen + 1);
-
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_set_str", slen + 1, );
 

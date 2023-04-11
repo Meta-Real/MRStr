@@ -17,11 +17,9 @@ mrstr_str mrstr_get_str(mrstr_pc src)
         return NULL;
 
     mrstr_str dst = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
-
     if (!dst)
         mrstr_dbg_aloc_err("mrstr_get_str", MRSTR_LEN(src) + 1, NULL);
 
     memcpy(dst, MRSTR_DATA(src), MRSTR_LEN(src) + 1);
-
     return dst;
 }

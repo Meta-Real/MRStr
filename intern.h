@@ -7,7 +7,6 @@
 #include <mrstr.h>
 
 #define MRSTR_DEF_LEN 128ULL
-
 #define MRSTR_DIFF_CHR 'a' - 'A'
 
 #ifdef __MRSTR_DBG__

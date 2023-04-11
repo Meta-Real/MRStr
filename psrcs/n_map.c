@@ -33,29 +33,23 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-
                 MRSTR_LEN(res) = 0;
-
                 return;
             }
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                    MRSTR_OFFSET(res) + 1);
-
             if (!t_data)
                 mrstr_dbg_aloc_err("mrstr_n_map", MRSTR_OFFSET(res) + 1, );
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-
             MRSTR_LEN(res) = 0;
-
             return;
         }
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                len + MRSTR_OFFSET(res) + 1);
-
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_n_map", len + MRSTR_OFFSET(res) + 1, );
 
@@ -67,7 +61,6 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
 
         MRSTR_DATA(res)[len] = '\0';
         MRSTR_LEN(res) = len;
-
         return;
     }
 
@@ -78,7 +71,6 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
         len = MRSTR_LEN(str);
 
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_map", len + 1, );
 

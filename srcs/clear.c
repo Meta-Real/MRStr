@@ -18,8 +18,6 @@ void mrstr_clear(mrstr_p str)
 
     __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));
     MRSTR_DATA(str) = NULL;
-
     MRSTR_LEN(str) = 0;
-
     MRSTR_OFFSET(str) = 0;
 }

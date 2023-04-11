@@ -16,7 +16,6 @@
 void mrstr_init2(mrstr_p str, mrstr_str data)
 {
     MRSTR_DATA(str) = data;
-
     MRSTR_OFFSET(str) = 0;
 
     if (!data)

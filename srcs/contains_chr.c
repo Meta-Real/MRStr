@@ -9,16 +9,12 @@
 /*/
 
 #include <mrstr.h>
+#include <string.h>
 
 mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr)
 {
     if (!MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str); i++)
-        if (MRSTR_DATA(str)[i] == chr)
-            return MRSTR_TRUE;
-
-    return MRSTR_FALSE;
+    return memchr(MRSTR_DATA(str), chr, MRSTR_LEN(str)) ? MRSTR_TRUE : MRSTR_FALSE;
 }

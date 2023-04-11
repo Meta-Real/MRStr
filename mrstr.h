@@ -280,13 +280,15 @@ mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
 mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
 
 mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_pc data)); //
-mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_pc data)); //
+mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
+                        mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_pc data)); //
 
 void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
 
 void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
-void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
+                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
 
 /* property functions */
 

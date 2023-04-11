@@ -28,7 +28,6 @@ void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
     }
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_replace", MRSTR_LEN(str) + 1, );
 

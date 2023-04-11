@@ -18,7 +18,6 @@ mrstr_bool mrstr_equal_str(mrstr_pc str1, mrstr_cstr str2)
         return MRSTR_LEN(str1) ? MRSTR_FALSE : MRSTR_TRUE;
 
     mrstr_size slen = strlen(str2);
-
     if (MRSTR_LEN(str1) != slen)
         return MRSTR_FALSE;
 

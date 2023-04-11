@@ -34,23 +34,18 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-
                 MRSTR_LEN(res) = 0;
-
                 return;
             }
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                    MRSTR_OFFSET(res) + 1);
-
             if (!t_data)
                 mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_OFFSET(res) + 1, );
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-
             MRSTR_LEN(res) = 0;
-
             return;
         }
 
@@ -59,12 +54,10 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
         MRSTR_DATA(res) = t_data;
-
         return;
     }
 
@@ -72,12 +65,10 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
         return;
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) - diff + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_LEN(res) - diff + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), sidx);
     memcpy(MRSTR_DATA(res) + sidx, MRSTR_DATA(str) + eidx, MRSTR_LEN(str) - eidx + 1);
-
     MRSTR_LEN(res) = MRSTR_LEN(str) - diff;
 }

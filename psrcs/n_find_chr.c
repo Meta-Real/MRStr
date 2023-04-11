@@ -18,10 +18,6 @@ mrstr_idx mrstr_n_find_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
-    mrstr_size i;
-    for (i = 0; i < len; i++)
-        if (MRSTR_DATA(str)[i] == chr)
-            return i;
-
-    return MRSTR_NF;
+    mrstr_str ptr = memchr(MRSTR_DATA(str), chr, len);
+    return ptr ? (mrstr_idx)(ptr - MRSTR_DATA(str)) : MRSTR_NF;
 }

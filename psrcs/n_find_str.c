@@ -18,7 +18,6 @@ mrstr_idx mrstr_n_find_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr)
         return 0;
 
     size_t substr_len = strlen(substr);
-
     if (!substr_len)
         return 0;
 

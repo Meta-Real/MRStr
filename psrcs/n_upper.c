@@ -2,10 +2,11 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_upper(mrstr_p, mrstr_pc, mrstr_size)
- * Uppers the lowercase characters of the string data up to the specified length
+ * Uppers the lowercase alphabet characters of the string up to the specified length
  *
  * input reqs:
  *  (res) pointer must be valid
+ *  (res) must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
  *  (str) pointer must be valid
 /*/
 
@@ -24,23 +25,18 @@ void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-
                 MRSTR_LEN(res) = 0;
-
                 return;
             }
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                    MRSTR_OFFSET(res) + 1);
-
             if (!t_data)
                 mrstr_dbg_aloc_err("mrstr_n_upper", MRSTR_OFFSET(res) + 1, );
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-
             MRSTR_LEN(res) = 0;
-
             return;
         }
 
@@ -59,7 +55,6 @@ void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                len + MRSTR_OFFSET(res) + 1);
-
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_n_upper", len + MRSTR_OFFSET(res) + 1, );
 
@@ -72,7 +67,6 @@ void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
                 MRSTR_DATA(res)[i] -= MRSTR_DIFF_CHR;
 
         MRSTR_LEN(res) = len;
-
         return;
     }
 
@@ -83,7 +77,6 @@ void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
         len = MRSTR_LEN(res);
 
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_upper", len + 1, );
 

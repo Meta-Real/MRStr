@@ -17,7 +17,6 @@ void mrstr_inp(mrstr_p dst, FILE *src)
     if (src == stdin || !src)
     {
         MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_DEF_LEN);
-
         if (!MRSTR_DATA(dst))
             mrstr_dbg_aloc_err("mrstr_inp", MRSTR_DEF_LEN, );
 
@@ -30,7 +29,6 @@ void mrstr_inp(mrstr_p dst, FILE *src)
             if (MRSTR_LEN(dst) == alloc)
             {
                 t_data = __mrstr_das_realloc(MRSTR_DATA(dst), alloc += MRSTR_DEF_LEN);
-
                 if (!t_data)
                     mrstr_dbg_aloc_err("mrstr_inp", alloc, );
 
@@ -44,18 +42,15 @@ void mrstr_inp(mrstr_p dst, FILE *src)
         {
             __mrstr_das_free(MRSTR_DATA(dst));
             MRSTR_DATA(dst) = NULL;
-
             return;
         }
 
         t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
-
         if (!MRSTR_DATA(dst))
             mrstr_dbg_aloc_err("mrstr_inp", MRSTR_LEN(dst) + 1, );
 
         MRSTR_DATA(dst) = t_data;
         MRSTR_DATA(dst)[MRSTR_LEN(dst)] = '\0';
-
         return;
     }
 
@@ -67,7 +62,6 @@ void mrstr_inp(mrstr_p dst, FILE *src)
         return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(dst) + 1);
-
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_inp", MRSTR_LEN(dst) + 1, );
 

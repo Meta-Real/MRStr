@@ -31,7 +31,6 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
 
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                len + MRSTR_OFFSET(res) + 1);
-
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_n_replace", len + MRSTR_OFFSET(res) + 1, );
 
@@ -44,7 +43,6 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
                 MRSTR_DATA(res)[i] = new;
 
         MRSTR_LEN(res) = len;
-
         return;
     }
 
@@ -55,7 +53,6 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
         len = MRSTR_LEN(str);
 
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_replace", len + 1, );
 

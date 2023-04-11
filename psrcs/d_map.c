@@ -27,7 +27,6 @@ void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrs
     if (res == str)
     {
         mrstr_str t_data = __mrstr_das_alloc(MRSTR_LEN(res));
-
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_d_map", MRSTR_LEN(res), );
 
@@ -41,12 +40,10 @@ void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrs
 
         memcpy(MRSTR_DATA(res), t_data, MRSTR_LEN(res));
         __mrstr_das_free(t_data);
-
         return;
     }
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
-
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_d_map", MRSTR_LEN(str) + 1, );
 
