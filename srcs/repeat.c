@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_repeat(mrstr_p, mrstr_pc, mrstr_size)
- * Repeats the string up to the count
+ * Repeats the string count times
  * Throws MOVF_ERR if the length of the result string exceeds the mrstr_size limit
  *
  * input reqs:
@@ -23,11 +23,12 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
 
         if (!count)
         {
+            MRSTR_LEN(res) = 0;
+
             if (!MRSTR_OFFSET(res))
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-                MRSTR_LEN(res) = 0;
                 return;
             }
 
@@ -38,7 +39,6 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-            MRSTR_LEN(res) = 0;
             return;
         }
 
@@ -109,6 +109,6 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
     }
 
     memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len - MRSTR_LEN(res));
-    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+    MRSTR_DATA(res)[len] = '\0';
     MRSTR_LEN(res) = len;
 }

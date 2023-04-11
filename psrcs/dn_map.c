@@ -2,10 +2,12 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_dn_map(mrstr_p, mrstr_pc, mrstr_size, mrstr_chr (*)(mrstr_chr, mrstr_chr_data_pc))
- * Replaces all the characters of the string up to the length by their alternative
- * The function parameter must return the alternative of each character of the string
+ * Replaces all the characters of the string up to the length by their alternative (with data)
+ * The function must return the alternative of each character of the string
  *
  * input reqs:
+ *  (res) pointer must be valid
+ *  (res) pointer must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
  *  (str) pointer must be valid
  *  (func) pointer must be valid
 /*/
@@ -29,6 +31,8 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
     {
         if (!len)
         {
+            MRSTR_LEN(res) = 0;
+
             if (!MRSTR_OFFSET(res))
             {
                 __mrstr_das_free(MRSTR_DATA(res));
@@ -44,6 +48,7 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
+
             MRSTR_LEN(res) = 0;
             return;
         }

@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_out(FILE*, mrstr_pc, mrstr_size)
- * Sets the destination file with the source data up to the specified length
+ * Writes the content of the source string in the destination file up to the length
  *
  * input reqs:
  *  (dst) pointer must be valid

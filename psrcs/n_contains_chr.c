@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_bool mrstr_n_contains_chr(mrstr_pc, mrstr_size, mrstr_chr)
- * Checks the existence of character within the string up to the specified length
+ * Checks the existence of the character within the string up to the length
  *
  * input reqs:
  *  (str) pointer must be valid

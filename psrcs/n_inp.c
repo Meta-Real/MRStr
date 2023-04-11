@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_inp(mrstr_p, FILE*, mrstr_size)
- * Sets the destination data with the source file up to the specified length
+ * Reads the content of the source file up to the length and stores it in the destination string
  *
  * input reqs:
  *  (dst) pointer must be valid
@@ -34,9 +34,10 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len)
             return;
         }
 
-        if (MRSTR_LEN(dst) + 1 != len)
-            MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
+        if (MRSTR_LEN(dst) == len - 1)
+            return;
 
+        MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_n_inp", MRSTR_LEN(dst) + 1, );

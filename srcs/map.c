@@ -3,9 +3,11 @@
  *
  * void mrstr_map(mrstr_p, mrstr_pc, mrstr_chr (*)(mrstr_chr))
  * Replaces all the characters of the string by their alternative
- * The function parameter must return the alternative of each character of the string
+ * The function must return the alternative of each character of the string
  *
  * input reqs:
+ *  (res) pointer must be valid
+ *  (res) pointer must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
  *  (str) pointer must be valid
  *  (func) pointer must be valid
 /*/

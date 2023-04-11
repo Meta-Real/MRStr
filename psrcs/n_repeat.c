@@ -2,7 +2,8 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_repeat(mrstr_p, mrstr_pc, mrstr_size, mrstr_size)
- * Repeats the string up to the specified length with specified count
+ * Repeats the string up to the length and count times
+ * Throws MOVF_ERR if the length of the result string exceeds the mrstr_size limit
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -15,18 +16,19 @@
 
 void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 {
+    if (!MRSTR_LEN(res))
+        return;
+
     if (res == str)
     {
-        if (!MRSTR_LEN(res))
-            return;
-
         if (!len || !count)
         {
+            MRSTR_LEN(res) = 0;
+
             if (!MRSTR_OFFSET(res))
             {
                 __mrstr_das_free(MRSTR_DATA(res));
                 MRSTR_DATA(res) = NULL;
-                MRSTR_LEN(res) = 0;
                 return;
             }
 
@@ -37,7 +39,6 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-            MRSTR_LEN(res) = 0;
             return;
         }
 
@@ -85,11 +86,12 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         }
 
         memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(res), MRSTR_LEN(res) - len);
-        MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+        MRSTR_DATA(res)[len] = '\0';
+
         return;
     }
 
-    if (!MRSTR_LEN(str) || !len || !count)
+    if (!len || !count)
         return;
 
     if (len > MRSTR_LEN(str))
@@ -126,5 +128,5 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
     }
 
     memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(res), MRSTR_LEN(res) - len);
-    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+    MRSTR_DATA(res)[len] = '\0';
 }
