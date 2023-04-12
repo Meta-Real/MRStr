@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_upper(mrstr_p, mrstr_pc, mrstr_size)
- * Uppers the lowercase alphabet characters of the string up to the specified length
+ * Uppers the lowercase alphabet characters of the string up to the length
  *
  * input reqs:
  *  (res) pointer must be valid

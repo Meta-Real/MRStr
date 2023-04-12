@@ -24,8 +24,10 @@ remake: clean $(LIB)
 all: clean $(LIB) test
 
 test: $(LIB) $(OUTS)
-	for test in $(OUTS) ; do $$test ; done
-	@rm -f $(shell find $(TDIR) -name "*.exe")
+	-@for test in $(OUTS) ; do $$test ; done
+
+retest: clean-test $(LIB) $(OUTS)
+	-@for test in $(OUTS) ; do $$test ; done
 
 $(LIB): $(OBJS) $(PBJS)
 	$(CC) -shared -o $(LIB) $(OBJS) $(PBJS)
@@ -39,8 +41,11 @@ $(ODIR)/%.o: $(PDIR)/%.c
 $(TDIR)/%.exe: $(TDIR)/%.c
 	$(CC) $(CFLAGS) $< $(LIB) -o $@ -I .
 
-clean:
+clean: clean-test
 	@rm -f $(shell find $(ODIR) -name "*.o")
 	@rm -f $(LIB)
+
+clean-test:
+	@rm -f $(shell find $(TDIR) -name "*.exe")
 
 .PHONY: make remake all test clean

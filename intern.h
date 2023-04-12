@@ -4,6 +4,9 @@
  * Internal MRSTR library header file
 /*/
 
+#ifndef __MRSTR_INTERN__
+#define __MRSTR_INTERN__
+
 #include <mrstr.h>
 
 #define MRSTR_DEF_LEN 128ULL
@@ -78,3 +81,5 @@
     } while (0)
 
 #endif
+
+#endif /* __MRSTR_INTERN__ */

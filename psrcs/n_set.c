@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_set(mrstr_p, mrstr_pc, mrstr_size)
- * Sets the destination string with the source string up to the specified length
+ * Sets the destination string with the source string up to the length
  *
  * input reqs:
  *  (dst) pointer must be valid

@@ -9,6 +9,7 @@
 /*/
 
 #include <mrstr.h>
+#include <string.h>
 
 mrstr_idx mrstr_n_find_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
