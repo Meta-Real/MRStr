@@ -16,8 +16,13 @@
 
 void mrstr_replace_all(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_chr new)
 {
-    mrstr_size olen;
-    if (!MRSTR_LEN(str) || !olds || !(olen = strlen(olds)))
+#ifndef __MRSTR_ADV__
+    if (!olds)
+        return;
+#endif
+
+    mrstr_size olen = strlen(olds);
+    if (!MRSTR_LEN(str) || !olen)
         return;
 
     if (res == str)

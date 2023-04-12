@@ -87,7 +87,6 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 
         memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(res), MRSTR_LEN(res) - len);
         MRSTR_DATA(res)[len] = '\0';
-
         return;
     }
 

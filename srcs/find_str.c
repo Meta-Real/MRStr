@@ -14,8 +14,13 @@
 
 mrstr_idx mrstr_find_str(mrstr_pc str, mrstr_cstr substr)
 {
-    mrstr_size slen;
-    if (!substr || !(slen = strlen(substr)))
+#ifndef __MRSTR_ADV__
+    if (!substr)
+        return 0;
+#endif
+
+    mrstr_size slen = strlen(substr);
+    if (!slen)
         return 0;
 
     if (slen > MRSTR_LEN(str))

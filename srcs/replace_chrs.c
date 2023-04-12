@@ -18,6 +18,7 @@
 
 void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr news)
 {
+#ifndef __MRSTR_ADV__
     if (olds == news)
         return;
 
@@ -26,13 +27,20 @@ void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr n
 
     if (!news)
         mrstr_dbg_lmch_err("mrstr_replace_chrs", strlen(olds), 0ULL, );
+#endif
 
     mrstr_size olen = strlen(olds);
+
+#ifndef __MRSTR_ADV__
     mrstr_size nlen = strlen(news);
     if (olen != nlen)
         mrstr_dbg_lmch_err("mrstr_replace_chrs", olen, nlen, );
 
-    if (!MRSTR_LEN(str) || !olen)
+    if (!olen)
+        return;
+#endif
+
+    if (!MRSTR_LEN(str))
         return;
 
     if (res == str)

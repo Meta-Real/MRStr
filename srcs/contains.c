@@ -14,7 +14,12 @@
 
 mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr)
 {
-    if (!MRSTR_LEN(substr) || str == substr)
+#ifndef __MRSTR_ADV__
+    if (str == substr)
+        return MRSTR_TRUE;
+#endif
+
+    if (!MRSTR_LEN(substr))
         return MRSTR_TRUE;
 
     if (MRSTR_LEN(substr) > MRSTR_LEN(str))

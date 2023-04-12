@@ -44,9 +44,9 @@ void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr s
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                     len + MRSTR_OFFSET(res) + 1);
-
             if (!t_data)
                 mrstr_dbg_aloc_err("mrstr_n_concat_str", len + MRSTR_OFFSET(res) + 1, );
+
             if (len < MRSTR_LEN(res))
             {
                 mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),

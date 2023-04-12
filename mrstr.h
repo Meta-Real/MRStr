@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+//#define __MRSTR_ADV__
+
 /* type defines */
 
 typedef char mrstr_chr;

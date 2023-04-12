@@ -48,7 +48,6 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
             MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
             *MRSTR_DATA(res) = '\0';
-
             MRSTR_LEN(res) = 0;
             return;
         }
