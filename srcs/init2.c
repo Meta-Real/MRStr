@@ -21,5 +21,10 @@ void mrstr_init2(mrstr_p str, mrstr_str data)
     if (!data)
         MRSTR_LEN(str) = 0;
     else
+    {
         MRSTR_LEN(str) = strlen(data);
+
+        if (!MRSTR_LEN(str))
+            MRSTR_DATA(str) = NULL;
+    }
 }

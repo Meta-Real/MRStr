@@ -15,7 +15,8 @@ PBJS := $(patsubst $(PDIR)/%.c, $(ODIR)/%.o, $(PRCS))
 TSTS := $(shell find $(TDIR) -name "*.c")
 OUTS := $(patsubst $(TDIR)/%.c, $(TDIR)/%.exe, $(TSTS))
 
-LIB := mrstr.so
+LIB := libmrstr.a
+DLL := mrstr.so
 
 make: $(LIB)
 
@@ -30,7 +31,8 @@ retest: clean-test $(LIB) $(OUTS)
 	-@for test in $(OUTS) ; do $$test ; done
 
 $(LIB): $(OBJS) $(PBJS)
-	$(CC) -shared -o $(LIB) $(OBJS) $(PBJS)
+	ar -r $(LIB) $(OBJS) $(PBJS)
+	$(CC) -shared -o $(DLL) $(OBJS) $(PBJS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
 	$(CC) $(CFLAGS) -c -fPIC -o $@ $< -I .
@@ -43,7 +45,7 @@ $(TDIR)/%.exe: $(TDIR)/%.c
 
 clean: clean-test
 	@rm -f $(shell find $(ODIR) -name "*.o")
-	@rm -f $(LIB)
+	@rm -f $(LIB) $(DLL)
 
 clean-test:
 	@rm -f $(shell find $(TDIR) -name "*.exe")

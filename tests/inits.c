@@ -19,33 +19,33 @@ int main()
     mrstr_inits(a, b, c, NULL);
 
     UTEST_EXPECT(!MRSTR_DATA(a), "mrstr_inits",
-                 "'a' MRSTR_DATA must be NULL but it is %p\n",
+                 "test1: 'a' data pointer must be NULL but it is %p\n",
                  MRSTR_DATA(a));
     UTEST_EXPECT(!MRSTR_LEN(a), "mrstr_inits",
-                 "'a' MRSTR_LEN must be 0 but it is %llu\n",
+                 "test1: 'a' length must be 0 but it is %llu\n",
                  MRSTR_LEN(a));
     UTEST_EXPECT(!MRSTR_OFFSET(a), "mrstr_inits",
-                 "'a' MRSTR_OFFSET must be 0 but it is %llu\n",
+                 "test1: 'a' offset must be 0 but it is %llu\n",
                  MRSTR_OFFSET(a));
 
     UTEST_EXPECT(!MRSTR_DATA(b), "mrstr_inits",
-                 "'b' MRSTR_DATA must be NULL but it is %p\n",
+                 "test1: 'b' data pointer must be NULL but it is %p\n",
                  MRSTR_DATA(b));
     UTEST_EXPECT(!MRSTR_LEN(b), "mrstr_inits",
-                 "'b' MRSTR_LEN must be 0 but it is %llu\n",
+                 "test1: 'b' length must be 0 but it is %llu\n",
                  MRSTR_LEN(b));
     UTEST_EXPECT(!MRSTR_OFFSET(b), "mrstr_inits",
-                 "'b' MRSTR_OFFSET must be 0 but it is %llu\n",
+                 "test1: 'b' offset must be 0 but it is %llu\n",
                  MRSTR_OFFSET(b));
 
     UTEST_EXPECT(!MRSTR_DATA(c), "mrstr_inits",
-                 "'c' MRSTR_DATA must be NULL but it is %p\n",
+                 "test1: 'c' data pointer must be NULL but it is %p\n",
                  MRSTR_DATA(c));
     UTEST_EXPECT(!MRSTR_LEN(c), "mrstr_inits",
-                 "'c' MRSTR_LEN must be 0 but it is %llu\n",
+                 "test1: 'c' length must be 0 but it is %llu\n",
                  MRSTR_LEN(c));
     UTEST_EXPECT(!MRSTR_OFFSET(c), "mrstr_inits",
-                 "'c' MRSTR_OFFSET must be 0 but it is %llu\n",
+                 "test1: 'c' offset must be 0 but it is %llu\n",
                  MRSTR_OFFSET(c));
 
     UTEST_SUCCESS("mrstr_inits");

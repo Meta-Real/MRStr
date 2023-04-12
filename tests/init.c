@@ -10,13 +10,13 @@ int main()
     mrstr_init(a);
 
     UTEST_EXPECT(!MRSTR_DATA(a), "mrstr_init",
-                 "MRSTR_DATA must be NULL but it is %p\n",
+                 "test1: 'a' data pointer must be NULL but it is %p\n",
                  MRSTR_DATA(a));
     UTEST_EXPECT(!MRSTR_LEN(a), "mrstr_init",
-                 "MRSTR_LEN must be 0 but it is %llu\n",
+                 "test1: 'a' length must be 0 but it is %llu\n",
                  MRSTR_LEN(a));
     UTEST_EXPECT(!MRSTR_OFFSET(a), "mrstr_init",
-                 "MRSTR_OFFSET must be 0 but it is %llu\n",
+                 "test1: 'a' offset must be 0 but it is %llu\n",
                  MRSTR_OFFSET(a));
 
     UTEST_SUCCESS("mrstr_init");
