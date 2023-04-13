@@ -15,13 +15,8 @@
 
 void mrstr_set_str(mrstr_p dst, mrstr_cstr src)
 {
-#ifndef __MRSTR_ADV__
-    if (!src)
-        return;
-#endif
-
-    mrstr_size slen = strlen(src);
-    if (!slen)
+    mrstr_size slen;
+    if (!src || !(slen = strlen(src)))
         return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(slen + 1);

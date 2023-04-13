@@ -29,25 +29,7 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
     if (res == str)
     {
         if (diff == MRSTR_LEN(res))
-        {
-            MRSTR_LEN(res) = 0;
-
-            if (!MRSTR_OFFSET(res))
-            {
-                __mrstr_das_free(MRSTR_DATA(res));
-                MRSTR_DATA(res) = NULL;
-                return;
-            }
-
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   MRSTR_OFFSET(res) + 1);
-            if (!t_data)
-                mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_OFFSET(res) + 1, );
-
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-            *MRSTR_DATA(res) = '\0';
-            return;
-        }
+            mrstr_data_free(res, "mrstr_r_remove");
 
         memmove(MRSTR_DATA(res) + sidx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= diff;

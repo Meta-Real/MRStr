@@ -15,10 +15,8 @@
 
 void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size len, mrstr_idx offset)
 {
-#ifndef __MRSTR_ADV__
     if (offset > len)
         offset = len;
-#endif
 
     MRSTR_DATA(str) = data + offset;
     MRSTR_LEN(str) = len - offset;

@@ -14,10 +14,8 @@
 
 mrstr_bool mrstr_equal(mrstr_pc str1, mrstr_pc str2)
 {
-#ifndef __MRSTR_ADV__
     if (str1 == str2)
         return MRSTR_TRUE;
-#endif
 
     if (MRSTR_LEN(str1) != MRSTR_LEN(str2))
         return MRSTR_FALSE;

@@ -12,10 +12,8 @@
 
 void mrstr_set_offset(mrstr_p str, mrstr_idx offset)
 {
-#ifndef __MRSTR_ADV__
     if (MRSTR_OFFSET(str) == offset)
         return;
-#endif
 
     if (offset < MRSTR_OFFSET(str))
     {
@@ -29,10 +27,8 @@ void mrstr_set_offset(mrstr_p str, mrstr_idx offset)
 
     mrstr_idx diff = offset - MRSTR_OFFSET(str);
 
-#ifndef __MRSTR_ADV__
     if (diff > MRSTR_LEN(str))
         diff = MRSTR_LEN(str);
-#endif
 
     MRSTR_DATA(str) += diff;
     MRSTR_LEN(str) -= diff;

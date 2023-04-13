@@ -13,10 +13,8 @@
 
 mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_idx idx)
 {
-#ifndef __MRSTR_ADV__
     if (idx >= MRSTR_LEN(src))
         mrstr_dbg_orng_err("mrstr_get_chr", idx, MRSTR_LEN(src), '\0');
-#endif
 
     return MRSTR_DATA(src)[idx];
 }

@@ -36,6 +36,22 @@ void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2)
             return;
         }
 
+        if (!len)
+        {
+            if (!MRSTR_LEN(str2))
+                mrstr_data_free(res, "mrstr_n_concat");
+
+            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                   MRSTR_LEN(str2) + MRSTR_OFFSET(res) + 1);
+            if (!t_data)
+                mrstr_dbg_aloc_err("mrstr_n_concat", MRSTR_LEN(str2) + MRSTR_OFFSET(res) + 1, );
+
+            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            memcpy(MRSTR_DATA(res), MRSTR_DATA(str2), MRSTR_LEN(str2) + 1);
+            MRSTR_LEN(res) = MRSTR_LEN(str2);
+            return;
+        }
+
         if (!MRSTR_LEN(str2))
         {
             if (len >= MRSTR_LEN(res))

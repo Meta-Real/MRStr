@@ -82,4 +82,26 @@
 
 #endif
 
+#define mrstr_data_free(s, f)                                                   \
+    do                                                                          \
+    {                                                                           \
+        MRSTR_LEN(s) = 0;                                                       \
+                                                                                \
+        if (!MRSTR_OFFSET(s))                                                   \
+        {                                                                       \
+            __mrstr_das_free(MRSTR_DATA(s));                                    \
+            MRSTR_DATA(s) = NULL;                                               \
+            return;                                                             \
+        }                                                                       \
+                                                                                \
+        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(s) - MRSTR_OFFSET(s), \
+                                                MRSTR_OFFSET(s) + 1);           \
+        if (!t_data)                                                            \
+            mrstr_dbg_aloc_err(f, MRSTR_OFFSET(s) + 1, );                       \
+                                                                                \
+        MRSTR_DATA(s) = t_data + MRSTR_OFFSET(s);                               \
+        *MRSTR_DATA(s) = '\0';                                                  \
+        return;                                                                 \
+    } while (0)
+
 #endif /* __MRSTR_INTERN__ */

@@ -14,12 +14,7 @@
 
 void mrstr_inp(mrstr_p dst, FILE *src)
 {
-#ifndef __MRSTR_ADV__
-    if (!src)
-        src = stdin;
-#endif
-
-    if (src == stdin)
+    if (src == stdin || !src)
     {
         MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_DEF_LEN);
         if (!MRSTR_DATA(dst))

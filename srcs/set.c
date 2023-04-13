@@ -15,12 +15,7 @@
 
 void mrstr_set(mrstr_p dst, mrstr_pc src)
 {
-#ifndef __MRSTR_ADV__
-    if (dst == src)
-        return;
-#endif
-
-    if (!MRSTR_LEN(src))
+    if (!MRSTR_LEN(src) || dst == src)
         return;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(src) + 1);

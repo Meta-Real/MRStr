@@ -16,10 +16,8 @@
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)
 {
-#ifndef __MRSTR_ADV__
     if (idx >= MRSTR_LEN(str))
         mrstr_dbg_orng_err("mrstr_remove", idx, MRSTR_LEN(str), );
-#endif
 
     if (res == str)
     {

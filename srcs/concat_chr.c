@@ -35,7 +35,7 @@ void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr)
         if (!MRSTR_DATA(res))
             mrstr_dbg_aloc_err("mrstr_concat_chr", 2ULL, );
 
-        MRSTR_DATA(res)[0] = chr;
+        *MRSTR_DATA(res) = chr;
         MRSTR_DATA(res)[1] = '\0';
         MRSTR_LEN(res) = 1;
         return;

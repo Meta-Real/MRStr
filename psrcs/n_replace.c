@@ -20,21 +20,7 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
     if (res == str)
     {
         if (!len)
-        {
-            MRSTR_LEN(res) = 0;
-
-            if (!MRSTR_OFFSET(res))
-            {
-                __mrstr_das_free(MRSTR_DATA(res));
-                MRSTR_DATA(res) = NULL;
-                return;
-            }
-
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   MRSTR_OFFSET(res) + 1);
-            if (!t_data)
-                mrstr_dbg_aloc_err("mrstr_n_replace", MRSTR_OFFSET(res) + 1, );
-        }
+            mrstr_data_free(res, "mrstr_n_replace");
 
         if (len < MRSTR_LEN(res))
         {

@@ -14,12 +14,7 @@
 
 mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc substr)
 {
-#ifndef __MRSTR_ADV__
-    if (str == substr)
-        return MRSTR_TRUE;
-#endif
-
-    if (!MRSTR_LEN(substr))
+    if (!MRSTR_LEN(substr) || str == substr)
         return MRSTR_TRUE;
 
     if (MRSTR_LEN(substr) > MRSTR_LEN(str))

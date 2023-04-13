@@ -30,27 +30,7 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
     if (res == str)
     {
         if (!len)
-        {
-            MRSTR_LEN(res) = 0;
-
-            if (!MRSTR_OFFSET(res))
-            {
-                __mrstr_das_free(MRSTR_DATA(res));
-                MRSTR_DATA(res) = NULL;
-                MRSTR_LEN(res) = 0;
-                return;
-            }
-
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   MRSTR_OFFSET(res) + 1);
-            if (!t_data)
-                mrstr_dbg_aloc_err("mrstr_dn_map", MRSTR_OFFSET(res) + 1, );
-
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-            *MRSTR_DATA(res) = '\0';
-            MRSTR_LEN(res) = 0;
-            return;
-        }
+            mrstr_data_free(res, "mrstr_dn_map");
 
         if (len > MRSTR_LEN(res))
             len = MRSTR_LEN(res);

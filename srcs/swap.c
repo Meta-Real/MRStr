@@ -13,10 +13,8 @@
 
 void mrstr_swap(mrstr_p str1, mrstr_p str2)
 {
-#ifndef __MRSTR_ADV__
     if (str1 == str2)
         return;
-#endif
 
     mrstr_str t_data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
