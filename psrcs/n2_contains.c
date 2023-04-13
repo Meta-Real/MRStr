@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_n_contains(mrstr_pc, mrstr_size, mrstr_pc)
- * Checks the existence of the substring within the string up to the length
+ * mrstr_bool mrstr_n2_contains(mrstr_pc, mrstr_pc, mrstr_size)
+ * Checks the existence of the substring up to the length within the string
  *
  * input reqs:
  *  (str) pointer must be valid
@@ -12,27 +12,27 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_n_contains(mrstr_pc str, mrstr_size len, mrstr_pc substr)
+mrstr_bool mrstr_n2_contains(mrstr_pc str, mrstr_pc substr, mrstr_size len)
 {
-    if (!MRSTR_LEN(substr) || str == substr)
+    if (!MRSTR_LEN(substr) || !len || str == substr)
         return MRSTR_TRUE;
 
-    if (len > MRSTR_LEN(str))
-        len = MRSTR_LEN(str);
+    if (len > MRSTR_LEN(substr))
+        len = MRSTR_LEN(substr);
 
-    if (MRSTR_LEN(substr) > len)
+    if (len > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (len == MRSTR_LEN(substr))
+    if (MRSTR_LEN(str) == len)
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), len) ? MRSTR_FALSE : MRSTR_TRUE;
 
     mrstr_size i, l;
-    for (i = 0; i <= len - MRSTR_LEN(substr); i++)
+    for (i = 0; i <= MRSTR_LEN(str) - len; i++)
         if (MRSTR_DATA(str)[i] == *MRSTR_DATA(substr))
         {
-            l = len - i - 1;
-            if (l > MRSTR_LEN(substr))
-                l = MRSTR_LEN(substr);
+            l = MRSTR_LEN(str) - i - 1;
+            if (l > len)
+                l = len;
 
             if (!memcmp(MRSTR_DATA(str) + i + 1, MRSTR_DATA(substr) + 1, l))
                 return MRSTR_TRUE;

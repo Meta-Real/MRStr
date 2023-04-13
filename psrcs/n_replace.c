@@ -20,7 +20,7 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
     if (res == str)
     {
         if (!len)
-            mrstr_data_free(res, "mrstr_n_replace");
+            mrstr_data_free("mrstr_n_replace");
 
         if (len < MRSTR_LEN(res))
         {

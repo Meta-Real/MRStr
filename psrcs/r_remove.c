@@ -29,7 +29,7 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx)
     if (res == str)
     {
         if (diff == MRSTR_LEN(res))
-            mrstr_data_free(res, "mrstr_r_remove");
+            mrstr_data_free("mrstr_r_remove");
 
         memmove(MRSTR_DATA(res) + sidx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= diff;

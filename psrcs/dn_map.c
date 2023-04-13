@@ -30,7 +30,7 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
     if (res == str)
     {
         if (!len)
-            mrstr_data_free(res, "mrstr_dn_map");
+            mrstr_data_free("mrstr_dn_map");
 
         if (len > MRSTR_LEN(res))
             len = MRSTR_LEN(res);

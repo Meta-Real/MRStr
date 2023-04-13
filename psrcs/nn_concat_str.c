@@ -43,7 +43,7 @@ void mrstr_nn_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_cstr
         {
             mrstr_size s2len;
             if (!str2 || !(s2len = strlen(str2)) || !len2)
-                mrstr_data_free(res, "mrstr_nn_concat_str");
+                mrstr_data_free("mrstr_nn_concat_str");
 
             if (len2 > s2len)
                 len2 = s2len;

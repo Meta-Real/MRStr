@@ -1,1 +1,2 @@
 1. fixing memory overflow errors and handling length parameter of the mrstr_p
+2. fixing length issues in n_f functions

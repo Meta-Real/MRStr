@@ -22,7 +22,7 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
     if (res == str)
     {
         if (!len || !count)
-            mrstr_data_free(res, "mrstr_n_repeat");
+            mrstr_data_free("mrstr_n_repeat");
 
         if (count == 1)
         {

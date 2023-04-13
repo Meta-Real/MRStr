@@ -32,7 +32,7 @@ void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_idx idx, mrstr_size len)
     if (res == str)
     {
         if (len == MRSTR_LEN(res))
-            mrstr_data_free(res, "mrstr_n_remove");
+            mrstr_data_free("mrstr_n_remove");
 
         memmove(MRSTR_DATA(res) + idx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= len;

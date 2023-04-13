@@ -40,7 +40,7 @@ void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr s
         {
             mrstr_size s2len;
             if (!str2 || !(s2len = strlen(str2)))
-                mrstr_data_free(res, "mrstr_n_concat_str");
+                mrstr_data_free("mrstr_n_concat_str");
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                    s2len + MRSTR_OFFSET(res) + 1);
