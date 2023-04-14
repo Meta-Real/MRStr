@@ -15,7 +15,7 @@
 mrstr_bool mrstr_nn_contains_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2)
 {
     mrstr_size slen;
-    if (!substr || !(slen = strlen(substr)) || !len2)
+    if (!(substr && (slen = strlen(substr)) && len2))
         return MRSTR_TRUE;
 
     if (len1 > MRSTR_LEN(str))

@@ -13,7 +13,7 @@
 
 void mrstr_clear(mrstr_p str)
 {
-    if (!MRSTR_LEN(str) && !MRSTR_OFFSET(str))
+    if (!(MRSTR_LEN(str) || MRSTR_OFFSET(str)))
         return;
 
     __mrstr_das_free(MRSTR_DATA(str) - MRSTR_OFFSET(str));

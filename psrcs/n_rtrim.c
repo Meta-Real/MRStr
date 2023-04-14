@@ -15,7 +15,7 @@
 
 void mrstr_n_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
-    if (!MRSTR_LEN(str) || MRSTR_DATA(str)[MRSTR_LEN(str) - 1] != chr || !len)
+    if (!(MRSTR_LEN(str) && len) || MRSTR_DATA(str)[MRSTR_LEN(str) - 1] != chr)
         return;
 
     if (len >= MRSTR_LEN(str))

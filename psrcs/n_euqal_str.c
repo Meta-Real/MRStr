@@ -20,19 +20,19 @@ mrstr_bool mrstr_n_equal_str(mrstr_pc str1, mrstr_cstr str2, mrstr_size len)
     if (!str2)
         return MRSTR_LEN(str1) ? MRSTR_FALSE : MRSTR_TRUE;
 
-    mrstr_size s2len = strlen(str2);
-    if (MRSTR_LEN(str1) == s2len)
+    mrstr_size slen = strlen(str2);
+    if (MRSTR_LEN(str1) == slen)
     {
-        if (!s2len)
+        if (!slen)
             return MRSTR_TRUE;
 
-        if (len > s2len)
-            len = s2len;
+        if (len > slen)
+            len = slen;
 
         return memcmp(MRSTR_DATA(str1), str2, len) ? MRSTR_FALSE : MRSTR_TRUE;
     }
 
-    if (MRSTR_LEN(str1) < len || s2len < len)
+    if (MRSTR_LEN(str1) < len || slen < len)
         return MRSTR_FALSE;
 
     return memcmp(MRSTR_DATA(str1), str2, len) ? MRSTR_FALSE : MRSTR_TRUE;

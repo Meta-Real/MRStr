@@ -32,7 +32,7 @@ void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr n
     if (olen != nlen)
         mrstr_dbg_lmch_err("mrstr_replace_chrs", olen, nlen, );
 
-    if (!MRSTR_LEN(str) || !olen)
+    if (!(MRSTR_LEN(str) && olen))
         return;
 
     if (res == str)

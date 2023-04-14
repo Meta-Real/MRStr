@@ -15,15 +15,12 @@
 
 void mrstr_n_set_str(mrstr_p dst, mrstr_cstr src, mrstr_size len)
 {
-    if (!len || !src)
+    mrstr_size slen;
+    if (!(src && (slen = strlen(src)) && len))
         return;
 
-    mrstr_size src_len = strlen(src);
-    if (!src_len)
-        return;
-
-    if (len > src_len)
-        len = src_len;
+    if (len > slen)
+        len = slen;
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
     if (!MRSTR_DATA(dst))

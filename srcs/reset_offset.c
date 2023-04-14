@@ -9,6 +9,7 @@
 /*/
 
 #include <intern.h>
+#include <string.h>
 
 void mrstr_reset_offset(mrstr_p str)
 {
@@ -16,13 +17,17 @@ void mrstr_reset_offset(mrstr_p str)
         return;
 
     MRSTR_DATA(str) -= MRSTR_OFFSET(str);
-    MRSTR_OFFSET(str) = 0;
 
     if (!MRSTR_LEN(str))
     {
         __mrstr_das_free(MRSTR_DATA(str));
+        MRSTR_DATA(str) = NULL;
+        MRSTR_OFFSET(str) = 0;
         return;
     }
+
+    memmove(MRSTR_DATA(str), MRSTR_DATA(str) + MRSTR_OFFSET(str), MRSTR_LEN(str) + 1);
+    MRSTR_OFFSET(str) = 0;
 
     mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(str), MRSTR_LEN(str) + 1);
     if (!t_data)

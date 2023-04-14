@@ -22,25 +22,7 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
             return;
 
         if (!count)
-        {
-            MRSTR_LEN(res) = 0;
-
-            if (!MRSTR_OFFSET(res))
-            {
-                __mrstr_das_free(MRSTR_DATA(res));
-                MRSTR_DATA(res) = NULL;
-                return;
-            }
-
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   MRSTR_OFFSET(res) + 1);
-            if (!t_data)
-                mrstr_dbg_aloc_err("mrstr_repeat", MRSTR_OFFSET(res) + 1, );
-
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-            *MRSTR_DATA(res) = '\0';
-            return;
-        }
+            mrstr_data_free("mrstr_repeat");
 
         mrstr_size len = MRSTR_LEN(res) * count;
         if (len / MRSTR_LEN(res) != count)
@@ -73,7 +55,7 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
         return;
     }
 
-    if (!MRSTR_LEN(str) || !count)
+    if (!(MRSTR_LEN(str) && count))
         return;
 
     mrstr_size len = MRSTR_LEN(str) * count;

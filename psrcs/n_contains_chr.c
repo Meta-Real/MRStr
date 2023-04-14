@@ -13,7 +13,7 @@
 
 mrstr_bool mrstr_n_contains_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
-    if (!MRSTR_LEN(str) || !len)
+    if (!(MRSTR_LEN(str) && len))
         return MRSTR_FALSE;
 
     if (len > MRSTR_LEN(str))

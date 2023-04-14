@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_d_map(mrstr_p, mrstr_pc, mrstr_chr (*)(mrstr_chr, mrstr_chr_data_pc))
+ * void mrstr_d_map(mrstr_p, mrstr_pc, mrstr_chr (*)(mrstr_chr, mrstr_chr_data_t))
  * Replaces all the characters of the string by their alternative (with data)
  * The function must return the alternative of each character of the string
  *
@@ -15,7 +15,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data))
+void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data))
 {
     if (!MRSTR_LEN(str))
         return;
@@ -34,7 +34,7 @@ void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrs
 
         for (; data.idx < MRSTR_LEN(res); data.idx++)
         {
-            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], &data);
+            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
 
             data.prev = MRSTR_DATA(res)[data.idx];
             data.next = MRSTR_DATA(res)[data.idx + 2];
@@ -51,7 +51,7 @@ void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrs
 
     for (; data.idx < MRSTR_LEN(str); data.idx++)
     {
-        MRSTR_DATA(res)[data.idx] = func(MRSTR_DATA(str)[data.idx], &data);
+        MRSTR_DATA(res)[data.idx] = func(MRSTR_DATA(str)[data.idx], data);
 
         data.prev = MRSTR_DATA(res)[data.idx];
         data.next = MRSTR_DATA(res)[data.idx + 2];

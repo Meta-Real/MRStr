@@ -19,39 +19,39 @@ void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2)
 {
     if (res == str1)
     {
-        mrstr_size s2len;
-        if (!str2 || !(s2len = strlen(str2)))
+        mrstr_size slen;
+        if (!(str2 && (slen = strlen(str2))))
             return;
 
-        mrstr_size len = MRSTR_LEN(res) + s2len;
+        mrstr_size len = MRSTR_LEN(res) + slen;
         mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                                len + MRSTR_OFFSET(res) + 1);
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_concat_str", len + MRSTR_OFFSET(res) + 1, );
 
         MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), str2, s2len + 1);
+        memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), str2, slen + 1);
         MRSTR_LEN(res) = len;
         return;
     }
 
     if (!MRSTR_LEN(str1))
     {
-        mrstr_size s2len;
-        if (!str2 || !(s2len = strlen(str2)))
+        mrstr_size slen;
+        if (!(str2 && (slen = strlen(str2))))
             return;
 
-        MRSTR_DATA(res) = __mrstr_das_alloc(s2len + 1);
+        MRSTR_DATA(res) = __mrstr_das_alloc(slen + 1);
         if (!MRSTR_DATA(res))
-            mrstr_dbg_aloc_err("mrstr_concat_str", s2len + 1, );
+            mrstr_dbg_aloc_err("mrstr_concat_str", slen + 1, );
 
-        memcpy(MRSTR_DATA(res), str2, s2len + 1);
-        MRSTR_LEN(res) = s2len;
+        memcpy(MRSTR_DATA(res), str2, slen + 1);
+        MRSTR_LEN(res) = slen;
         return;
     }
 
-    mrstr_size s2len;
-    if (!str2 || !(s2len = strlen(str2)))
+    mrstr_size slen;
+    if (!(str2 && (slen = strlen(str2))))
     {
         MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str1) + 1);
         if (!MRSTR_DATA(res))
@@ -62,11 +62,11 @@ void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2)
         return;
     }
 
-    MRSTR_LEN(res) = MRSTR_LEN(str1) + s2len;
+    MRSTR_LEN(res) = MRSTR_LEN(str1) + slen;
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(res) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_concat_str", MRSTR_LEN(res) + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str1), MRSTR_LEN(str1));
-    memcpy(MRSTR_DATA(res) + MRSTR_LEN(str1), str2, s2len + 1);
+    memcpy(MRSTR_DATA(res) + MRSTR_LEN(str1), str2, slen + 1);
 }

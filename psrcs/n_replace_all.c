@@ -17,7 +17,7 @@
 void mrstr_n_replace_all(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_chr new)
 {
     mrstr_size olen;
-    if (!MRSTR_LEN(str) || !olds || !(olen = strlen(olds)))
+    if (!(MRSTR_LEN(str) && len && olds && (olen = strlen(olds))))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -25,9 +25,6 @@ void mrstr_n_replace_all(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr o
 
     if (res == str)
     {
-        if (!len)
-            mrstr_data_free("mrstr_n_replace_all");
-
         mrstr_size i, j;
         for (i = 0; i < len; i++)
             for (j = 0; j < olen; j++)
@@ -37,26 +34,12 @@ void mrstr_n_replace_all(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr o
                     break;
                 }
 
-        if (len == MRSTR_LEN(res))
-            return;
-
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               len + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_n_replace_all", len + MRSTR_OFFSET(res) + 1, );
-
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_DATA(res)[len] = '\0';
-        MRSTR_LEN(res) = len;
         return;
     }
 
-    if (!len)
-        return;
-
-    MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_replace_all", len + 1, );
+        mrstr_dbg_aloc_err("mrstr_n_replace_all", MRSTR_LEN(str) + 1, );
 
     mrstr_size j;
     for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
@@ -72,5 +55,6 @@ void mrstr_n_replace_all(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr o
             MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
-    MRSTR_DATA(res)[len] = '\0';
+    memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(str) + len, MRSTR_LEN(str) - len + 1);
+    MRSTR_LEN(res) = MRSTR_LEN(str);
 }

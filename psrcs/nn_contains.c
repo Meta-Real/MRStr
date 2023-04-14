@@ -14,7 +14,7 @@
 
 mrstr_bool mrstr_nn_contains(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2)
 {
-    if (!MRSTR_LEN(substr) || !len2 || str == substr)
+    if (str == substr || !(MRSTR_LEN(substr) && len2))
         return MRSTR_TRUE;
 
     if (len1 > MRSTR_LEN(str))
@@ -23,7 +23,7 @@ mrstr_bool mrstr_nn_contains(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrs
     if (len2 > MRSTR_LEN(substr))
         len2 = MRSTR_LEN(substr);
 
-    if (len2 > len1)
+    if (len1 < len2)
         return MRSTR_FALSE;
 
     if (len1 == len2)

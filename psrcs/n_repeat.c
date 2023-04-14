@@ -19,14 +19,17 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
     if (!MRSTR_LEN(res))
         return;
 
+    if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
+
     if (res == str)
     {
-        if (!len || !count)
+        if (!(len && count))
             mrstr_data_free("mrstr_n_repeat");
 
         if (count == 1)
         {
-            if (len >= MRSTR_LEN(res))
+            if (len == MRSTR_LEN(res))
                 return;
 
             mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
@@ -39,9 +42,6 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
             MRSTR_LEN(res) = len;
             return;
         }
-
-        if (len > MRSTR_LEN(res))
-            len = MRSTR_LEN(res);
 
         MRSTR_LEN(res) = len * count;
         if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
@@ -72,11 +72,8 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         return;
     }
 
-    if (!len || !count)
+    if (!(len && count))
         return;
-
-    if (len > MRSTR_LEN(str))
-        len = MRSTR_LEN(str);
 
     MRSTR_LEN(res) = len * count;
     if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)

@@ -22,7 +22,7 @@ void mrstr_lower(mrstr_p res, mrstr_pc str)
         mrstr_size i;
         for (i = 0; i < MRSTR_LEN(res); i++)
             if (MRSTR_DATA(res)[i] >= 'A' && MRSTR_DATA(res)[i] <= 'Z')
-                MRSTR_DATA(res)[i] += MRSTR_DIFF_CHR;
+                MRSTR_DATA(res)[i] += 32;
 
         return;
     }
@@ -34,7 +34,7 @@ void mrstr_lower(mrstr_p res, mrstr_pc str)
     for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)
     {
         if (MRSTR_DATA(str)[MRSTR_LEN(res)] >= 'A' && MRSTR_DATA(str)[MRSTR_LEN(res)] <= 'Z')
-            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)] + MRSTR_DIFF_CHR;
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)] + 32;
         else
             MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }

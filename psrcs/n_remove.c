@@ -51,7 +51,7 @@ void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_idx idx, mrstr_size len)
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) - len + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_n_remove", MRSTR_LEN(res) - len + 1, );
+        mrstr_dbg_aloc_err("mrstr_n_remove", MRSTR_LEN(str) - len + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), idx);
     memcpy(MRSTR_DATA(res) + idx, MRSTR_DATA(str) + eidx, MRSTR_LEN(str) - eidx + 1);

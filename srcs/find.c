@@ -14,10 +14,10 @@
 
 mrstr_idx mrstr_find(mrstr_pc str, mrstr_pc substr)
 {
-    if (!MRSTR_LEN(substr) || str == substr)
+    if (str == substr || !MRSTR_LEN(substr))
         return 0;
 
-    if (MRSTR_LEN(substr) > MRSTR_LEN(str))
+    if (MRSTR_LEN(str) < MRSTR_LEN(substr))
         return MRSTR_NF;
 
     if (MRSTR_LEN(str) == MRSTR_LEN(substr))

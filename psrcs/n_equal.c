@@ -14,7 +14,7 @@
 
 mrstr_bool mrstr_n_equal(mrstr_pc str1, mrstr_pc str2, mrstr_size len)
 {
-    if (!len || str1 == str2)
+    if (str1 == str2 || !len)
         return MRSTR_TRUE;
 
     if (MRSTR_LEN(str1) == MRSTR_LEN(str2))

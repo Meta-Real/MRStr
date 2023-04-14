@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_dn_map(mrstr_p, mrstr_pc, mrstr_size, mrstr_chr (*)(mrstr_chr, mrstr_chr_data_pc))
+ * void mrstr_dn_map(mrstr_p, mrstr_pc, mrstr_size, mrstr_chr (*)(mrstr_chr, mrstr_chr_data_t))
  * Replaces all the characters of the string up to the length by their alternative (with data)
  * The function must return the alternative of each character of the string
  *
@@ -16,10 +16,13 @@
 #include <string.h>
 
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data))
+                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data))
 {
-    if (!MRSTR_LEN(str))
+    if (!(MRSTR_LEN(str) && len))
         return;
+
+    if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
 
     mrstr_chr_data_t data;
     data.str = str;
@@ -29,19 +32,13 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
     if (res == str)
     {
-        if (!len)
-            mrstr_data_free("mrstr_dn_map");
-
-        if (len > MRSTR_LEN(res))
-            len = MRSTR_LEN(res);
-
         mrstr_str t_data = __mrstr_das_alloc(len);
         if (!t_data)
             mrstr_dbg_aloc_err("mrstr_dn_map", len, );
 
         for (; data.idx < len; data.idx++)
         {
-            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], &data);
+            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
 
             data.prev = MRSTR_DATA(res)[data.idx];
             data.next = MRSTR_DATA(res)[data.idx + 2];
@@ -49,39 +46,21 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
         memcpy(MRSTR_DATA(res), t_data, len);
         __mrstr_das_free(t_data);
-
-        if (len == MRSTR_LEN(res))
-            return;
-
-        t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               len + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_dn_map", len + MRSTR_OFFSET(res) + 1, );
-
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_DATA(res)[len] = '\0';
-        MRSTR_LEN(res) = len;
         return;
     }
 
-    if (!len)
-        return;
-
-    if (len > MRSTR_LEN(str))
-        len = MRSTR_LEN(str);
-
-    MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_dn_map", len + 1, );
+        mrstr_dbg_aloc_err("mrstr_dn_map", MRSTR_LEN(str) + 1, );
 
     for (; data.idx < len; data.idx++)
     {
-        MRSTR_DATA(res)[data.idx] = func(MRSTR_DATA(str)[data.idx], &data);
+        MRSTR_DATA(res)[data.idx] = func(MRSTR_DATA(str)[data.idx], data);
 
         data.prev = MRSTR_DATA(res)[data.idx];
         data.next = MRSTR_DATA(res)[data.idx + 2];
     }
 
-    MRSTR_DATA(res)[data.idx] = '\0';
-    MRSTR_LEN(res) = data.idx;
+    memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(str) + len, MRSTR_LEN(str) - len + 1);
+    MRSTR_LEN(res) = MRSTR_LEN(str);
 }

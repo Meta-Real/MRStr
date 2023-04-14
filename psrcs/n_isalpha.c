@@ -12,7 +12,7 @@
 
 mrstr_bool mrstr_n_isalpha(mrstr_pc str, mrstr_size len)
 {
-    if (!MRSTR_LEN(str) || !len)
+    if (!(MRSTR_LEN(str) && len))
         return MRSTR_TRUE;
 
     if (len > MRSTR_LEN(str))

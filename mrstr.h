@@ -59,8 +59,6 @@ struct __mrstr_chr_data__
 };
 
 typedef struct __mrstr_chr_data__ mrstr_chr_data_t;
-typedef mrstr_chr_data_t *mrstr_chr_data_p;
-typedef const mrstr_chr_data_p mrstr_chr_data_pc; 
 
 #define MRSTR_ALPHA_LOW "abcdefghijklmnopqrstuvwxyz"
 #define MRSTR_ALPHA_HIGH "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -111,17 +109,12 @@ void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 /* binary operation functions */
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
-void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
-void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
-void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2);
+void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
 
 void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
-void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2);
-void mrstr_n2_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
-void mrstr_nn_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_cstr str2, mrstr_size len2);
+void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 
 void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
-void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx);
 void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx);
@@ -283,15 +276,15 @@ mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
 mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
 mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
-mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_t data));
 mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
-                        mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+                        mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_t data));
 
 void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
-void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data));
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_pc data));
+                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data));
 
 /* property functions */
 
@@ -341,6 +334,7 @@ static inline mrstr_bool mrstr_isempty(mrstr_pc str)
 /* manual debugging system */
 
 #define __MRSTR_DBG__
+
 #ifndef __MRSTR_DBG__
 
 enum _err_codes_

@@ -15,12 +15,15 @@
 
 void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
 {
+    if (len > MRSTR_LEN(src))
+        len = MRSTR_LEN(src);
+
     if (dst == src)
     {
-        if (len >= MRSTR_LEN(dst))
+        if (len == MRSTR_LEN(dst))
             return;
 
-        if (!len && !MRSTR_OFFSET(dst))
+        if (!(len || MRSTR_OFFSET(dst)))
         {
             __mrstr_das_free(MRSTR_DATA(dst));
             MRSTR_DATA(dst) = NULL;
@@ -39,11 +42,8 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
         return;
     }
 
-    if (!MRSTR_LEN(src) || !len)
+    if (!(MRSTR_LEN(src) && len))
         return;
-
-    if (len > MRSTR_LEN(src))
-        len = MRSTR_LEN(src);
 
     MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
     if (!MRSTR_DATA(dst))

@@ -13,7 +13,7 @@
 
 mrstr_str mrstr_n_get_str(mrstr_pc src, mrstr_size len)
 {
-    if (!MRSTR_LEN(src) || !len)
+    if (!(MRSTR_LEN(src) && len))
         return NULL;
 
     if (len > MRSTR_LEN(src))

@@ -15,16 +15,16 @@
 mrstr_bool mrstr_n2_contains_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len)
 {
     mrstr_size slen;
-    if (!substr || !(slen = strlen(substr)) || !len)
+    if (!(substr && (slen = strlen(substr)) && len))
         return MRSTR_TRUE;
 
     if (len > slen)
         len = slen;
 
-    if (MRSTR_LEN(str) < len)
+    if (len > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (MRSTR_LEN(str) == len)
+    if (len == MRSTR_LEN(str))
         return memcmp(MRSTR_DATA(str), substr, len) ? MRSTR_FALSE : MRSTR_TRUE;
 
     mrstr_size i, l;

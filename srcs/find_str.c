@@ -15,13 +15,13 @@
 mrstr_idx mrstr_find_str(mrstr_pc str, mrstr_cstr substr)
 {
     mrstr_size slen;
-    if (!substr || !(slen = strlen(substr)))
+    if (!(substr && (slen = strlen(substr))))
         return 0;
 
     if (slen > MRSTR_LEN(str))
         return MRSTR_NF;
 
-    if (MRSTR_LEN(str) == slen)
+    if (slen == MRSTR_LEN(str))
         return memcmp(MRSTR_DATA(str), substr, slen) ? MRSTR_NF : 0;
 
     mrstr_size i, l;

@@ -13,7 +13,7 @@
 
 mrstr_idx mrstr_n_find_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
-    if (!MRSTR_LEN(str) || !len)
+    if (!(MRSTR_LEN(str) && len))
         return MRSTR_NF;
 
     if (len > MRSTR_LEN(str))

@@ -11,33 +11,20 @@
 /*/
 
 #include <intern.h>
+#include <string.h>
 
 void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
 {
-    if (!MRSTR_LEN(str))
+    if (!(MRSTR_LEN(str) && len))
         return;
+
+    if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
 
     if (res == str)
     {
-        if (!len)
-            mrstr_data_free("mrstr_n_reverse");
-
-        if (MRSTR_LEN(res) == 1 || len == 1)
+        if (len == 1)
             return;
-
-        if (len < MRSTR_LEN(res))
-        {
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   len + MRSTR_OFFSET(res) + 1);
-            if (!t_data)
-                mrstr_dbg_aloc_err("mrstr_n_reverse", len + MRSTR_OFFSET(res) + 1, );
-
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-            MRSTR_DATA(res)[len] = '\0';
-            MRSTR_LEN(res) = len;
-        }
-        else if (len > MRSTR_LEN(res))
-            len = MRSTR_LEN(res);
 
         char t_chr;
         mrstr_size i, j;
@@ -53,18 +40,13 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
         return;
     }
 
-    if (!len)
-        return;
-
-    if (len > MRSTR_LEN(res))
-        len = MRSTR_LEN(res);
-
-    MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_n_reverse", len + 1, );
+        mrstr_dbg_aloc_err("mrstr_n_reverse", MRSTR_LEN(str) + 1, );
 
     for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
         MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[len - MRSTR_LEN(res) - 1];
 
-    MRSTR_DATA(res)[len] = '\0';
+    memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(str) + len, MRSTR_LEN(str) - len + 1);
+    MRSTR_LEN(res) = MRSTR_LEN(str);
 }

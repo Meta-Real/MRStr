@@ -18,13 +18,6 @@
 
 void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_cstr news)
 {
-    if (!len)
-    {
-        if (res == str)
-            mrstr_data_free("mrstr_n_replace_chrs");
-        return;
-    }
-
     if (olds == news)
         return;
 
@@ -39,7 +32,7 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
     if (olen != nlen)
         mrstr_dbg_lmch_err("mrstr_n_replace_chrs", olen, nlen, );
 
-    if (!MRSTR_LEN(str) || !olen)
+    if (!(MRSTR_LEN(str) && len && olen))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -56,23 +49,12 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
                     break;
                 }
 
-        if (len == MRSTR_LEN(res))
-            return;
-
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               len + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_n_replace_chrs", len + MRSTR_OFFSET(res) + 1, );
-
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_DATA(res)[len] = '\0';
-        MRSTR_LEN(res) = len;
         return;
     }
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_n_replace_chrs", len + 1, );
+        mrstr_dbg_aloc_err("mrstr_n_replace_chrs", MRSTR_LEN(str) + 1, );
 
     mrstr_size j;
     for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
@@ -88,5 +70,6 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
             MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
-    MRSTR_DATA(res)[len] = '\0';
+    memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(str) + len, MRSTR_LEN(str) - len + 1);
+    MRSTR_LEN(res) = MRSTR_LEN(str);
 }

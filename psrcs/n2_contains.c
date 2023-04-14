@@ -14,7 +14,7 @@
 
 mrstr_bool mrstr_n2_contains(mrstr_pc str, mrstr_pc substr, mrstr_size len)
 {
-    if (!MRSTR_LEN(substr) || !len || str == substr)
+    if (str == substr || !(MRSTR_LEN(substr) && len))
         return MRSTR_TRUE;
 
     if (len > MRSTR_LEN(substr))
@@ -23,7 +23,7 @@ mrstr_bool mrstr_n2_contains(mrstr_pc str, mrstr_pc substr, mrstr_size len)
     if (len > MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    if (MRSTR_LEN(str) == len)
+    if (len == MRSTR_LEN(str))
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), len) ? MRSTR_FALSE : MRSTR_TRUE;
 
     mrstr_size i, l;

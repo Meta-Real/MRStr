@@ -13,14 +13,14 @@
 
 void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len)
 {
-    if (!MRSTR_LEN(src) || !len)
+    if (!(MRSTR_LEN(src) && len))
         return;
-
-    if (!dst)
-        dst = stdout;
 
     if (len > MRSTR_LEN(src))
         len = MRSTR_LEN(src);
+
+    if (!dst)
+        dst = stdout;
 
     fwrite(MRSTR_DATA(src), 1, len, dst);
 }

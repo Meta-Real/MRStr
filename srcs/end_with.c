@@ -14,10 +14,10 @@
 
 mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc substr)
 {
-    if (!MRSTR_LEN(substr) || str == substr)
+    if (str == substr || !MRSTR_LEN(substr))
         return MRSTR_TRUE;
 
-    if (MRSTR_LEN(substr) > MRSTR_LEN(str))
+    if (MRSTR_LEN(str) < MRSTR_LEN(substr))
         return MRSTR_FALSE;
 
     return memcmp(MRSTR_DATA(str) + MRSTR_LEN(str) - MRSTR_LEN(substr),
