@@ -25,8 +25,10 @@ typedef uint8_t mrstr_bool;
 typedef int8_t mrstr_cmpr;
 
 #define MRSTR_NF ((mrstr_idx)-1)
+
 #define MRSTR_TRUE ((mrstr_bool)1)
 #define MRSTR_FALSE ((mrstr_bool)0)
+
 #define MRSTR_LEFT ((mrstr_cmpr)-1)
 #define MRSTR_EQUAL ((mrstr_cmpr)0)
 #define MRSTR_RIGHT ((mrstr_cmpr)1)
@@ -109,10 +111,12 @@ void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 /* binary operation functions */
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
-void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
+void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
+void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
+void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2); //
 
 void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
-void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
+void mrstr_n2_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 
 void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 

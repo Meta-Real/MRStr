@@ -3,7 +3,6 @@
  *
  * void mrstr_concat_str(mrstr_p, mrstr_pc, mrstr_cstr)
  * Concatenates the first string and the second string
- * if result and first string pointers were the same, then the second string will be added to the first string
  *
  * input reqs:
  *  (res) pointer must be valid
