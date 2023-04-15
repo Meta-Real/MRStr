@@ -165,7 +165,7 @@ mrstr_bool mrstr_n_equal_str(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 
 mrstr_bool mrstr_equal_chr(mrstr_pc str, mrstr_chr chr);
 
-/* find functions */
+/* search functions */
 
 mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr);
 mrstr_bool mrstr_n_contains(mrstr_pc str, mrstr_size len, mrstr_pc substr);

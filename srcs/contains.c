@@ -23,17 +23,10 @@ mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr)
     if (MRSTR_LEN(str) == MRSTR_LEN(substr))
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? MRSTR_FALSE : MRSTR_TRUE;
 
-    mrstr_size i, l;
+    mrstr_size i;
     for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(substr); i++)
-        if (MRSTR_DATA(str)[i] == *MRSTR_DATA(substr))
-        {
-            l = MRSTR_LEN(str) - i - 1;
-            if (l > MRSTR_LEN(substr))
-                l = MRSTR_LEN(substr);
-
-            if (!memcmp(MRSTR_DATA(str) + i + 1, MRSTR_DATA(substr) + 1, l))
-                return MRSTR_TRUE;
-        }
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+            return MRSTR_TRUE;
 
     return MRSTR_FALSE;
 }

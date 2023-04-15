@@ -1,3 +1,9 @@
+/*/
+ * MetaReal String Library version 1.0.0
+ *
+ * Testing mrstr_init function
+/*/
+
 #include <utest.h>
 
 int main()

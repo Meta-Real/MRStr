@@ -23,17 +23,10 @@ mrstr_idx mrstr_find(mrstr_pc str, mrstr_pc substr)
     if (MRSTR_LEN(str) == MRSTR_LEN(substr))
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? MRSTR_NF : 0;
 
-    mrstr_size i, l;
+    mrstr_size i;
     for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(substr); i++)
-        if (MRSTR_DATA(str)[i] == *MRSTR_DATA(substr))
-        {
-            l = MRSTR_LEN(str) - i - 1;
-            if (l > MRSTR_LEN(substr))
-                l = MRSTR_LEN(substr);
-
-            if (!memcmp(MRSTR_DATA(str) + i + 1, MRSTR_DATA(substr) + 1, l))
-                return i;
-        }
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+            return i;
 
     return MRSTR_NF;
 }

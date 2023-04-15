@@ -1,3 +1,9 @@
+/*/
+ * MetaReal String Library version 1.0.0
+ *
+ * Testing mrstr_n_set function
+/*/
+
 #include <utest.h>
 #include <string.h>
 
@@ -63,7 +69,7 @@ int main()
     mrstr_n_set(a, a, 0);
 
     UTEST_EXPECT(!MRSTR_DATA(a), "mrstr_n_set",
-                 "test5: 'a' data must be NULL but it is %p\n",
+                 "test5: 'a' data pointer must be NULL but it is %p\n",
                  MRSTR_DATA(a));
     UTEST_EXPECT(!MRSTR_LEN(a), "mrstr_n_set",
                  "test5: 'a' length must be 0 but it is %llu\n",

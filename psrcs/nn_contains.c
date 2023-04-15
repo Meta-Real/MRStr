@@ -29,17 +29,10 @@ mrstr_bool mrstr_nn_contains(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrs
     if (len1 == len2)
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), len1) ? MRSTR_FALSE : MRSTR_TRUE;
 
-    mrstr_size i, l;
+    mrstr_size i;
     for (i = 0; i <= len1 - len2; i++)
-        if (MRSTR_DATA(str)[i] == *MRSTR_DATA(substr))
-        {
-            l = len1 - i - 1;
-            if (l > len2)
-                l = len2;
-
-            if (!memcmp(MRSTR_DATA(str) + i + 1, MRSTR_DATA(substr) + 1, l))
-                return MRSTR_TRUE;
-        }
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), len2))
+            return MRSTR_TRUE;
 
     return MRSTR_FALSE;
 }

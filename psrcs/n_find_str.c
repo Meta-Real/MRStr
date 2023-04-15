@@ -27,17 +27,10 @@ mrstr_idx mrstr_n_find_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr)
     if (len == slen)
         return memcmp(MRSTR_DATA(str), substr, len) ? MRSTR_NF : 0;
 
-    mrstr_size i, l;
+    mrstr_size i;
     for (i = 0; i <= len - slen; i++)
-        if (MRSTR_DATA(str)[i] == *substr)
-        {
-            l = len - i - 1;
-            if (l > slen)
-                l = slen;
-
-            if (!memcmp(MRSTR_DATA(str) + i + 1, substr + 1, l))
-                return i;
-        }
+        if (!memcmp(MRSTR_DATA(str) + i, substr, slen))
+            return i;
 
     return MRSTR_NF;
 }
