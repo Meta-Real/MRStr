@@ -219,18 +219,18 @@ mrstr_idx* mrstr_nn_find_all_str(mrstr_pc str, mrstr_size len1, mrstr_cstr subst
 mrstr_idx* mrstr_find_all_chr(mrstr_pc str, mrstr_chr chr); //
 mrstr_idx* mrstr_n_find_all_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 
-mrstr_size mrstr_count(mrstr_pc str, mrstr_pc substr); //
-mrstr_size mrstr_n_count(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
-mrstr_size mrstr_n2_count(mrstr_pc str, mrstr_pc substr, mrstr_size len); //
-mrstr_size mrstr_nn_count(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2); //
+mrstr_size mrstr_count(mrstr_pc str, mrstr_pc substr);
+mrstr_size mrstr_n_count(mrstr_pc str, mrstr_size len, mrstr_pc substr);
+mrstr_size mrstr_n2_count(mrstr_pc str, mrstr_pc substr, mrstr_size len);
+mrstr_size mrstr_nn_count(mrstr_pc str, mrstr_size len1, mrstr_pc substr, mrstr_size len2);
 
-mrstr_size mrstr_count_str(mrstr_pc str, mrstr_cstr substr); //
-mrstr_size mrstr_n_count_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
-mrstr_size mrstr_n2_count_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len); //
-mrstr_size mrstr_nn_count_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2); //
+mrstr_size mrstr_count_str(mrstr_pc str, mrstr_cstr substr);
+mrstr_size mrstr_n_count_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr);
+mrstr_size mrstr_n2_count_str(mrstr_pc str, mrstr_cstr substr, mrstr_size len);
+mrstr_size mrstr_nn_count_str(mrstr_pc str, mrstr_size len1, mrstr_cstr substr, mrstr_size len2);
 
-mrstr_size mrstr_count_chr(mrstr_pc str, mrstr_chr chr); //
-mrstr_size mrstr_n_count_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+mrstr_size mrstr_count_chr(mrstr_pc str, mrstr_chr chr);
+mrstr_size mrstr_n_count_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 /* check functions */
 
