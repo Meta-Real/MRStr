@@ -1,23 +1,38 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_n_replace_chrs(mrstr_p, mrstr_pc, mrstr_size, mrstr_cstr, mrstr_chr)
- * Replaces all the old characters from the string with the new character up to the length
+ * void mrstr_n_replace_chrs2(mrstr_p, mrstr_pc, mrstr_size, mrstr_cstr, mrstr_cstr)
+ * Replaces all the old characters from the string with their alternatives up to the length
+ * Throws LMCH_ERR if the length of the olds and the news string do not match
  *
  * input reqs:
  *  (res) pointer must be valid
  *  (res) must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
  *  (str) pointer must be valid
  *  (olds) pointer must be valid
+ *  (news) pointer must be valid
 /*/
 
 #include <intern.h>
 #include <string.h>
 
-void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_chr new)
+void mrstr_n_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_cstr news)
 {
-    mrstr_size olen;
-    if (!(MRSTR_LEN(str) && len && olds && (olen = strlen(olds))))
+    if (olds == news)
+        return;
+
+    if (!olds)
+        mrstr_dbg_lmch_err("mrstr_n_replace_chrs2", 0ULL, strlen(news), );
+
+    if (!news)
+        mrstr_dbg_lmch_err("mrstr_n_replace_chrs2", strlen(olds), 0ULL, );
+
+    mrstr_size olen = strlen(olds);
+    mrstr_size nlen = strlen(news);
+    if (olen != nlen)
+        mrstr_dbg_lmch_err("mrstr_n_replace_chrs2", olen, nlen, );
+
+    if (!(MRSTR_LEN(str) && len && olen))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -30,7 +45,7 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
             for (j = 0; j < olen; j++)
                 if (MRSTR_DATA(res)[i] == olds[j])
                 {
-                    MRSTR_DATA(res)[i] = new;
+                    MRSTR_DATA(res)[i] = news[j];
                     break;
                 }
 
@@ -39,7 +54,7 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_n_replace_chrs", MRSTR_LEN(str) + 1, );
+        mrstr_dbg_aloc_err("mrstr_n_replace_chrs2", MRSTR_LEN(str) + 1, );
 
     mrstr_size j;
     for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
@@ -47,7 +62,7 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
         for (j = 0; j < olen; j++)
             if (MRSTR_DATA(res)[MRSTR_LEN(res)] == olds[j])
             {
-                MRSTR_DATA(res)[MRSTR_LEN(res)] = new;
+                MRSTR_DATA(res)[MRSTR_LEN(res)] = news[j];
                 break;
             }
 
