@@ -16,7 +16,7 @@
 typedef char mrstr_chr;
 
 typedef mrstr_chr *mrstr_str;
-typedef const mrstr_chr *mrstr_cstr;
+typedef const mrstr_str mrstr_cstr;
 
 typedef uint64_t mrstr_size;
 
@@ -56,7 +56,7 @@ struct __mrstr_unmask__
 
 typedef struct __mrstr_unmask__ mrstr_unmask_t;
 
-struct __mrstr_chr_data__
+struct __mrstr_cdata__
 {
     mrstr_p str;
     mrstr_size idx;
@@ -65,11 +65,11 @@ struct __mrstr_chr_data__
     mrstr_chr next;
 };
 
-typedef struct __mrstr_chr_data__ mrstr_chr_data_t;
+typedef struct __mrstr_cdata__ mrstr_cdata_t;
 
-#define MRSTR_ALPHA_LOW "abcdefghijklmnopqrstuvwxyz"
-#define MRSTR_ALPHA_UP "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#define MRSTR_ALPHA (MRSTR_ALPHA_LOW MRSTR_ALPHA_UP)
+#define MRSTR_ALPHA_LOWER "abcdefghijklmnopqrstuvwxyz"
+#define MRSTR_ALPHA_UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define MRSTR_ALPHA (MRSTR_ALPHA_LOWER MRSTR_ALPHA_UPPER)
 
 #define MRSTR_DIGIT "0123456789"
 #define MRSTR_ODIGIT "01234567"
@@ -131,10 +131,10 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx);
 void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_size idx, mrstr_size len);
 
 void mrstr_remove_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
-void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
-void mrstr_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs); //
-void mrstr_n_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs); //
+void mrstr_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs);
+void mrstr_n_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 
 /* repeat */
 
@@ -295,15 +295,15 @@ mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
 mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
 mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
-mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_t data));
+mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
 mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
-                        mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_t data));
+                        mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
 
 void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
-void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data));
+void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                  mrstr_chr (*func)(mrstr_chr chr, mrstr_chr_data_t data));
+                  mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
 
 /* property functions */
 
@@ -318,14 +318,9 @@ static inline mrstr_str mrstr_data(mrstr_pc str)
     return MRSTR_DATA(str);
 }
 
-static inline mrstr_str mrstr_data_start(mrstr_pc str)
+static inline mrstr_str mrstr_start(mrstr_pc str)
 {
     return MRSTR_DATA(str) - MRSTR_OFFSET(str);
-}
-
-static inline mrstr_str mrstr_data_end(mrstr_pc str)
-{
-    return MRSTR_DATA(str) + MRSTR_LEN(str);
 }
 
 static inline mrstr_str mrstr_end(mrstr_pc str)
@@ -351,6 +346,11 @@ static inline mrstr_size mrstr_alloc(mrstr_pc str)
 static inline mrstr_bool mrstr_isempty(mrstr_pc str)
 {
     return MRSTR_LEN(str) ? MRSTR_FALSE : MRSTR_TRUE;
+}
+
+static inline mrstr_bool mrstr_ischr(mrstr_pc str)
+{
+    return MRSTR_LEN(str) == 1 ? MRSTR_FALSE : MRSTR_TRUE;
 }
 
 /* manual debugging system */

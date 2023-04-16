@@ -1,8 +1,8 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_d_all(mrstr_pc, mrstr_bool (*)(mrstr_chr, mrstr_chr_data_t))
- * Checks whether all the characters of the string are satisfying the given condition (with data)
+ * mrstr_bool mrstr_dn_all(mrstr_pc, mrstr_size, mrstr_bool (*)(mrstr_chr, mrstr_cdata_t))
+ * Checks whether all the characters of the string are satisfying the given condition up to the length (with data)
  * The condition must be checked by the function
  *
  * input reqs:
@@ -13,18 +13,22 @@
 
 #include <mrstr.h>
 
-mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_chr_data_t data))
+mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
+                        mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data))
 {
-    if (!MRSTR_LEN(str))
+    if (!(MRSTR_LEN(str) && len))
         return MRSTR_TRUE;
 
-    mrstr_chr_data_t data;
+    if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
+
+    mrstr_cdata_t data;
     data.str = str;
     data.idx = 0;
     data.prev = '\0';
     data.next = MRSTR_DATA(str)[1];
 
-    for (; data.idx < MRSTR_LEN(str); data.idx++)
+    for (; data.idx < len; data.idx++)
     {
         if (func(MRSTR_DATA(str)[data.idx], data) == MRSTR_FALSE)
             return MRSTR_FALSE;
