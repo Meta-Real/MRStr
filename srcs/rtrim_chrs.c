@@ -21,7 +21,7 @@ void mrstr_rtrim_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
         return;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str); i != 0;)
+    for (i = MRSTR_LEN(str); i;)
         if (!memchr(chrs, MRSTR_DATA(str)[--i], clen))
         {
             i++;

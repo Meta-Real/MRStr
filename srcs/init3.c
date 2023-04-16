@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_init3(mrstr_p, mrstr_str, mrstr_size, mrstr_idx)
+ * void mrstr_init3(mrstr_p, mrstr_str, mrstr_size, mrstr_size)
  * Initializes the string with the default data, length and offset
  *
  * input reqs:
@@ -13,7 +13,7 @@
 
 #include <mrstr.h>
 
-void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size len, mrstr_idx offset)
+void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size len, mrstr_size offset)
 {
     if (offset > len)
         offset = len;

@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_remove(mrstr_p, mrstr_pc, mrstr_idx)
+ * void mrstr_remove(mrstr_p, mrstr_pc, mrstr_size)
  * Removes the character from the string at the index
  * Throws ORNG_ERR if the index exceeds the length of the string
  *
@@ -14,7 +14,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)
+void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_size idx)
 {
     if (idx >= MRSTR_LEN(str))
         mrstr_dbg_orng_err("mrstr_remove", idx, MRSTR_LEN(str), );
@@ -41,7 +41,7 @@ void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx)
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str));
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_remove", MRSTR_LEN(res), );
+        mrstr_dbg_aloc_err("mrstr_remove", MRSTR_LEN(str), );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), idx);
     memcpy(MRSTR_DATA(res) + idx, MRSTR_DATA(str) + idx + 1, MRSTR_LEN(str) - idx);

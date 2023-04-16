@@ -19,7 +19,7 @@ void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
         return;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str); i != 0;)
+    for (i = MRSTR_LEN(str); i;)
         if (MRSTR_DATA(str)[--i] != chr)
         {
             i++;
@@ -53,6 +53,6 @@ void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
         mrstr_dbg_aloc_err("mrstr_rtrim", i + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), i);
-    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+    MRSTR_DATA(res)[i] = '\0';
     MRSTR_LEN(res) = i;
 }

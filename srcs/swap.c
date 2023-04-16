@@ -24,7 +24,7 @@ void mrstr_swap(mrstr_p str1, mrstr_p str2)
     MRSTR_LEN(str1) = MRSTR_LEN(str2);
     MRSTR_LEN(str2) = t_len;
 
-    mrstr_idx t_offset = MRSTR_OFFSET(str1);
+    mrstr_size t_offset = MRSTR_OFFSET(str1);
     MRSTR_OFFSET(str1) = MRSTR_OFFSET(str2);
     MRSTR_OFFSET(str2) = t_offset;
 }

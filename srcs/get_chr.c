@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_chr mrstr_get_chr(mrstr_pc, mrstr_idx)
+ * mrstr_chr mrstr_get_chr(mrstr_pc, mrstr_size)
  * Returns the character at the index from the source string
  * Throws ORNG_ERR if the index exceeds the length of the source string
  *
@@ -11,7 +11,7 @@
 
 #include <intern.h>
 
-mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_idx idx)
+mrstr_chr mrstr_get_chr(mrstr_pc src, mrstr_size idx)
 {
     if (idx >= MRSTR_LEN(src))
         mrstr_dbg_orng_err("mrstr_get_chr", idx, MRSTR_LEN(src), '\0');
