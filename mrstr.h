@@ -108,7 +108,7 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len);
 void mrstr_out(FILE *dst, mrstr_pc src);
 void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 
-/* binary operation functions */
+/* concat */
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
 void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
@@ -123,21 +123,30 @@ void mrstr_nn_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_cstr
 void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
+/* remove */
+
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_idx idx);
 void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_idx sidx, mrstr_idx eidx);
 void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_idx idx, mrstr_size len);
 
+/* repeat */
+
 void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count);
 void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count);
 
-void mrstr_trim(mrstr_p res, mrstr_pc str, mrstr_chr chr); //
-void mrstr_n_trim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+/* trim */
 
-void mrstr_ltrim(mrstr_p res, mrstr_pc str, mrstr_chr chr); //
-void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+void mrstr_trim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
+void mrstr_n_trim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len);
+void mrstr_nn_trim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len1, mrstr_size len2); //
 
-void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr);
-void mrstr_n_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
+void mrstr_ltrim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
+void mrstr_n_ltrim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len);
+
+void mrstr_rtrim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
+void mrstr_n_rtrim_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len);
+
+/* replace */
 
 void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new);
 void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new);
@@ -147,6 +156,8 @@ void mrstr_n_replace_all(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr o
 
 void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr news);
 void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_cstr news);
+
+/* split */
 
 mrstr_t* mrstr_split(mrstr_pc str, mrstr_chr chr); //
 mrstr_t* mrstr_n_split(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
@@ -172,7 +183,7 @@ mrstr_bool mrstr_n_equal_str(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 
 mrstr_bool mrstr_equal_chr(mrstr_pc str, mrstr_chr chr);
 
-/* search functions */
+/* contains */
 
 mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr);
 mrstr_bool mrstr_n_contains(mrstr_pc str, mrstr_size len, mrstr_pc substr);
@@ -186,6 +197,8 @@ mrstr_bool mrstr_nn_contains_str(mrstr_pc str, mrstr_size len1, mrstr_cstr subst
 
 mrstr_bool mrstr_contains_chr(mrstr_pc str, mrstr_chr chr);
 mrstr_bool mrstr_n_contains_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr);
+
+/* find */
 
 mrstr_idx mrstr_find(mrstr_pc str, mrstr_pc substr);
 mrstr_idx mrstr_n_find(mrstr_pc str, mrstr_size len, mrstr_pc substr);
@@ -225,6 +238,8 @@ mrstr_idx* mrstr_nn_find_all_str(mrstr_pc str, mrstr_size len1, mrstr_cstr subst
 
 mrstr_idx* mrstr_find_all_chr(mrstr_pc str, mrstr_chr chr); //
 mrstr_idx* mrstr_n_find_all_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+
+/* count */
 
 mrstr_size mrstr_count(mrstr_pc str, mrstr_pc substr);
 mrstr_size mrstr_n_count(mrstr_pc str, mrstr_size len, mrstr_pc substr);
