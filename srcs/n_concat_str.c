@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_n_concat_str(mrstr_p, mrstr_pc, mrstr_size, mrstr_cstr)
- * Concatenates the first string and the second string
+ * Concatenates the first string up to the length and the second string
  *
  * input reqs:
  *  (res) pointer must be valid
@@ -27,12 +27,12 @@ void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr s
             if (!(str2 && (slen = strlen(str2))))
                 mrstr_data_free("mrstr_n_concat_str");
 
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   slen + MRSTR_OFFSET(res) + 1);
-            if (!t_data)
+            mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                  slen + MRSTR_OFFSET(res) + 1);
+            if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_n_concat_str", slen + MRSTR_OFFSET(res) + 1, );
 
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
             memcpy(MRSTR_DATA(res), str2, slen + 1);
             MRSTR_LEN(res) = slen;
             return;
@@ -41,24 +41,27 @@ void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr s
         mrstr_size slen;
         if (!(str2 && (slen = strlen(str2))))
         {
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   len + MRSTR_OFFSET(res) + 1);
-            if (!t_data)
+            if (len == MRSTR_LEN(res))
+                return;
+
+            mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                  len + MRSTR_OFFSET(res) + 1);
+            if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_n_concat_str", len + MRSTR_OFFSET(res) + 1, );
 
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
             MRSTR_DATA(res)[len] = '\0';
             MRSTR_LEN(res) = len;
             return;
         }
 
         MRSTR_LEN(res) = len + slen;
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_concat_str", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         memcpy(MRSTR_DATA(res) + len, str2, slen + 1);
         return;
     }

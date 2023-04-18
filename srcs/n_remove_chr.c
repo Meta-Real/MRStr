@@ -15,22 +15,11 @@
 
 void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
+    if (!MRSTR_LEN(str))
+        return;
+
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
-
-    if (!len)
-    {
-        if (!MRSTR_LEN(str) || res == str)
-            return;
-
-        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
-        if (!MRSTR_DATA(res))
-            mrstr_dbg_aloc_err("mrstr_n_remove_chr", MRSTR_LEN(str) + 1, );
-
-        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
-        MRSTR_LEN(res) = MRSTR_LEN(str);
-        return;
-    }
 
     mrstr_size i;
     for (i = 0; i < len && MRSTR_DATA(str)[i] != chr; i++);
@@ -51,12 +40,12 @@ void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
         memmove(MRSTR_DATA(res) + j, MRSTR_DATA(res) + i, MRSTR_LEN(res) - i + 1);
         MRSTR_LEN(res) -= i - j;
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_remove_chr", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         return;
     }
 
@@ -88,10 +77,10 @@ void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
     MRSTR_LEN(res) = MRSTR_LEN(str) - i + j;
     memcpy(MRSTR_DATA(res) + j, MRSTR_DATA(str) + i, MRSTR_LEN(res) + 1);
 
-    mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res), MRSTR_LEN(res) + 1);
-    if (!t_data)
+    mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res), MRSTR_LEN(res) + 1);
+    if (!tdata)
         mrstr_dbg_aloc_err("mrstr_n_remove_chr", MRSTR_LEN(res) + 1, );
 
-    MRSTR_DATA(res) = t_data;
+    MRSTR_DATA(res) = tdata;
     return;
 }

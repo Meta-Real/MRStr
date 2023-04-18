@@ -20,15 +20,15 @@ void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
 
     if (res == str)
     {
-        MRSTR_LEN(res) = len;
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               len + MRSTR_OFFSET(res) + 2);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              len + MRSTR_OFFSET(res) + 2);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_concat_chr", len + MRSTR_OFFSET(res) + 2, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
-        MRSTR_DATA(res)[MRSTR_LEN(res)++] = chr;
-        MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+        MRSTR_DATA(res)[len++] = chr;
+        MRSTR_DATA(res)[len] = '\0';
+        MRSTR_LEN(res) = len;
         return;
     }
 
@@ -44,12 +44,12 @@ void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
         return;
     }
 
-    MRSTR_LEN(res) = len + 1;
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 2);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_concat_chr", len + 2, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), len);
-    MRSTR_DATA(res)[len] = chr;
-    MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+    MRSTR_DATA(res)[len++] = chr;
+    MRSTR_DATA(res)[len] = '\0';
+    MRSTR_LEN(res) = len;
 }
