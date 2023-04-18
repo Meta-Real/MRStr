@@ -21,18 +21,18 @@ void mrstr_inp(mrstr_p dst, FILE *src)
             mrstr_dbg_aloc_err("mrstr_inp", MRSTR_DEF_LEN, );
 
         mrstr_size alloc = MRSTR_DEF_LEN;
-        mrstr_str t_data;
+        mrstr_str tdata;
 
         mrstr_chr c;
-        while ((c = fgetc(stdin)) != '\n')
+        while ((c = getchar()) != '\n')
         {
             if (MRSTR_LEN(dst) == alloc)
             {
-                t_data = __mrstr_das_realloc(MRSTR_DATA(dst), alloc += MRSTR_DEF_LEN);
-                if (!t_data)
+                tdata = __mrstr_das_realloc(MRSTR_DATA(dst), alloc += MRSTR_DEF_LEN);
+                if (!tdata)
                     mrstr_dbg_aloc_err("mrstr_inp", alloc, );
 
-                MRSTR_DATA(dst) = t_data;
+                MRSTR_DATA(dst) = tdata;
             }
 
             MRSTR_DATA(dst)[MRSTR_LEN(dst)++] = c;
@@ -45,11 +45,11 @@ void mrstr_inp(mrstr_p dst, FILE *src)
             return;
         }
 
-        t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
         if (!MRSTR_DATA(dst))
             mrstr_dbg_aloc_err("mrstr_inp", MRSTR_LEN(dst) + 1, );
 
-        MRSTR_DATA(dst) = t_data;
+        MRSTR_DATA(dst) = tdata;
         MRSTR_DATA(dst)[MRSTR_LEN(dst)] = '\0';
         return;
     }

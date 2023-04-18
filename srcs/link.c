@@ -2,7 +2,7 @@
  * MetaReal String Library version 1.0.0
  *
  * void mrstr_link(mrstr_p, mrstr_p)
- * Links destination and the source
+ * Links the destination and the source
  * May cause problems with resizing the strings or deleting them after linking
  * High level function for high level purposes
  *

@@ -13,11 +13,11 @@
 
 void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len)
 {
-    if (!(MRSTR_LEN(src) && len))
-        return;
-
     if (len > MRSTR_LEN(src))
         len = MRSTR_LEN(src);
+
+    if (!len)
+        return;
 
     if (!dst)
         dst = stdout;

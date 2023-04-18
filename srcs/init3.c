@@ -15,6 +15,14 @@
 
 void mrstr_init3(mrstr_p str, mrstr_str data, mrstr_size len, mrstr_size offset)
 {
+    if (!len)
+    {
+        MRSTR_DATA(str) = NULL;
+        MRSTR_LEN(str) = 0;
+        MRSTR_OFFSET(str) = 0;
+        return;
+    }
+
     if (offset > len)
         offset = len;
 

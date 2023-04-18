@@ -13,11 +13,11 @@
 
 mrstr_str mrstr_n_get_str(mrstr_pc src, mrstr_size len)
 {
-    if (!(MRSTR_LEN(src) && len))
-        return NULL;
-
     if (len > MRSTR_LEN(src))
         len = MRSTR_LEN(src);
+
+    if (!len)
+        return NULL;
 
     mrstr_str dst = __mrstr_das_alloc(len + 1);
     if (!dst)

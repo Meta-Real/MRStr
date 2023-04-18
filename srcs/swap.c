@@ -16,15 +16,15 @@ void mrstr_swap(mrstr_p str1, mrstr_p str2)
     if (str1 == str2)
         return;
 
-    mrstr_str t_data = MRSTR_DATA(str1);
+    mrstr_str data = MRSTR_DATA(str1);
     MRSTR_DATA(str1) = MRSTR_DATA(str2);
-    MRSTR_DATA(str2) = t_data;
+    MRSTR_DATA(str2) = data;
 
-    mrstr_size t_len = MRSTR_LEN(str1);
+    mrstr_size len = MRSTR_LEN(str1);
     MRSTR_LEN(str1) = MRSTR_LEN(str2);
-    MRSTR_LEN(str2) = t_len;
+    MRSTR_LEN(str2) = len;
 
-    mrstr_size t_offset = MRSTR_OFFSET(str1);
+    mrstr_size offset = MRSTR_OFFSET(str1);
     MRSTR_OFFSET(str1) = MRSTR_OFFSET(str2);
-    MRSTR_OFFSET(str2) = t_offset;
+    MRSTR_OFFSET(str2) = offset;
 }

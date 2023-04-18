@@ -27,6 +27,12 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len)
         fgets(MRSTR_DATA(dst), len + 1, stdin);
         MRSTR_LEN(dst) = strlen(MRSTR_DATA(dst));
 
+        if (MRSTR_DATA(dst)[MRSTR_LEN(dst) - 1] == '\n')
+            MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
+
+        if (MRSTR_LEN(dst) == len)
+            return;
+
         if (!MRSTR_LEN(dst))
         {
             __mrstr_das_free(MRSTR_DATA(dst));
@@ -34,16 +40,11 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len)
             return;
         }
 
-        if (MRSTR_LEN(dst) == len)
-            return;
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst) + 1);
+        if (!tdata)
+            mrstr_dbg_aloc_err("mrstr_n_inp", MRSTR_LEN(dst) + 1, );
 
-        MRSTR_DATA(dst)[MRSTR_LEN(dst) - 1] = '\0';
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(dst), MRSTR_LEN(dst));
-        if (!t_data)
-            mrstr_dbg_aloc_err("mrstr_n_inp", MRSTR_LEN(dst), );
-
-        MRSTR_DATA(dst) = t_data;
-        MRSTR_LEN(dst)--;
+        MRSTR_DATA(dst) = tdata;
         return;
     }
 
