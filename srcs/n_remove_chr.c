@@ -82,5 +82,4 @@ void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
         mrstr_dbg_aloc_err("mrstr_n_remove_chr", MRSTR_LEN(res) + 1, );
 
     MRSTR_DATA(res) = tdata;
-    return;
 }

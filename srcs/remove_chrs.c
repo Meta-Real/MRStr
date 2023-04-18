@@ -16,11 +16,8 @@
 
 void mrstr_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
 {
-    if (!MRSTR_LEN(str))
-        return;
-
     mrstr_size clen;
-    if (!(chrs && (clen = strlen(chrs))))
+    if (!(MRSTR_LEN(str) && chrs && (clen = strlen(chrs))))
         return;
 
     mrstr_size i;
@@ -39,12 +36,12 @@ void mrstr_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
         if (!j)
             mrstr_data_free("mrstr_remove_chrs");
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               j + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              j + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_remove_chrs", j + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[j] = '\0';
         MRSTR_LEN(res) = j;
         return;
@@ -75,12 +72,11 @@ void mrstr_remove_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
         return;
     }
 
-    mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res), j + 1);
-    if (!t_data)
+    mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res), j + 1);
+    if (!tdata)
         mrstr_dbg_aloc_err("mrstr_remove_chrs", j + 1, );
 
-    MRSTR_DATA(res) = t_data;
+    MRSTR_DATA(res) = tdata;
     MRSTR_DATA(res)[j] = '\0';
     MRSTR_LEN(res) = j;
-    return;
 }

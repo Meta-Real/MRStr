@@ -77,5 +77,4 @@ void mrstr_remove_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr)
     MRSTR_DATA(res) = tdata;
     MRSTR_DATA(res)[j] = '\0';
     MRSTR_LEN(res) = j;
-    return;
 }

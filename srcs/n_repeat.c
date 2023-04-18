@@ -32,12 +32,12 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
             if (len == MRSTR_LEN(res))
                 return;
 
-            mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                   len + MRSTR_OFFSET(res) + 1);
-            if (!t_data)
+            mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                                  len + MRSTR_OFFSET(res) + 1);
+            if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_n_repeat", len + MRSTR_OFFSET(res) + 1, );
 
-            MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+            MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
             MRSTR_DATA(res)[len] = '\0';
             MRSTR_LEN(res) = len;
             return;
@@ -47,17 +47,17 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
             mrstr_dbg_movf_err("mrstr_n_repeat", );
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_repeat", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
 
         if (len == 1)
         {
-            memset(MRSTR_DATA(res) + 1, *MRSTR_DATA(res), MRSTR_LEN(res) - 1);
-            MRSTR_DATA(res)[len] = '\0';
+            memset(MRSTR_DATA(res) + 1, *MRSTR_DATA(res), count - 1);
+            MRSTR_DATA(res)[count] = '\0';
             return;
         }
 
@@ -68,7 +68,7 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         }
 
         memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(res), MRSTR_LEN(res) - len);
-        MRSTR_DATA(res)[len] = '\0';
+        MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
         return;
     }
 
@@ -82,13 +82,6 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(res) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_repeat", MRSTR_LEN(res) + 1, );
-
-    if (count == 1)
-    {
-        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), len);
-        MRSTR_DATA(res)[len] = '\0';
-        return;
-    }
 
     if (len == 1)
     {
