@@ -35,12 +35,12 @@ void mrstr_ltrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
 
         memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, MRSTR_LEN(res));
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_ltrim", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
         return;
     }

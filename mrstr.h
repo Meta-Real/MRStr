@@ -94,6 +94,7 @@ void mrstr_set_str(mrstr_p dst, mrstr_cstr src);
 void mrstr_n_set_str(mrstr_p dst, mrstr_cstr src, mrstr_size len);
 
 void mrstr_set_chr(mrstr_p dst, mrstr_chr src);
+void mrstr_n_set_chr(mrstr_p dst, mrstr_chr src, mrstr_size len);
 
 void mrstr_link(mrstr_p dst, mrstr_p src);
 void mrstr_swap(mrstr_p str1, mrstr_p str2);

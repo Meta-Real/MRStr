@@ -16,9 +16,22 @@
 
 void mrstr_ltrim_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
 {
-    mrstr_size clen;
-    if (!(MRSTR_LEN(str) && chrs && (clen = strlen(chrs))))
+    if (!MRSTR_LEN(str))
         return;
+
+    mrstr_size clen;
+    if (!(chrs && (clen = strlen(chrs))))
+    {
+        if (res == str)
+            return;
+
+        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        if (!MRSTR_DATA(res))
+            mrstr_dbg_aloc_err("mrstr_ltrim_chrs", MRSTR_LEN(str) + 1, );
+
+        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+        MRSTR_LEN(res) = MRSTR_LEN(str);
+    }
 
     mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)
@@ -37,12 +50,12 @@ void mrstr_ltrim_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs)
 
         memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, MRSTR_LEN(res));
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_ltrim_chrs", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
         return;
     }

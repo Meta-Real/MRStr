@@ -15,11 +15,24 @@
 
 void mrstr_n_trim(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len)
 {
-    if (len > MRSTR_LEN(str))
-        len = MRSTR_LEN(str);
+    if (!MRSTR_LEN(str))
+        return;
 
     if (!len)
-        return;
+    {
+        if (res == str)
+            return;
+
+        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        if (!MRSTR_DATA(res))
+            mrstr_dbg_aloc_err("mrstr_n_trim", MRSTR_LEN(str) + 1, );
+
+        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+        MRSTR_LEN(res) = MRSTR_LEN(str);
+    }
+
+    if (len > MRSTR_LEN(str))
+        len = MRSTR_LEN(str);
 
     mrstr_size i;
     for (i = 0; i < len; i++)
@@ -34,33 +47,32 @@ void mrstr_n_trim(mrstr_p res, mrstr_pc str, mrstr_chr chr, mrstr_size len)
     for (j = MRSTR_LEN(str); j != eidx;)
         if (MRSTR_DATA(str)[--j] != chr)
         {
-            j++;
+            j -= i - 1;
             break;
         }
 
-    j -= i;
     if (res == str)
     {
-        if (j == MRSTR_LEN(str))
+        if (j == MRSTR_LEN(res))
             return;
 
-        if (!j)
+        if (i == MRSTR_LEN(res))
             mrstr_data_free("mrstr_n_trim");
 
         memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, j);
 
-        mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                               j + MRSTR_OFFSET(res) + 1);
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                              j + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_trim", j + MRSTR_OFFSET(res) + 1, );
 
-        MRSTR_DATA(res) = t_data + MRSTR_OFFSET(res);
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[j] = '\0';
         MRSTR_LEN(res) = j;
         return;
     }
 
-    if (!j)
+    if (i == MRSTR_LEN(str))
         return;
 
     MRSTR_DATA(res) = __mrstr_das_alloc(j + 1);
