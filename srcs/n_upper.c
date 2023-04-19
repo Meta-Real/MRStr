@@ -15,7 +15,7 @@
 
 void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
 {
-    if (!(MRSTR_LEN(str) && len))
+    if (!MRSTR_LEN(str))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -23,6 +23,9 @@ void mrstr_n_upper(mrstr_p res, mrstr_pc str, mrstr_size len)
 
     if (res == str)
     {
+        if (!len)
+            return;
+
         mrstr_size i;
         for (i = 0; i < len; i++)
             if (MRSTR_DATA(res)[i] >= 'a' && MRSTR_DATA(res)[i] <= 'z')

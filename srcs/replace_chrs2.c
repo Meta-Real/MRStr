@@ -19,7 +19,18 @@
 void mrstr_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr news)
 {
     if (olds == news)
+    {
+        if (!MRSTR_LEN(str) || res == str)
+            return;
+
+        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        if (!MRSTR_DATA(res))
+            mrstr_dbg_aloc_err("mrstr_replace_chrs2", MRSTR_LEN(str) + 1, );
+
+        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+        MRSTR_LEN(res) = MRSTR_LEN(str);
         return;
+    }
 
     if (!olds)
         mrstr_dbg_lmch_err("mrstr_replace_chrs2", 0ULL, strlen(news), );
@@ -32,11 +43,14 @@ void mrstr_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr 
     if (olen != nlen)
         mrstr_dbg_lmch_err("mrstr_replace_chrs2", olen, nlen, );
 
-    if (!(MRSTR_LEN(str) && olen))
+    if (!MRSTR_LEN(str))
         return;
 
     if (res == str)
     {
+        if (!olen)
+            return;
+
         mrstr_size i, j;
         for (i = 0; i < MRSTR_LEN(res); i++)
             for (j = 0; j < olen; j++)
@@ -52,6 +66,13 @@ void mrstr_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_cstr 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_replace_chrs2", MRSTR_LEN(str) + 1, );
+
+    if (!olen)
+    {
+        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+        MRSTR_LEN(res) = MRSTR_LEN(str);
+        return;
+    }
 
     mrstr_size j;
     for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)

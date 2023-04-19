@@ -16,15 +16,15 @@
 
 void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_chr new)
 {
-    mrstr_size olen;
-    if (!(MRSTR_LEN(str) && len && olds && (olen = strlen(olds))))
-        return;
-
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
     if (res == str)
     {
+        mrstr_size olen;
+        if (!(len && olds && (olen = strlen(olds))))
+            return;
+
         mrstr_size i, j;
         for (i = 0; i < len; i++)
             for (j = 0; j < olen; j++)
@@ -37,9 +37,20 @@ void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr 
         return;
     }
 
+    if (!MRSTR_LEN(str))
+        return;
+
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_replace_chrs", MRSTR_LEN(str) + 1, );
+
+    mrstr_size olen;
+    if (!(olds && (olen = strlen(olds))))
+    {
+        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+        MRSTR_LEN(res) = MRSTR_LEN(str);
+        return;
+    }
 
     mrstr_size j;
     for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)

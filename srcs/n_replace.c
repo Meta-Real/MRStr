@@ -15,14 +15,14 @@
 
 void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new)
 {
-    if (!(MRSTR_LEN(str) && len))
-        return;
-
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
     if (res == str)
     {
+        if (!len)
+            return;
+
         mrstr_size i;
         for (i = 0; i < len; i++)
             if (MRSTR_DATA(res)[i] == old)
@@ -31,17 +31,19 @@ void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, m
         return;
     }
 
+    if (!MRSTR_LEN(str))
+        return;
+
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_replace", MRSTR_LEN(str) + 1, );
 
-    mrstr_size i;
-    for (i = 0; i < len; i++)
+    for (; MRSTR_LEN(res) < len; MRSTR_LEN(res)++)
     {
-        if (MRSTR_DATA(str)[i] == old)
-            MRSTR_DATA(res)[i] = new;
+        if (MRSTR_DATA(str)[MRSTR_LEN(res)] == old)
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = new;
         else
-            MRSTR_DATA(res)[i] = MRSTR_DATA(str)[i];
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 
     memcpy(MRSTR_DATA(res) + len, MRSTR_DATA(str) + len, MRSTR_LEN(str) - len + 1);

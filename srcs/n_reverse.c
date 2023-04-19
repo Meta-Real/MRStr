@@ -15,7 +15,7 @@
 
 void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
 {
-    if (!(MRSTR_LEN(str) && len))
+    if (!MRSTR_LEN(str))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -23,18 +23,18 @@ void mrstr_n_reverse(mrstr_p res, mrstr_pc str, mrstr_size len)
 
     if (res == str)
     {
-        if (len == 1)
+        if (len <= 1)
             return;
 
-        char t_chr;
+        char tchr;
         mrstr_size i, j;
         for (i = 0; i < len / 2; i++)
         {
-            t_chr = MRSTR_DATA(res)[i];
+            tchr = MRSTR_DATA(res)[i];
 
             j = len - i - 1;
             MRSTR_DATA(res)[i] = MRSTR_DATA(res)[j];
-            MRSTR_DATA(res)[j] = t_chr;
+            MRSTR_DATA(res)[j] = tchr;
         }
 
         return;
