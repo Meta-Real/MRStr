@@ -28,8 +28,8 @@ mrstr_size mrstr_rfind(mrstr_pc str, mrstr_pc substr)
         return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? MRSTR_NF : 0;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr); i; i--)
-        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr) + 1; i;)
+        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
             return i;
 
     return MRSTR_NF;

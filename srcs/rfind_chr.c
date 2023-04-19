@@ -18,8 +18,8 @@ mrstr_size mrstr_rfind_chr(mrstr_pc str, mrstr_chr chr)
         return MRSTR_NF;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str) - 1; i; i--)
-        if (MRSTR_DATA(str)[i] == chr)
+    for (i = MRSTR_LEN(str); i;)
+        if (MRSTR_DATA(str)[--i] == chr)
             return i;
 
     return MRSTR_NF;

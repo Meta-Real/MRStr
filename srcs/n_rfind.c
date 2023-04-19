@@ -27,14 +27,17 @@ mrstr_size mrstr_n_rfind(mrstr_pc str, mrstr_size len, mrstr_pc substr)
     if (len < MRSTR_LEN(substr))
         return MRSTR_NF;
 
+    if (str == substr)
+        return 0;
+
     mrstr_size sidx = MRSTR_LEN(str) - len;
 
     if (len == MRSTR_LEN(substr))
-        return memcmp(MRSTR_DATA(str) + sidx, MRSTR_DATA(substr), len) ? MRSTR_NF : 0;
+        return memcmp(MRSTR_DATA(str) + sidx, MRSTR_DATA(substr), len) ? MRSTR_NF : sidx;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr); i != sidx; i--)
-        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr) + 1; i != sidx;)
+        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
             return i;
 
     return MRSTR_NF;

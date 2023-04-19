@@ -15,10 +15,7 @@
 mrstr_size mrstr_count_str(mrstr_pc str, mrstr_cstr substr)
 {
     mrstr_size slen;
-    if (!(substr && (slen = strlen(substr))))
-        return 0;
-
-    if (slen > MRSTR_LEN(str))
+    if (!(substr && (slen = strlen(substr))) || slen > MRSTR_LEN(str))
         return 0;
 
     if (slen == MRSTR_LEN(str))

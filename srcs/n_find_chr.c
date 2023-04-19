@@ -14,11 +14,11 @@
 
 mrstr_size mrstr_n_find_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
-    if (!(MRSTR_LEN(str) && len))
-        return MRSTR_NF;
-
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
+
+    if (!len)
+        return MRSTR_NF;
 
     mrstr_str ptr = memchr(MRSTR_DATA(str), chr, len);
     return ptr ? (mrstr_size)(ptr - MRSTR_DATA(str)) : MRSTR_NF;

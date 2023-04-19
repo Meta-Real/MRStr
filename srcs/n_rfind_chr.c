@@ -22,8 +22,8 @@ mrstr_size mrstr_n_rfind_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 
     mrstr_size sidx = MRSTR_LEN(str) - len;
     mrstr_size i;
-    for (i = MRSTR_LEN(str) - 1; i != sidx; i--)
-        if (MRSTR_DATA(str)[i] == chr)
+    for (i = MRSTR_LEN(str); i != sidx;)
+        if (MRSTR_DATA(str)[--i] == chr)
             return i;
 
     return MRSTR_NF;

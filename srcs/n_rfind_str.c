@@ -31,11 +31,11 @@ mrstr_size mrstr_n_rfind_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr)
     mrstr_size sidx = MRSTR_LEN(str) - len;
 
     if (len == clen)
-        return memcmp(MRSTR_DATA(str) + sidx, substr, len) ? MRSTR_NF : 0;
+        return memcmp(MRSTR_DATA(str) + sidx, substr, len) ? MRSTR_NF : sidx;
 
     mrstr_size i;
-    for (i = MRSTR_LEN(str) - clen; i != sidx; i--)
-        if (!memcmp(MRSTR_DATA(str) + i, substr, clen))
+    for (i = MRSTR_LEN(str) - clen + 1; i != sidx;)
+        if (!memcmp(MRSTR_DATA(str) + --i, substr, clen))
             return i;
 
     return MRSTR_NF;

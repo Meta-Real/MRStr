@@ -13,11 +13,11 @@
 
 mrstr_bool mrstr_n_contains_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr)
 {
-    if (!(MRSTR_LEN(str) && len))
-        return MRSTR_FALSE;
-
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
+
+    if (!len)
+        return MRSTR_FALSE;
 
     return memchr(MRSTR_DATA(str), chr, len) ? MRSTR_TRUE : MRSTR_FALSE;
 }
