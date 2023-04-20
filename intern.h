@@ -10,6 +10,7 @@
 #include <mrstr.h>
 
 #define MRSTR_DEF_LEN 128ULL
+#define MRSTR_DEF_IDX_LST_LEN 16ULL
 
 #ifdef __MRSTR_DBG__
 

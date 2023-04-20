@@ -177,8 +177,8 @@ void mrstr_n_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr
 
 /* split */
 
-mrstr_t* mrstr_split(mrstr_pc str, mrstr_chr chr); //
-mrstr_t* mrstr_n_split(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+mrstr_t *mrstr_split(mrstr_pc str, mrstr_chr chr); //
+mrstr_t *mrstr_n_split(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
 
 /* unary operation functions */
 
@@ -232,14 +232,14 @@ mrstr_size mrstr_n_rfind_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr);
 mrstr_size mrstr_rfind_chr(mrstr_pc str, mrstr_chr chr);
 mrstr_size mrstr_n_rfind_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
-mrstr_size* mrstr_find_all(mrstr_pc str, mrstr_pc substr); //
-mrstr_size* mrstr_n_find_all(mrstr_pc str, mrstr_size len, mrstr_pc substr); //
+mrstr_size *mrstr_find_all(mrstr_size *count, mrstr_pc str, mrstr_pc substr);
+mrstr_size *mrstr_n_find_all(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_pc substr);
 
-mrstr_size* mrstr_find_all_str(mrstr_pc str, mrstr_cstr substr); //
-mrstr_size* mrstr_n_find_all_str(mrstr_pc str, mrstr_size len, mrstr_cstr substr); //
+mrstr_size *mrstr_find_all_str(mrstr_size *count, mrstr_pc str, mrstr_cstr substr);
+mrstr_size *mrstr_n_find_all_str(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_cstr substr);
 
-mrstr_size* mrstr_find_all_chr(mrstr_pc str, mrstr_chr chr); //
-mrstr_size* mrstr_n_find_all_chr(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+mrstr_size *mrstr_find_all_chr(mrstr_size *count, mrstr_pc str, mrstr_chr chr);
+mrstr_size *mrstr_n_find_all_chr(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 /* count */
 
