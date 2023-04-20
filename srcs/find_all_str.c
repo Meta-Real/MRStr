@@ -54,7 +54,7 @@ mrstr_size *mrstr_find_all_str(mrstr_size *count, mrstr_pc str, mrstr_cstr subst
                 tdata = __mrstr_das_realloc(idxs, (alloc += MRSTR_DEF_IDX_LST_LEN) * sizeof(mrstr_size));
                 if (!tdata)
                 {
-                    free(idxs);
+                    __mrstr_das_free(idxs);
                     mrstr_dbg_aloc_err("mrstr_find_all_str", alloc * sizeof(mrstr_size), NULL);
                 }
 
@@ -75,7 +75,7 @@ mrstr_size *mrstr_find_all_str(mrstr_size *count, mrstr_pc str, mrstr_cstr subst
         tdata = __mrstr_das_realloc(idxs, *count * sizeof(mrstr_size));
         if (!tdata)
         {
-            free(idxs);
+            __mrstr_das_free(idxs);
             mrstr_dbg_aloc_err("mrstr_find_all_str", *count * sizeof(mrstr_size), NULL);
         }
 

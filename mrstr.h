@@ -177,8 +177,8 @@ void mrstr_n_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr
 
 /* split */
 
-mrstr_t *mrstr_split(mrstr_pc str, mrstr_chr chr); //
-mrstr_t *mrstr_n_split(mrstr_pc str, mrstr_size len, mrstr_chr chr); //
+mrstr_t *mrstr_split(mrstr_size *count, mrstr_pc str, mrstr_chr chr);
+mrstr_t *mrstr_n_split(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 /* unary operation functions */
 

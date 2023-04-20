@@ -11,6 +11,7 @@
 
 #define MRSTR_DEF_LEN 128ULL
 #define MRSTR_DEF_IDX_LST_LEN 16ULL
+#define MRSTR_DEF_STR_LST_LEN 16ULL
 
 #ifdef __MRSTR_DBG__
 
