@@ -14,6 +14,9 @@
 
 void mrstr_n_set_chr(mrstr_p dst, mrstr_chr src, mrstr_size len)
 {
+    if (!len)
+        return;
+
     MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_n_set_chr", len + 1, );
