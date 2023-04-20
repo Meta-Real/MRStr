@@ -15,5 +15,5 @@ mrstr_bool mrstr_end_with_chr(mrstr_pc str, mrstr_chr chr)
     if (!MRSTR_LEN(str))
         return MRSTR_FALSE;
 
-    return MRSTR_DATA(str)[MRSTR_LEN(str)] == chr ? MRSTR_TRUE : MRSTR_FALSE;
+    return MRSTR_DATA(str)[MRSTR_LEN(str) - 1] == chr ? MRSTR_TRUE : MRSTR_FALSE;
 }

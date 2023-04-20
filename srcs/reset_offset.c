@@ -29,10 +29,9 @@ void mrstr_reset_offset(mrstr_p str)
     memmove(MRSTR_DATA(str), MRSTR_DATA(str) + MRSTR_OFFSET(str), MRSTR_LEN(str) + 1);
     MRSTR_OFFSET(str) = 0;
 
-    mrstr_str t_data = __mrstr_das_realloc(MRSTR_DATA(str), MRSTR_LEN(str) + 1);
-    if (!t_data)
+    mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(str), MRSTR_LEN(str) + 1);
+    if (!tdata)
         mrstr_dbg_aloc_err("mrstr_reset_offset", MRSTR_LEN(str) + 1, );
 
-    MRSTR_DATA(str) = t_data;
-    MRSTR_DATA(str)[MRSTR_LEN(str)] = '\0';
+    MRSTR_DATA(str) = tdata;
 }

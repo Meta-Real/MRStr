@@ -25,14 +25,13 @@ void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_chr ne
         if (!(olds && (olen = strlen(olds))))
             return;
 
-        mrstr_size i, j;
+        mrstr_size i;
         for (i = 0; i < MRSTR_LEN(res); i++)
-            for (j = 0; j < olen; j++)
-                if (MRSTR_DATA(res)[i] == olds[j])
-                {
-                    MRSTR_DATA(res)[i] = new;
-                    break;
-                }
+            if (memchr(olds, MRSTR_DATA(res)[i], olen))
+            {
+                MRSTR_DATA(res)[i] = new;
+                break;
+            }
 
         return;
     }
@@ -49,17 +48,14 @@ void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_chr ne
         return;
     }
 
-    mrstr_size j;
     for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)
     {
-        for (j = 0; j < olen; j++)
-            if (MRSTR_DATA(res)[MRSTR_LEN(res)] == olds[j])
-            {
-                MRSTR_DATA(res)[MRSTR_LEN(res)] = new;
-                break;
-            }
-
-        if (j == olen)
+        if (memchr(olds, MRSTR_DATA(res)[MRSTR_LEN(res)], olen))
+        {
+            MRSTR_DATA(res)[MRSTR_LEN(res)] = new;
+            break;
+        }
+        else
             MRSTR_DATA(res)[MRSTR_LEN(res)] = MRSTR_DATA(str)[MRSTR_LEN(res)];
     }
 

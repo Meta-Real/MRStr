@@ -292,6 +292,12 @@ mrstr_bool mrstr_n_isupper(mrstr_pc str, mrstr_size len);
 mrstr_bool mrstr_islower(mrstr_pc str);
 mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len);
 
+mrstr_bool mrstr_are(mrstr_pc str, mrstr_chr chr);
+mrstr_bool mrstr_n_are(mrstr_pc str, mrstr_size len, mrstr_chr chr);
+
+mrstr_bool mrstr_are_chrs(mrstr_pc str, mrstr_cstr chrs);
+mrstr_bool mrstr_n_are_chrs(mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
+
 /* customizable functions */
 
 mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));

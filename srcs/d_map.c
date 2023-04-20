@@ -28,20 +28,20 @@ void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrs
 
     if (res == str)
     {
-        mrstr_str t_data = __mrstr_das_alloc(MRSTR_LEN(res));
-        if (!t_data)
+        mrstr_str tdata = __mrstr_das_alloc(MRSTR_LEN(res));
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_d_map", MRSTR_LEN(res), );
 
         for (; data.idx < MRSTR_LEN(res); data.idx++)
         {
-            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
+            tdata[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
 
             data.prev = MRSTR_DATA(res)[data.idx];
             data.next = MRSTR_DATA(res)[data.idx + 2];
         }
 
-        memcpy(MRSTR_DATA(res), t_data, MRSTR_LEN(res));
-        __mrstr_das_free(t_data);
+        memcpy(MRSTR_DATA(res), tdata, MRSTR_LEN(res));
+        __mrstr_das_free(tdata);
         return;
     }
 

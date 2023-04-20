@@ -14,7 +14,7 @@
 
 mrstr_bool mrstr_start_with(mrstr_pc str, mrstr_pc substr)
 {
-    if (!MRSTR_LEN(substr))
+    if (str == substr || !MRSTR_LEN(substr))
         return MRSTR_TRUE;
 
     if (MRSTR_LEN(str) < MRSTR_LEN(substr))

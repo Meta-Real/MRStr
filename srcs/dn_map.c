@@ -18,7 +18,7 @@
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
                   mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data))
 {
-    if (!(MRSTR_LEN(str) && len))
+    if (!MRSTR_LEN(str))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -32,20 +32,23 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
     if (res == str)
     {
-        mrstr_str t_data = __mrstr_das_alloc(len);
-        if (!t_data)
+        if (!len)
+            return;
+
+        mrstr_str tdata = __mrstr_das_alloc(len);
+        if (!tdata)
             mrstr_dbg_aloc_err("mrstr_dn_map", len, );
 
         for (; data.idx < len; data.idx++)
         {
-            t_data[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
+            tdata[data.idx] = func(MRSTR_DATA(res)[data.idx], data);
 
             data.prev = MRSTR_DATA(res)[data.idx];
             data.next = MRSTR_DATA(res)[data.idx + 2];
         }
 
-        memcpy(MRSTR_DATA(res), t_data, len);
-        __mrstr_das_free(t_data);
+        memcpy(MRSTR_DATA(res), tdata, len);
+        __mrstr_das_free(tdata);
         return;
     }
 

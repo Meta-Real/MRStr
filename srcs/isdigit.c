@@ -15,12 +15,12 @@ mrstr_bool mrstr_isdigit(mrstr_pc str)
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    const uint64_t* c_data = (const uint64_t*)MRSTR_DATA(str);
+    const uint64_t* cdata = (const uint64_t*)MRSTR_DATA(str);
 
     mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str) / sizeof(uint64_t); i++)
-        if ((c_data[i] | 0xf0f0f0f0f0f0f0f) != 0x3f3f3f3f3f3f3f3f ||
-            (c_data[i] & 0xe0e0e0e0e0e0e0e) >= 0xa0a0a0a0a0a0a0a)
+        if ((cdata[i] | 0xf0f0f0f0f0f0f0f) != 0x3f3f3f3f3f3f3f3f ||
+            (cdata[i] & 0xe0e0e0e0e0e0e0e) >= 0xa0a0a0a0a0a0a0a)
             return MRSTR_FALSE;
 
     for (i *= sizeof(uint64_t); i < MRSTR_LEN(str); i++)

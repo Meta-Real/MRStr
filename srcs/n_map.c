@@ -17,7 +17,7 @@
 
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr))
 {
-    if (!(MRSTR_LEN(str) && len))
+    if (!MRSTR_LEN(str))
         return;
 
     if (len > MRSTR_LEN(str))
@@ -25,6 +25,9 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
 
     if (res == str)
     {
+        if (!len)
+            return;
+
         mrstr_size i;
         for (i = 0; i < len; i++)
             MRSTR_DATA(res)[i] = func(MRSTR_DATA(res)[i]);

@@ -12,11 +12,11 @@
 
 mrstr_bool mrstr_n_isalnum(mrstr_pc str, mrstr_size len)
 {
-    if (!(MRSTR_LEN(str) && len))
-        return MRSTR_TRUE;
-
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
+
+    if (!len)
+        return MRSTR_TRUE;
 
     mrstr_size i;
     for (i = 0; i < len; i++)
