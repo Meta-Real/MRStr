@@ -16,7 +16,7 @@
 typedef char mrstr_chr;
 
 typedef mrstr_chr *mrstr_str;
-typedef const mrstr_str mrstr_cstr;
+typedef const mrstr_chr *mrstr_cstr;
 
 typedef uint64_t mrstr_size;
 
@@ -311,6 +311,10 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
 void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
                   mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+
+/* print functions */
+
+void mrstr_print(mrstr_cstr format, ...);
 
 /* property functions */
 
