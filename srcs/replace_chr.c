@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_replace(mrstr_p, mrstr_pc, mrstr_chr, mrstr_chr)
+ * void mrstr_replace_chr(mrstr_p, mrstr_pc, mrstr_chr, mrstr_chr)
  * Replaces all the old characters from the string with the new character
  *
  * input reqs:
@@ -12,7 +12,7 @@
 
 #include <intern.h>
 
-void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
+void mrstr_replace_chr(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
 {
     if (!MRSTR_LEN(str))
         return;
@@ -29,7 +29,7 @@ void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new)
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_replace", MRSTR_LEN(str) + 1, );
+        mrstr_dbg_aloc_err("mrstr_replace_chr", MRSTR_LEN(str) + 1, );
 
     for (; MRSTR_LEN(res) < MRSTR_LEN(str); MRSTR_LEN(res)++)
     {

@@ -99,6 +99,17 @@ void mrstr_n_set_chr(mrstr_p dst, mrstr_chr src, mrstr_size len);
 void mrstr_link(mrstr_p dst, mrstr_p src);
 void mrstr_swap(mrstr_p str1, mrstr_p str2);
 
+/* iniset functions */
+
+void mrstr_iniset(mrstr_p dst, mrstr_pc src);
+void mrstr_n_iniset(mrstr_p dst, mrstr_pc src, mrstr_size len);
+
+void mrstr_initset_str(mrstr_p dst, mrstr_cstr src);
+void mrstr_n_iniset_str(mrstr_p dst, mrstr_cstr src, mrstr_size len);
+
+void mrstr_iniset_chr(mrstr_p dst, mrstr_chr src);
+void mrstr_n_iniset_chr(mrstr_p dst, mrstr_chr src, mrstr_size len);
+
 /* get functions */
 
 mrstr_str mrstr_get_str(mrstr_pc src);
@@ -118,9 +129,13 @@ void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
 void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
+void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len); //
+void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2); //
 
 void mrstr_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
 void mrstr_n_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2);
+void mrstr_n2_concat_str(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len); //
+void mrstr_nn_concat_str(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_cstr str2, mrstr_size len2); //
 
 void mrstr_concat_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
@@ -128,8 +143,8 @@ void mrstr_n_concat_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr
 /* remove */
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_size idx);
-void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx);
 void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_size idx, mrstr_size len);
+void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx);
 
 void mrstr_remove_chr(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_n_remove_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
@@ -166,8 +181,11 @@ void mrstr_n_rtrim_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr chrs, mrstr_size l
 
 /* replace */
 
-void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new);
-void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new);
+void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_cstr old, mrstr_cstr new); //
+void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr old, mrstr_cstr new); //
+
+void mrstr_replace_chr(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new);
+void mrstr_n_replace_chr(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new);
 
 void mrstr_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_chr new);
 void mrstr_n_replace_chrs(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr olds, mrstr_chr new);
@@ -179,6 +197,9 @@ void mrstr_n_replace_chrs2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr
 
 mrstr_t *mrstr_split(mrstr_size *count, mrstr_pc str, mrstr_chr chr);
 mrstr_t *mrstr_n_split(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_chr chr);
+
+mrstr_t *mrstr_split_chrs(mrstr_size *count, mrstr_pc str, mrstr_cstr chrs); //
+mrstr_t *mrstr_n_split_chrs(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_cstr chrs); //
 
 /* unary operation functions */
 
@@ -315,6 +336,14 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 /* print functions */
 
 void mrstr_print(mrstr_cstr format, ...);
+void mrstr_fprint(FILE* stream, mrstr_cstr format, ...); //
+void mrstr_vprint(FILE* stream, mrstr_cstr format, va_list args); //
+void mrstr_vfprint(FILE* stream, mrstr_cstr format, va_list args); //
+
+mrstr_str mrstr_sprint(mrstr_cstr format, ...); //
+mrstr_str mrstr_fsprint(FILE* stream, mrstr_cstr format, ...); //
+mrstr_str mrstr_vsprint(mrstr_cstr format, va_list args); //
+mrstr_str mrstr_vfsprint(FILE* stream, mrstr_cstr format, va_list args); //
 
 /* property functions */
 
