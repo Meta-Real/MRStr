@@ -14,21 +14,21 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
+void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size cnt)
 {
     if (!MRSTR_LEN(str))
         return;
 
     if (res == str)
     {
-        if (count == 1)
+        if (cnt == 1)
             return;
 
-        if (!count)
+        if (!cnt)
             mrstr_data_free("mrstr_repeat");
 
-        mrstr_size len = MRSTR_LEN(res) * count;
-        if (len / MRSTR_LEN(res) != count)
+        mrstr_size len = MRSTR_LEN(res) * cnt;
+        if (len / MRSTR_LEN(res) != cnt)
             mrstr_dbg_movf_err("mrstr_repeat", );
 
         mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
@@ -58,11 +58,11 @@ void mrstr_repeat(mrstr_p res, mrstr_pc str, mrstr_size count)
         return;
     }
 
-    if (!count)
+    if (!cnt)
         return;
 
-    mrstr_size len = MRSTR_LEN(str) * count;
-    if (len / MRSTR_LEN(str) != count)
+    mrstr_size len = MRSTR_LEN(str) * cnt;
+    if (len / MRSTR_LEN(str) != cnt)
         mrstr_dbg_movf_err("mrstr_repeat", );
 
     MRSTR_DATA(res) = __mrstr_das_alloc(len + 1);

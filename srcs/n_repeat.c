@@ -14,7 +14,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
+void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size cnt)
 {
     if (!MRSTR_LEN(res))
         return;
@@ -24,10 +24,10 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 
     if (res == str)
     {
-        if (!(len && count))
+        if (!(len && cnt))
             mrstr_data_free("mrstr_n_repeat");
 
-        if (count == 1)
+        if (cnt == 1)
         {
             if (len == MRSTR_LEN(res))
                 return;
@@ -43,8 +43,8 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
             return;
         }
 
-        MRSTR_LEN(res) = len * count;
-        if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
+        MRSTR_LEN(res) = len * cnt;
+        if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != cnt)
             mrstr_dbg_movf_err("mrstr_n_repeat", );
 
         mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
@@ -56,8 +56,8 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 
         if (len == 1)
         {
-            memset(MRSTR_DATA(res) + 1, *MRSTR_DATA(res), count - 1);
-            MRSTR_DATA(res)[count] = '\0';
+            memset(MRSTR_DATA(res) + 1, *MRSTR_DATA(res), cnt - 1);
+            MRSTR_DATA(res)[cnt] = '\0';
             return;
         }
 
@@ -72,11 +72,11 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
         return;
     }
 
-    if (!(len && count))
+    if (!(len && cnt))
         return;
 
-    MRSTR_LEN(res) = len * count;
-    if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != count)
+    MRSTR_LEN(res) = len * cnt;
+    if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != cnt)
         mrstr_dbg_movf_err("mrstr_n_repeat", );
 
     MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(res) + 1);
@@ -85,8 +85,8 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size count)
 
     if (len == 1)
     {
-        memset(MRSTR_DATA(res), *MRSTR_DATA(str), count);
-        MRSTR_DATA(res)[count] = '\0';
+        memset(MRSTR_DATA(res), *MRSTR_DATA(str), cnt);
+        MRSTR_DATA(res)[cnt] = '\0';
         return;
     }
 
