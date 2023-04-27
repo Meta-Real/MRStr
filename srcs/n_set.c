@@ -20,6 +20,8 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
 
     if (dst == src)
     {
+        mrstr_str tdata;
+
         if (len == MRSTR_LEN(dst))
             return;
 
@@ -31,8 +33,8 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
             return;
         }
 
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst),
-                                              len + MRSTR_OFFSET(dst) + 1);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst),
+                                    len + MRSTR_OFFSET(dst) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_set", len + MRSTR_OFFSET(dst) + 1, );
 

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-/* type defines */
+/* type definitions */
 
 typedef char mrstr_chr;
 
@@ -75,7 +75,7 @@ typedef struct __mrstr_cdata__ mrstr_cdata_t;
 #define MRSTR_ODIGIT "01234567"
 #define MRSTR_XDIGIT "0123456789abcdefABCDEF"
 
-/* init functions */
+/* init */
 
 void mrstr_init(mrstr_p str);
 void mrstr_init2(mrstr_p str, mrstr_str data);
@@ -85,39 +85,39 @@ void mrstr_inits(mrstr_p str, ...);
 void mrstr_clear(mrstr_p str);
 void mrstr_clears(mrstr_p str, ...);
 
-/* set functions */
+/* set */
 
 void mrstr_set(mrstr_p dst, mrstr_pc src);
 void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len);
 
-void mrstr_sset(mrstr_p dst, mrstr_cstr src);
-void mrstr_n_sset(mrstr_p dst, mrstr_cstr src, mrstr_size len);
+void mrstr_s_set(mrstr_p dst, mrstr_cstr src);
+void mrstr_sn_set(mrstr_p dst, mrstr_cstr src, mrstr_size len);
 
-void mrstr_cset(mrstr_p dst, mrstr_chr src);
-void mrstr_n_cset(mrstr_p dst, mrstr_chr src, mrstr_size cnt);
+void mrstr_c_set(mrstr_p dst, mrstr_chr src);
+void mrstr_cn_set(mrstr_p dst, mrstr_chr src, mrstr_size cnt);
 
 void mrstr_link(mrstr_p dst, mrstr_p src);
 void mrstr_swap(mrstr_p str1, mrstr_p str2);
 
-/* iniset functions */
+/* iniset */
 
 void mrstr_iniset(mrstr_p dst, mrstr_pc src);
 void mrstr_n_iniset(mrstr_p dst, mrstr_pc src, mrstr_size len);
 
-void mrstr_inisset(mrstr_p dst, mrstr_cstr src);
-void mrstr_n_inisset(mrstr_p dst, mrstr_cstr src, mrstr_size len);
+void mrstr_s_iniset(mrstr_p dst, mrstr_cstr src);
+void mrstr_sn_iniset(mrstr_p dst, mrstr_cstr src, mrstr_size len);
 
-void mrstr_inicset(mrstr_p dst, mrstr_chr src);
-void mrstr_n_inicset(mrstr_p dst, mrstr_chr src, mrstr_size cnt);
+void mrstr_c_iniset(mrstr_p dst, mrstr_chr src);
+void mrstr_cn_iniset(mrstr_p dst, mrstr_chr src, mrstr_size cnt);
 
-/* get functions */
+/* get */
 
-mrstr_str mrstr_sget(mrstr_pc src);
-mrstr_str mrstr_n_sget(mrstr_pc src, mrstr_size len);
+mrstr_str mrstr_s_get(mrstr_pc src);
+mrstr_str mrstr_sn_get(mrstr_pc src, mrstr_size len);
 
-mrstr_chr mrstr_cget(mrstr_pc src, mrstr_size idx);
+mrstr_chr mrstr_c_get(mrstr_pc src, mrstr_size idx);
 
-/* io functions */
+/* io */
 
 void mrstr_inp(mrstr_p dst, FILE *src);
 void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len);
@@ -129,11 +129,11 @@ void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
 void mrstr_n_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_pc str2);
-void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len); //
-void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2); //
+void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len);
+void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2, mrstr_size len2);
 
-void mrstr_sconcat(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
-void mrstr_n_sconcat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2);
+void mrstr_s_concat(mrstr_p res, mrstr_pc str1, mrstr_cstr str2);
+void mrstr_sn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2);
 void mrstr_n2_sconcat(mrstr_p res, mrstr_pc str1, mrstr_cstr str2, mrstr_size len); //
 void mrstr_nn_sconcat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_cstr str2, mrstr_size len2); //
 
@@ -435,7 +435,7 @@ enum _err_codes_
     LMCH_ERR, // length match error
 };
 
-typedef char err_code_t;
+typedef uint8_t err_code_t;
 
 extern err_code_t err_code;
 

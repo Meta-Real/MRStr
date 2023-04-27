@@ -16,14 +16,16 @@ void mrstr_inp(mrstr_p dst, FILE *src)
 {
     if (src == stdin || !src)
     {
+        mrstr_size alloc;
+        mrstr_str tdata;
+        mrstr_chr c;
+
         MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_DEF_LEN);
         if (!MRSTR_DATA(dst))
             mrstr_dbg_aloc_err("mrstr_inp", MRSTR_DEF_LEN, );
 
-        mrstr_size alloc = MRSTR_DEF_LEN;
-        mrstr_str tdata;
+        alloc = MRSTR_DEF_LEN;
 
-        mrstr_chr c;
         while ((c = getchar()) != '\n')
         {
             if (MRSTR_LEN(dst) == alloc)

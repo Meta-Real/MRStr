@@ -18,12 +18,15 @@ void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2)
 {
     if (res == str1)
     {
+        mrstr_size len;
+        mrstr_str tdata;
+
         if (!MRSTR_LEN(str2))
             return;
 
-        mrstr_size len = MRSTR_LEN(res) + MRSTR_LEN(str2);
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              len + MRSTR_OFFSET(res) + 1);
+        len = MRSTR_LEN(res) + MRSTR_LEN(str2);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    len + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_concat", len + MRSTR_OFFSET(res) + 1, );
 
@@ -35,14 +38,17 @@ void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2)
 
     if (res == str2)
     {
+        mrstr_size len;
+        mrstr_str tdata;
+
         if (!MRSTR_LEN(str1))
             return;
 
         if (!MRSTR_LEN(res))
         {
             MRSTR_LEN(res) = MRSTR_LEN(str1);
-            mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                                  MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+            tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                        MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
             if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_concat", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
@@ -51,9 +57,9 @@ void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2)
             return;
         }
 
-        mrstr_size len = MRSTR_LEN(res) + MRSTR_LEN(str1);
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              len + MRSTR_OFFSET(res) + 1);
+        len = MRSTR_LEN(res) + MRSTR_LEN(str1);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    len + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_concat", len + MRSTR_OFFSET(res) + 1, );
 
