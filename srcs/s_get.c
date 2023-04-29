@@ -18,7 +18,7 @@ mrstr_str mrstr_s_get(mrstr_pc src)
     if (!MRSTR_LEN(src))
         return NULL;
 
-    dst = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
+    dst = __mrstr_alloc(MRSTR_LEN(src) + 1);
     if (!dst)
         mrstr_dbg_aloc_err("mrstr_s_get", MRSTR_LEN(src) + 1, NULL);
 

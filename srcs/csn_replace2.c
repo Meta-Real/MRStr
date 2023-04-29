@@ -25,7 +25,7 @@ void mrstr_csn_replace2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr ol
         if (!MRSTR_LEN(str) || res == str)
             return;
 
-        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
         if (!MRSTR_DATA(res))
             mrstr_dbg_aloc_err("mrstr_csn_replace2", MRSTR_LEN(str) + 1, );
 
@@ -69,7 +69,7 @@ void mrstr_csn_replace2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr ol
         return;
     }
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+    MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_csn_replace2", MRSTR_LEN(str) + 1, );
 

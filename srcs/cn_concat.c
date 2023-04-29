@@ -20,7 +20,7 @@ void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 
     if (res == str)
     {
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+        mrstr_str tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                               len + MRSTR_OFFSET(res) + 2);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_cn_concat", len + MRSTR_OFFSET(res) + 2, );
@@ -34,7 +34,7 @@ void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 
     if (!len)
     {
-        MRSTR_DATA(res) = __mrstr_das_alloc(2);
+        MRSTR_DATA(res) = __mrstr_alloc(2);
         if (!MRSTR_DATA(res))
             mrstr_dbg_aloc_err("mrstr_cn_concat", 2ULL, );
 
@@ -44,7 +44,7 @@ void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
         return;
     }
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(len + 2);
+    MRSTR_DATA(res) = __mrstr_alloc(len + 2);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_cn_concat", len + 2, );
 

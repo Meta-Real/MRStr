@@ -35,7 +35,7 @@ void mrstr_n_lower(mrstr_p res, mrstr_pc str, mrstr_size len)
         return;
     }
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+    MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_lower", MRSTR_LEN(str) + 1, );
 

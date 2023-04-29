@@ -27,13 +27,13 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
 
         if (!(len || MRSTR_OFFSET(dst)))
         {
-            __mrstr_das_free(MRSTR_DATA(dst));
+            __mrstr_free(MRSTR_DATA(dst));
             MRSTR_DATA(dst) = NULL;
             MRSTR_LEN(dst) = 0;
             return;
         }
 
-        tdata = __mrstr_das_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst),
+        tdata = __mrstr_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst),
                                     len + MRSTR_OFFSET(dst) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_set", len + MRSTR_OFFSET(dst) + 1, );
@@ -47,7 +47,7 @@ void mrstr_n_set(mrstr_p dst, mrstr_pc src, mrstr_size len)
     if (!len)
         return;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(len + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_n_set", len + 1, );
 

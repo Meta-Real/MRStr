@@ -22,7 +22,7 @@ void mrstr_sn_set(mrstr_p dst, mrstr_cstr src, mrstr_size len)
     if (len > slen)
         len = slen;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(len + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(len + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_sn_set", len + 1, );
 

@@ -25,7 +25,7 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
     if (!len)
         return NULL;
 
-    strs = __mrstr_das_alloc(MRSTR_DEF_STR_LST_LEN * sizeof(mrstr_t));
+    strs = __mrstr_alloc(MRSTR_DEF_STR_LST_LEN * sizeof(mrstr_t));
     if (!strs)
         mrstr_dbg_aloc_err("mrstr_n_split", MRSTR_DEF_STR_LST_LEN * sizeof(mrstr_t), NULL);
 
@@ -35,10 +35,10 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
     if (!cnt)
         cnt = &c;
 
-    MRSTR_DATA(*strs) = __mrstr_das_alloc(MRSTR_DEF_LEN);
+    MRSTR_DATA(*strs) = __mrstr_alloc(MRSTR_DEF_LEN);
     if (!MRSTR_DATA(*strs))
     {
-        __mrstr_das_free(strs);
+        __mrstr_free(strs);
         mrstr_dbg_aloc_err("mrstr_n_split", MRSTR_DEF_LEN, NULL);
     }
 
@@ -53,20 +53,20 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
         {
             if (!MRSTR_LEN(*strs))
             {
-                __mrstr_das_free(MRSTR_DATA(*strs));
+                __mrstr_free(MRSTR_DATA(*strs));
                 MRSTR_DATA(*strs) = NULL;
             }
             else
             {
                 if (salloc != MRSTR_LEN(*strs) + 1)
                 {
-                    tdata = __mrstr_das_realloc(MRSTR_DATA(*strs), MRSTR_LEN(*strs) + 1);
+                    tdata = __mrstr_realloc(MRSTR_DATA(*strs), MRSTR_LEN(*strs) + 1);
                     if (!tdata)
                     {
                         for (i = 0; i <= *cnt; i++)
-                            __mrstr_das_free(MRSTR_DATA(strs[i]));
+                            __mrstr_free(MRSTR_DATA(strs[i]));
 
-                        __mrstr_das_free(strs);
+                        __mrstr_free(strs);
                         mrstr_dbg_aloc_err("mrstr_n_split", MRSTR_LEN(*strs) + 1, NULL);
                     }
 
@@ -78,26 +78,26 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
 
             if (++*cnt == alloc)
             {
-                tdata = __mrstr_das_realloc(strs, (alloc += MRSTR_DEF_STR_LST_LEN) * sizeof(mrstr_t));
+                tdata = __mrstr_realloc(strs, (alloc += MRSTR_DEF_STR_LST_LEN) * sizeof(mrstr_t));
                 if (!tdata)
                 {
                     for (i = 0; i < *cnt; i++)
-                        __mrstr_das_free(MRSTR_DATA(strs[i]));
+                        __mrstr_free(MRSTR_DATA(strs[i]));
 
-                    __mrstr_das_free(strs);
+                    __mrstr_free(strs);
                     mrstr_dbg_aloc_err("mrstr_n_split", alloc * sizeof(mrstr_t), NULL);
                 }
 
                 strs = tdata;
             }
 
-            MRSTR_DATA(*strs) = __mrstr_das_alloc(MRSTR_DEF_LEN);
+            MRSTR_DATA(*strs) = __mrstr_alloc(MRSTR_DEF_LEN);
             if (!MRSTR_DATA(*strs))
             {
                 for (i = 0; i < *cnt; i++)
-                    __mrstr_das_free(MRSTR_DATA(strs[i]));
+                    __mrstr_free(MRSTR_DATA(strs[i]));
 
-                __mrstr_das_free(strs);
+                __mrstr_free(strs);
                 mrstr_dbg_aloc_err("mrstr_n_split", MRSTR_DEF_LEN, NULL);
             }
 
@@ -110,13 +110,13 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
         {
             if (MRSTR_LEN(*strs) == salloc)
             {
-                tdata = __mrstr_das_realloc(MRSTR_DATA(*strs), salloc += MRSTR_DEF_LEN);
+                tdata = __mrstr_realloc(MRSTR_DATA(*strs), salloc += MRSTR_DEF_LEN);
                 if (!tdata)
                 {
                     for (i = 0; i <= *cnt; i++)
-                        __mrstr_das_free(MRSTR_DATA(strs[i]));
+                        __mrstr_free(MRSTR_DATA(strs[i]));
 
-                    __mrstr_das_free(strs);
+                    __mrstr_free(strs);
                     mrstr_dbg_aloc_err("mrstr_n_split", salloc, NULL);
                 }
 
@@ -129,20 +129,20 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
 
     if (!MRSTR_LEN(*strs))
     {
-        __mrstr_das_free(MRSTR_DATA(*strs));
+        __mrstr_free(MRSTR_DATA(*strs));
         MRSTR_DATA(*strs) = NULL;
     }
     else
     {
         if (salloc != MRSTR_LEN(*strs) + 1)
         {
-            tdata = __mrstr_das_realloc(MRSTR_DATA(*strs), MRSTR_LEN(*strs) + 1);
+            tdata = __mrstr_realloc(MRSTR_DATA(*strs), MRSTR_LEN(*strs) + 1);
             if (!tdata)
             {
                 for (i = 0; i <= *cnt; i++)
-                    __mrstr_das_free(MRSTR_DATA(strs[i]));
+                    __mrstr_free(MRSTR_DATA(strs[i]));
 
-                __mrstr_das_free(strs);
+                __mrstr_free(strs);
                 mrstr_dbg_aloc_err("mrstr_n_split", MRSTR_LEN(*strs) + 1, NULL);
             }
 
@@ -154,13 +154,13 @@ mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr 
 
     if (++*cnt != alloc)
     {
-        tdata = __mrstr_das_realloc(strs, *cnt * sizeof(mrstr_t));
+        tdata = __mrstr_realloc(strs, *cnt * sizeof(mrstr_t));
         if (!tdata)
         {
             for (i = 0; i < *cnt; i++)
-                __mrstr_das_free(MRSTR_DATA(strs[i]));
+                __mrstr_free(MRSTR_DATA(strs[i]));
 
-            __mrstr_das_free(strs);
+            __mrstr_free(strs);
             mrstr_dbg_aloc_err("mrstr_n_split", *cnt * sizeof(mrstr_t), NULL);
         }
 

@@ -56,53 +56,55 @@
 #define mrstr_dbg_aloc_err(f, s, r) \
     do                              \
     {                               \
-        err_code = ALOC_ERR;        \
+        mrstr_err_code = ALOC_ERR;  \
         return r;                   \
     } while (0)
 
-#define mrstr_dbg_movf_err(f, r) \
-    do                           \
-    {                            \
-        err_code = MOVF_ERR;     \
-        return r;                \
+#define mrstr_dbg_movf_err(f, r)   \
+    do                             \
+    {                              \
+        mrstr_err_code = MOVF_ERR; \
+        return r;                  \
     } while (0)
 
 #define mrstr_dbg_orng_err(f, i, s, r) \
     do                                 \
     {                                  \
-        err_code = ORNG_ERR;           \
+        mrstr_err_code = ORNG_ERR;     \
         return r;                      \
     } while (0)
 
 #define mrstr_dbg_lmch_err(f, i, s, r) \
     do                                 \
     {                                  \
-        err_code = LMCH_ERR;           \
+        mrstr_err_code = LMCH_ERR;     \
         return r;                      \
     } while (0)
 
 #endif
 
-#define mrstr_data_free(f)                                                         \
-    do                                                                             \
-    {                                                                              \
-        MRSTR_LEN(res) = 0;                                                        \
-                                                                                   \
-        if (!MRSTR_OFFSET(res))                                                    \
-        {                                                                          \
-            __mrstr_das_free(MRSTR_DATA(res));                                     \
-            MRSTR_DATA(res) = NULL;                                                \
-            return;                                                                \
-        }                                                                          \
-                                                                                   \
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), \
-                                              MRSTR_OFFSET(res) + 1);              \
-        if (!tdata)                                                                \
-            mrstr_dbg_aloc_err(f, MRSTR_OFFSET(res) + 1, );                        \
-                                                                                   \
-        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);                               \
-        *MRSTR_DATA(res) = '\0';                                                   \
-        return;                                                                    \
+#define mrstr_data_free(f)                                           \
+    do                                                               \
+    {                                                                \
+        mrstr_str tdata;                                             \
+                                                                     \
+        MRSTR_LEN(res) = 0;                                          \
+                                                                     \
+        if (!MRSTR_OFFSET(res))                                      \
+        {                                                            \
+            __mrstr_free(MRSTR_DATA(res));                           \
+            MRSTR_DATA(res) = NULL;                                  \
+            return;                                                  \
+        }                                                            \
+                                                                     \
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), \
+                                    MRSTR_OFFSET(res) + 1);          \
+        if (!tdata)                                                  \
+            mrstr_dbg_aloc_err(f, MRSTR_OFFSET(res) + 1, );          \
+                                                                     \
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);                 \
+        *MRSTR_DATA(res) = '\0';                                     \
+        return;                                                      \
     } while (0)
 
 #endif /* __MRSTR_INTERN__ */

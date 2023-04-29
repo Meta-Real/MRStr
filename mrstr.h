@@ -28,10 +28,6 @@ typedef int8_t mrstr_cmpr;
 #define MRSTR_TRUE ((mrstr_bool)1)
 #define MRSTR_FALSE ((mrstr_bool)0)
 
-#define MRSTR_LEFT ((mrstr_cmpr)-1)
-#define MRSTR_EQUAL ((mrstr_cmpr)0)
-#define MRSTR_RIGHT ((mrstr_cmpr)1)
-
 struct __mrstr__
 {
     mrstr_str _data;
@@ -199,8 +195,8 @@ void mrstr_csn_replace2(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr ol
 mrstr_t *mrstr_split(mrstr_size *cnt, mrstr_pc str, mrstr_chr chr);
 mrstr_t *mrstr_n_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
-mrstr_t *mrstr_cs_split(mrstr_size *cnt, mrstr_pc str, mrstr_cstr chrs); //
-mrstr_t *mrstr_csn_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_cstr chrs); //
+mrstr_t *mrstr_cs_split(mrstr_size *cnt, mrstr_pc str, mrstr_cstr chrs);
+mrstr_t *mrstr_csn_split(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 
 /* unary operation functions */
 
@@ -222,6 +218,14 @@ mrstr_bool mrstr_s_equal(mrstr_pc str1, mrstr_cstr str2);
 mrstr_bool mrstr_sn_equal(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
 
 mrstr_bool mrstr_c_equal(mrstr_pc str, mrstr_chr chr);
+
+mrstr_cmpr mrstr_cmp(mrstr_pc str1, mrstr_pc str2);
+mrstr_cmpr mrstr_n_cmp(mrstr_pc str1, mrstr_pc str2, mrstr_size len);
+
+mrstr_cmpr mrstr_s_cmp(mrstr_pc str1, mrstr_cstr str2);
+mrstr_cmpr mrstr_sn_cmp(mrstr_pc str1, mrstr_cstr str2, mrstr_size len);
+
+mrstr_cmpr mrstr_c_cmp(mrstr_pc str, mrstr_chr chr);
 
 /* contains */
 
@@ -400,7 +404,7 @@ static inline mrstr_bool mrstr_ischr(mrstr_pc str)
 
 #ifndef __MRSTR_DBG__
 
-enum _err_codes_
+enum _mrstr_err_codes_
 {
     NONE_ERR, // nothing
     ALOC_ERR, // allocation error
@@ -409,19 +413,19 @@ enum _err_codes_
     LMCH_ERR, // length match error
 };
 
-typedef uint8_t err_code_t;
+typedef uint8_t mrstr_err_code_t;
 
-extern err_code_t err_code;
+extern mrstr_err_code_t mrstr_err_code;
 
 #endif
 
 /* alloc system */
 
-extern void *(*__mrstr_das_alloc)(mrstr_size size);
-extern void *(*__mrstr_das_realloc)(void *block, mrstr_size size);
-extern void (*__mrstr_das_free)(void *block);
+extern void *(*__mrstr_alloc)(mrstr_size size);
+extern void *(*__mrstr_realloc)(void *block, mrstr_size size);
+extern void (*__mrstr_free)(void *block);
 
-void mrstr_set_def_alloc_sys(
+void mrstr_set_alloc_sys(
     void *(*mrstr_alloc)(mrstr_size size),
     void *(*mrstr_realloc)(void *block, mrstr_size size),
     void (*mrstr_free)(void *block));

@@ -19,7 +19,7 @@ void mrstr_s_set(mrstr_p dst, mrstr_cstr src)
     if (!(src && (slen = strlen(src))))
         return;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(slen + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(slen + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_s_set", slen + 1, );
 

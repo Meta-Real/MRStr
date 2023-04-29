@@ -7,12 +7,12 @@
 #include <mrstr.h>
 
 #ifndef __MRSTR_DBG__
-err_code_t err_code = NONE_ERR;
+mrstr_err_code_t mrstr_err_code = NONE_ERR;
 #endif
 
-void *(*__mrstr_das_alloc)(mrstr_size size) = mrstr_def_alloc;
-void *(*__mrstr_das_realloc)(void *block, mrstr_size size) = mrstr_def_realloc;
-void (*__mrstr_das_free)(void *block) = mrstr_def_free;
+void *(*__mrstr_alloc)(mrstr_size size) = mrstr_def_alloc;
+void *(*__mrstr_realloc)(void *block, mrstr_size size) = mrstr_def_realloc;
+void (*__mrstr_free)(void *block) = mrstr_def_free;
 
 void *mrstr_def_alloc(mrstr_size size)
 {

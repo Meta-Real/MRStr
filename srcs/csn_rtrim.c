@@ -26,7 +26,7 @@ void mrstr_csn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs)
         if (res == str)
             return;
 
-        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
         if (!MRSTR_DATA(res))
             mrstr_dbg_aloc_err("mrstr_csn_rtrim", MRSTR_LEN(str) + 1, );
 
@@ -56,7 +56,7 @@ void mrstr_csn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs)
         if (!i)
             mrstr_data_free("mrstr_csn_rtrim");
 
-        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                     i + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_csn_rtrim", i + MRSTR_OFFSET(res) + 1, );
@@ -70,7 +70,7 @@ void mrstr_csn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs)
     if (!i)
         return;
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(i + 1);
+    MRSTR_DATA(res) = __mrstr_alloc(i + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_csn_rtrim", i + 1, );
 

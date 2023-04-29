@@ -24,7 +24,7 @@ void mrstr_s_iniset(mrstr_p dst, mrstr_cstr src)
         return;
     }
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(slen + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(slen + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_s_iniset", slen + 1, );
 

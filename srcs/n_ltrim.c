@@ -25,7 +25,7 @@ void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
         if (res == str)
             return;
 
-        MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+        MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
         if (!MRSTR_DATA(res))
             mrstr_dbg_aloc_err("mrstr_n_ltrim", MRSTR_LEN(str) + 1, );
 
@@ -54,7 +54,7 @@ void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 
         memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, MRSTR_LEN(res));
 
-        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
                                     MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_ltrim", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
@@ -67,7 +67,7 @@ void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
     if (!MRSTR_LEN(res))
         return;
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(res) + 1);
+    MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(res) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_n_ltrim", MRSTR_LEN(res) + 1, );
 

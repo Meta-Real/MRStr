@@ -18,7 +18,7 @@ void mrstr_set(mrstr_p dst, mrstr_pc src)
     if (!MRSTR_LEN(src) || dst == src)
         return;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(MRSTR_LEN(src) + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(MRSTR_LEN(src) + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_set", MRSTR_LEN(src) + 1, );
 

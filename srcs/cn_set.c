@@ -17,7 +17,7 @@ void mrstr_cn_set(mrstr_p dst, mrstr_chr src, mrstr_size cnt)
     if (!cnt)
         return;
 
-    MRSTR_DATA(dst) = __mrstr_das_alloc(cnt + 1);
+    MRSTR_DATA(dst) = __mrstr_alloc(cnt + 1);
     if (!MRSTR_DATA(dst))
         mrstr_dbg_aloc_err("mrstr_cn_set", cnt + 1, );
 

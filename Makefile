@@ -17,7 +17,7 @@ make: $(LIB) $(DLL)
 
 remake: clean $(LIB) $(DLL)
 
-all: clean $(LIB) $(DLL) test
+all: clean-all $(LIB) $(DLL) test
 
 test: $(DLL) $(OUTS)
 	-@for test in $(OUTS) ; do $$test ; done
@@ -37,9 +37,11 @@ $(ODIR)/%.o: $(SDIR)/%.c
 $(TDIR)/%.exe: $(TDIR)/%.c
 	$(CC) $(CFLAGS) $< $(DLL) -o $@ -I .
 
-clean: clean-test
+clean:
 	@rm -f $(shell find $(ODIR) -name "*.o")
 	@rm -f $(LIB) $(DLL)
+
+clean-all: clean clean-test
 
 clean-test:
 	@rm -f $(shell find $(TDIR) -name "*.exe")

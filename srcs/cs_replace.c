@@ -38,7 +38,7 @@ void mrstr_cs_replace(mrstr_p res, mrstr_pc str, mrstr_cstr olds, mrstr_chr new)
         return;
     }
 
-    MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
+    MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
     if (!MRSTR_DATA(res))
         mrstr_dbg_aloc_err("mrstr_cs_replace", MRSTR_LEN(str) + 1, );
 
