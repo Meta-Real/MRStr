@@ -12,18 +12,20 @@
 
 mrstr_bool mrstr_are(mrstr_pc str, mrstr_chr chr)
 {
+    const mrstr_size *cdata;
+    mrstr_size mask, i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    const uint64_t* cdata = (const uint64_t*)MRSTR_DATA(str);
-    uint64_t mask = chr * 0x0101010101010101;
+    cdata = (const mrstr_size*)MRSTR_DATA(str);
+    mask = chr * 0x0101010101010101;
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str) / sizeof(uint64_t); i++)
+    for (i = 0; i < MRSTR_LEN(str) / sizeof(mrstr_size); i++)
         if (cdata[i] ^ mask)
             return MRSTR_FALSE;
 
-    for (i *= sizeof(uint64_t); i < MRSTR_LEN(str); i++)
+    for (i *= sizeof(mrstr_size); i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] != chr)
             return MRSTR_FALSE;
 

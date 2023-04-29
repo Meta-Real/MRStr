@@ -23,10 +23,11 @@ void mrstr_n_lower(mrstr_p res, mrstr_pc str, mrstr_size len)
 
     if (res == str)
     {
+        mrstr_size i;
+
         if (!len)
             return;
 
-        mrstr_size i;
         for (i = 0; i < len; i++)
             if (MRSTR_DATA(res)[i] >= 'A' && MRSTR_DATA(res)[i] <= 'Z')
                 MRSTR_DATA(res)[i] += 32;

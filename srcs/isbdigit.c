@@ -12,17 +12,19 @@
 
 mrstr_bool mrstr_isbdigit(mrstr_pc str)
 {
+    const mrstr_size *cdata;
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    const uint64_t* cdata = (const uint64_t*)MRSTR_DATA(str);
+    cdata = (const mrstr_size*)MRSTR_DATA(str);
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str) / sizeof(uint64_t); i++)
+    for (i = 0; i < MRSTR_LEN(str) / sizeof(mrstr_size); i++)
         if ((cdata[i] & 0xfefefefefefefefe) != 0x3030303030303030)
             return MRSTR_FALSE;
 
-    for (i *= sizeof(uint64_t); i < MRSTR_LEN(str); i++)
+    for (i *= sizeof(mrstr_size); i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] != '0' && MRSTR_DATA(str)[i] != '1')
             return MRSTR_FALSE;
 

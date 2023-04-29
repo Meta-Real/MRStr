@@ -13,10 +13,12 @@
 
 void mrstr_print(mrstr_cstr format, ...)
 {
+    va_list ap;
+    mrstr_p s;
+
     if (!format)
         return;
 
-    va_list ap;
     va_start(ap, format);
 
     while (*format)
@@ -37,7 +39,7 @@ void mrstr_print(mrstr_cstr format, ...)
             fputs(MRSTR_DATA(va_arg(ap, mrstr_p)), stdout);
             break;
         case 'R':
-            mrstr_p s = va_arg(ap, mrstr_p);
+            s = va_arg(ap, mrstr_p);
             printf("{data = \"%s\", len = %llu, offset = %llu}",
                   MRSTR_DATA(s), MRSTR_LEN(s), MRSTR_OFFSET(s));
             break;
@@ -114,7 +116,7 @@ void mrstr_print(mrstr_cstr format, ...)
                 printf("%lf", va_arg(ap, double));
                 break;
             case 'R':
-                mrstr_p s = va_arg(ap, mrstr_p);
+                s = va_arg(ap, mrstr_p);
                 printf("{ptr = %p, sptr = %p, eptr = %p, "
                        "data = \"%s\", "
                        "alloc = %llu, len = %llu, "

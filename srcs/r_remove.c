@@ -15,6 +15,8 @@
 
 void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx)
 {
+    mrstr_size diff;
+
     if (sidx >= MRSTR_LEN(str))
         mrstr_dbg_orng_err("mrstr_r_remove", sidx, MRSTR_LEN(str), );
 
@@ -24,18 +26,20 @@ void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx)
     if (eidx > MRSTR_LEN(str))
         eidx = MRSTR_LEN(str);
 
-    mrstr_size diff = eidx - sidx;
+    diff = eidx - sidx;
 
     if (res == str)
     {
+        mrstr_str tdata;
+
         if (diff == MRSTR_LEN(res))
             mrstr_data_free("mrstr_r_remove");
 
         memmove(MRSTR_DATA(res) + sidx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= diff;
 
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 

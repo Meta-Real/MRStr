@@ -21,13 +21,15 @@ void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_size idx)
 
     if (res == str)
     {
+        mrstr_str tdata;
+
         if (MRSTR_LEN(res) == 1)
             mrstr_data_free("mrstr_remove");
 
         memmove(MRSTR_DATA(res) + idx, MRSTR_DATA(res) + idx + 1, MRSTR_LEN(res) - idx);
 
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              MRSTR_LEN(res) + MRSTR_OFFSET(res));
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    MRSTR_LEN(res) + MRSTR_OFFSET(res));
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res), );
 

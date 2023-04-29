@@ -12,13 +12,14 @@
 
 mrstr_bool mrstr_n_islower(mrstr_pc str, mrstr_size len)
 {
+    mrstr_size i;
+
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
     if (!len)
         return MRSTR_TRUE;
 
-    mrstr_size i;
     for (i = 0; i < len; i++)
         if (MRSTR_DATA(str)[i] >= 'A' && MRSTR_DATA(str)[i] <= 'Z')
             return MRSTR_FALSE;

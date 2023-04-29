@@ -1,0 +1,67 @@
+/*/
+ * MetaReal String Library version 1.0.0
+ *
+ * void mrstr_trim(mrstr_p, mrstr_pc, mrstr_chr)
+ * Trims the left and right set of characters matching the character
+ *
+ * input reqs:
+ *  (res) pointer must be valid
+ *  (res) must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
+ *  (str) pointer must be valid
+/*/
+
+#include <intern.h>
+#include <string.h>
+
+void mrstr_trim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
+{
+    mrstr_size i, j;
+
+    if (!MRSTR_LEN(str))
+        return;
+
+    for (i = 0; i < MRSTR_LEN(str); i++)
+        if (MRSTR_DATA(str)[i] != chr)
+            break;
+
+    for (j = MRSTR_LEN(str); j != i;)
+        if (MRSTR_DATA(str)[--j] != chr)
+        {
+            j -= i - 1;
+            break;
+        }
+
+    if (res == str)
+    {
+        mrstr_str tdata;
+
+        if (j == MRSTR_LEN(res))
+            return;
+
+        if (i == MRSTR_LEN(res))
+            mrstr_data_free("mrstr_trim");
+
+        memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, j);
+
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    j + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
+            mrstr_dbg_aloc_err("mrstr_trim", j + MRSTR_OFFSET(res) + 1, );
+
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+        MRSTR_DATA(res)[j] = '\0';
+        MRSTR_LEN(res) = j;
+        return;
+    }
+
+    if (i == MRSTR_LEN(str))
+        return;
+
+    MRSTR_DATA(res) = __mrstr_das_alloc(j + 1);
+    if (!MRSTR_DATA(res))
+        mrstr_dbg_aloc_err("mrstr_trim", j + 1, );
+
+    memcpy(MRSTR_DATA(res), MRSTR_DATA(str) + i, j);
+    MRSTR_DATA(res)[j] = '\0';
+    MRSTR_LEN(res) = j;
+}

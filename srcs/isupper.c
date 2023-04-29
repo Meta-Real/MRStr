@@ -12,10 +12,11 @@
 
 mrstr_bool mrstr_isupper(mrstr_pc str)
 {
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] >= 'a' && MRSTR_DATA(str)[i] <= 'z')
             return MRSTR_FALSE;

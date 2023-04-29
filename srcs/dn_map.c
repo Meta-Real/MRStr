@@ -18,13 +18,14 @@
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
                   mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data))
 {
+    mrstr_cdata_t data;
+
     if (!MRSTR_LEN(str))
         return;
 
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
-    mrstr_cdata_t data;
     data.str = str;
     data.idx = 0;
     data.prev = '\0';
@@ -32,10 +33,12 @@ void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
 
     if (res == str)
     {
+        mrstr_str tdata;
+
         if (!len)
             return;
 
-        mrstr_str tdata = __mrstr_das_alloc(len);
+        tdata = __mrstr_das_alloc(len);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_dn_map", len, );
 

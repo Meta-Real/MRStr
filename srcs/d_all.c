@@ -15,10 +15,11 @@
 
 mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data))
 {
+    mrstr_cdata_t data;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    mrstr_cdata_t data;
     data.str = str;
     data.idx = 0;
     data.prev = '\0';

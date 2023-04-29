@@ -12,10 +12,11 @@
 
 mrstr_bool mrstr_isalnum(mrstr_pc str)
 {
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '9' &&
             (MRSTR_DATA(str)[i] < 'A' || MRSTR_DATA(str)[i] > 'Z' &&

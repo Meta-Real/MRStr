@@ -2,67 +2,68 @@
  * MetaReal String Library version 1.0.0
  *
  * mrstr_size *mrstr_n_find_all(mrstr_size*, mrstr_pc, mrstr_size, mrstr_pc)
- * Returns the indexes of the matched substrings within the string and their count up to the length
+ * Returns the indexes of the matched substrings within the string up to the length
  *
  * input reqs:
  *  (str) pointer must be valid
- *  (substr) pointer must be valid
- *  (count) pointer must be valid
- *  (count) value must be zero (if pointer is not NULL)
+ *  (sub) pointer must be valid
+ *  (cnt) pointer must be valid
+ *  (cnt) value must be zero (if pointer is not NULL)
 /*/
 
 #include <intern.h>
 #include <string.h>
 
-mrstr_size *mrstr_n_find_all(mrstr_size *count, mrstr_pc str, mrstr_size len, mrstr_pc substr)
+mrstr_size *mrstr_n_find_all(mrstr_size *cnt, mrstr_pc str, mrstr_size len, mrstr_pc sub)
 {
+    mrstr_size *idxs, *tdata;
+    mrstr_size alloc, c, i;
+
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
-    if (!MRSTR_LEN(substr) || len < MRSTR_LEN(substr))
+    if (!MRSTR_LEN(sub) || len < MRSTR_LEN(sub))
         return NULL;
 
-    if (str == substr)
+    if (str == sub)
     {
-        mrstr_size *idxs = __mrstr_das_alloc(sizeof(mrstr_size));
+        idxs = __mrstr_das_alloc(sizeof(mrstr_size));
         if (!idxs)
             mrstr_dbg_aloc_err("mrstr_n_find_all", sizeof(mrstr_size), NULL);
 
         *idxs = 0;
-        *count = 1;
+        *cnt = 1;
         return idxs;
     }
 
-    if (len == MRSTR_LEN(substr))
+    if (len == MRSTR_LEN(sub))
     {
-        if (memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), len))
+        if (memcmp(MRSTR_DATA(str), MRSTR_DATA(sub), len))
             return NULL;
 
-        mrstr_size *idxs = __mrstr_das_alloc(sizeof(mrstr_size));
+        idxs = __mrstr_das_alloc(sizeof(mrstr_size));
         if (!idxs)
             mrstr_dbg_aloc_err("mrstr_n_find_all", sizeof(mrstr_size), NULL);
 
         *idxs = 0;
-        *count = 1;
+        *cnt = 1;
         return idxs;
     }
 
-    mrstr_size *idxs = __mrstr_das_alloc(MRSTR_DEF_IDX_LST_LEN * sizeof(mrstr_size));
+    idxs = __mrstr_das_alloc(MRSTR_DEF_IDX_LST_LEN * sizeof(mrstr_size));
     if (!idxs)
         mrstr_dbg_aloc_err("mrstr_n_find_all", MRSTR_DEF_IDX_LST_LEN * sizeof(mrstr_size), NULL);
 
-    mrstr_size alloc = MRSTR_DEF_IDX_LST_LEN;
+    alloc = MRSTR_DEF_IDX_LST_LEN;
 
-    mrstr_size c = 0;
-    if (!count)
-        count = &c;
+    c = 0;
+    if (!cnt)
+        cnt = &c;
 
-    mrstr_size i;
-    mrstr_size *tdata;
-    for (i = 0; i <= len - MRSTR_LEN(substr); i++)
-        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = 0; i <= len - MRSTR_LEN(sub); i++)
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(sub), MRSTR_LEN(sub)))
         {
-            if (*count == alloc)
+            if (*cnt == alloc)
             {
                 tdata = __mrstr_das_realloc(idxs, (alloc += MRSTR_DEF_IDX_LST_LEN) * sizeof(mrstr_size));
                 if (!tdata)
@@ -74,22 +75,22 @@ mrstr_size *mrstr_n_find_all(mrstr_size *count, mrstr_pc str, mrstr_size len, mr
                 idxs = tdata;
             }
 
-            idxs[(*count)++] = i;
+            idxs[(*cnt)++] = i;
         }
 
-    if (!*count)
+    if (!*cnt)
     {
         __mrstr_das_free(idxs);
         return NULL;
     }
 
-    if (*count != alloc)
+    if (*cnt != alloc)
     {
-        tdata = __mrstr_das_realloc(idxs, *count * sizeof(mrstr_size));
+        tdata = __mrstr_das_realloc(idxs, *cnt * sizeof(mrstr_size));
         if (!tdata)
         {
             __mrstr_das_free(idxs);
-            mrstr_dbg_aloc_err("mrstr_n_find_all", *count * sizeof(mrstr_size), NULL);
+            mrstr_dbg_aloc_err("mrstr_n_find_all", *cnt * sizeof(mrstr_size), NULL);
         }
 
         idxs = tdata;

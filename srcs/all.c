@@ -15,10 +15,11 @@
 
 mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr))
 {
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)
         if (func(MRSTR_DATA(str)[i]) == MRSTR_FALSE)
             return MRSTR_FALSE;

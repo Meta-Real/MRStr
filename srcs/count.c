@@ -6,26 +6,28 @@
  *
  * input reqs:
  *  (str) pointer must be valid
- *  (substr) pointer must be valid
+ *  (sub) pointer must be valid
 /*/
 
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_size mrstr_count(mrstr_pc str, mrstr_pc substr)
+mrstr_size mrstr_count(mrstr_pc str, mrstr_pc sub)
 {
-    if (str == substr)
+    mrstr_size i, c;
+
+    if (str == sub)
         return 1;
 
-    if (!MRSTR_LEN(substr) || MRSTR_LEN(str) < MRSTR_LEN(substr))
+    if (!MRSTR_LEN(sub) || MRSTR_LEN(str) < MRSTR_LEN(sub))
         return 0;
 
-    if (MRSTR_LEN(str) == MRSTR_LEN(substr))
-        return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? 0 : 1;
+    if (MRSTR_LEN(str) == MRSTR_LEN(sub))
+        return memcmp(MRSTR_DATA(str), MRSTR_DATA(sub), MRSTR_LEN(str)) ? 0 : 1;
 
-    mrstr_size i, c = 0;
-    for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(substr); i++)
-        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    c = 0;
+    for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(sub); i++)
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(sub), MRSTR_LEN(sub)))
             c++;
 
     return c;

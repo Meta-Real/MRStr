@@ -7,29 +7,30 @@
  *
  * input reqs:
  *  (str) pointer must be valid
- *  (substr) pointer must be valid
+ *  (sub) pointer must be valid
 /*/
 
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_size mrstr_rfind(mrstr_pc str, mrstr_pc substr)
+mrstr_size mrstr_rfind(mrstr_pc str, mrstr_pc sub)
 {
-    if (str == substr)
+    mrstr_size i;
+
+    if (str == sub)
         return 0;
 
-    if (!MRSTR_LEN(substr))
+    if (!MRSTR_LEN(sub))
         return MRSTR_LEN(str);
 
-    if (MRSTR_LEN(str) < MRSTR_LEN(substr))
+    if (MRSTR_LEN(str) < MRSTR_LEN(sub))
         return MRSTR_NF;
 
-    if (MRSTR_LEN(str) == MRSTR_LEN(substr))
-        return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? MRSTR_NF : 0;
+    if (MRSTR_LEN(str) == MRSTR_LEN(sub))
+        return memcmp(MRSTR_DATA(str), MRSTR_DATA(sub), MRSTR_LEN(str)) ? MRSTR_NF : 0;
 
-    mrstr_size i;
-    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr) + 1; i;)
-        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = MRSTR_LEN(str) - MRSTR_LEN(sub) + 1; i;)
+        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(sub), MRSTR_LEN(sub)))
             return i;
 
     return MRSTR_NF;

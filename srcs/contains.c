@@ -6,26 +6,27 @@
  *
  * input reqs:
  *  (str) pointer must be valid
- *  (substr) pointer must be valid
+ *  (sub) pointer must be valid
 /*/
 
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc substr)
+mrstr_bool mrstr_contains(mrstr_pc str, mrstr_pc sub)
 {
-    if (str == substr || !MRSTR_LEN(substr))
+    mrstr_size i;
+
+    if (str == sub || !MRSTR_LEN(sub))
         return MRSTR_TRUE;
 
-    if (MRSTR_LEN(str) < MRSTR_LEN(substr))
+    if (MRSTR_LEN(str) < MRSTR_LEN(sub))
         return MRSTR_FALSE;
 
-    if (MRSTR_LEN(str) == MRSTR_LEN(substr))
-        return memcmp(MRSTR_DATA(str), MRSTR_DATA(substr), MRSTR_LEN(str)) ? MRSTR_FALSE : MRSTR_TRUE;
+    if (MRSTR_LEN(str) == MRSTR_LEN(sub))
+        return memcmp(MRSTR_DATA(str), MRSTR_DATA(sub), MRSTR_LEN(str)) ? MRSTR_FALSE : MRSTR_TRUE;
 
-    mrstr_size i;
-    for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(substr); i++)
-        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = 0; i <= MRSTR_LEN(str) - MRSTR_LEN(sub); i++)
+        if (!memcmp(MRSTR_DATA(str) + i, MRSTR_DATA(sub), MRSTR_LEN(sub)))
             return MRSTR_TRUE;
 
     return MRSTR_FALSE;

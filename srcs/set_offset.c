@@ -12,12 +12,14 @@
 
 void mrstr_set_offset(mrstr_p str, mrstr_size offset)
 {
+    mrstr_size diff;
+
     if (MRSTR_OFFSET(str) == offset)
         return;
 
     if (offset < MRSTR_OFFSET(str))
     {
-        mrstr_size diff = MRSTR_OFFSET(str) - offset;
+        diff = MRSTR_OFFSET(str) - offset;
 
         MRSTR_DATA(str) -= diff;
         MRSTR_LEN(str) += diff;
@@ -25,7 +27,7 @@ void mrstr_set_offset(mrstr_p str, mrstr_size offset)
         return;
     }
 
-    mrstr_size diff = offset - MRSTR_OFFSET(str);
+    diff = offset - MRSTR_OFFSET(str);
 
     if (diff > MRSTR_LEN(str))
         diff = MRSTR_LEN(str);

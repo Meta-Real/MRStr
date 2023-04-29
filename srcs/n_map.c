@@ -25,10 +25,11 @@ void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mr
 
     if (res == str)
     {
+        mrstr_size i;
+
         if (!len)
             return;
 
-        mrstr_size i;
         for (i = 0; i < len; i++)
             MRSTR_DATA(res)[i] = func(MRSTR_DATA(res)[i]);
 

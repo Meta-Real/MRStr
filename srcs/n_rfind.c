@@ -7,37 +7,38 @@
  *
  * input reqs:
  *  (str) pointer must be valid
- *  (substr) pointer must be valid
+ *  (sub) pointer must be valid
 /*/
 
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_size mrstr_n_rfind(mrstr_pc str, mrstr_size len, mrstr_pc substr)
+mrstr_size mrstr_n_rfind(mrstr_pc str, mrstr_size len, mrstr_pc sub)
 {
+    mrstr_size sidx, i;
+
     if (len > MRSTR_LEN(str))
         len = MRSTR_LEN(str);
 
     if (!len)
         return MRSTR_NF;
 
-    if (!MRSTR_LEN(substr))
+    if (!MRSTR_LEN(sub))
         return MRSTR_LEN(str);
 
-    if (len < MRSTR_LEN(substr))
+    if (len < MRSTR_LEN(sub))
         return MRSTR_NF;
 
-    if (str == substr)
+    if (str == sub)
         return 0;
 
-    mrstr_size sidx = MRSTR_LEN(str) - len;
+    sidx = MRSTR_LEN(str) - len;
 
-    if (len == MRSTR_LEN(substr))
-        return memcmp(MRSTR_DATA(str) + sidx, MRSTR_DATA(substr), len) ? MRSTR_NF : sidx;
+    if (len == MRSTR_LEN(sub))
+        return memcmp(MRSTR_DATA(str) + sidx, MRSTR_DATA(sub), len) ? MRSTR_NF : sidx;
 
-    mrstr_size i;
-    for (i = MRSTR_LEN(str) - MRSTR_LEN(substr) + 1; i != sidx;)
-        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(substr), MRSTR_LEN(substr)))
+    for (i = MRSTR_LEN(str) - MRSTR_LEN(sub) + 1; i != sidx;)
+        if (!memcmp(MRSTR_DATA(str) + --i, MRSTR_DATA(sub), MRSTR_LEN(sub)))
             return i;
 
     return MRSTR_NF;

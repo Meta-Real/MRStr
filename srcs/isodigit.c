@@ -12,18 +12,20 @@
 
 mrstr_bool mrstr_isodigit(mrstr_pc str)
 {
+    const mrstr_size *cdata;
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    const uint64_t* cdata = (const uint64_t*)MRSTR_DATA(str);
+    cdata = (const mrstr_size*)MRSTR_DATA(str);
 
-    mrstr_size i;
-    for (i = 0; i < MRSTR_LEN(str) / sizeof(uint64_t); i++)
+    for (i = 0; i < MRSTR_LEN(str) / sizeof(mrstr_size); i++)
         if ((cdata[i] | 0xf0f0f0f0f0f0f0f) != 0x3f3f3f3f3f3f3f3f ||
             cdata[i] & 0x808080808080808)
             return MRSTR_FALSE;
 
-    for (i *= sizeof(uint64_t); i < MRSTR_LEN(str); i++)
+    for (i *= sizeof(mrstr_size); i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '7')
             return MRSTR_FALSE;
 

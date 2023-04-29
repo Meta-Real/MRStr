@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_nn_cstrim(mrstr_p, mrstr_pc, mrstr_cstr, mrstr_size, mrstr_size)
+ * void mrstr_csnn_trim(mrstr_p, mrstr_pc, mrstr_size, mrstr_size, mrstr_cstr)
  * Trims the left and right set of characters matching one of the characters up to the lengths
  *
  * input reqs:
@@ -14,41 +14,40 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_nn_cstrim(mrstr_p res, mrstr_pc str, mrstr_cstr chrs, mrstr_size len1, mrstr_size len2)
+void mrstr_csnn_trim(mrstr_p res, mrstr_pc str, mrstr_size llen, mrstr_size rlen, mrstr_cstr chrs)
 {
+    mrstr_size clen, i, eidx, j;
+
     if (!MRSTR_LEN(str))
         return;
 
-    mrstr_size clen;
-    if (!((len1 || len2) && chrs && (clen = strlen(chrs))))
+    if (!((llen || rlen) && chrs && (clen = strlen(chrs))))
     {
         if (res == str)
             return;
 
         MRSTR_DATA(res) = __mrstr_das_alloc(MRSTR_LEN(str) + 1);
         if (!MRSTR_DATA(res))
-            mrstr_dbg_aloc_err("mrstr_nn_cstrim", MRSTR_LEN(str) + 1, );
+            mrstr_dbg_aloc_err("mrstr_csnn_trim", MRSTR_LEN(str) + 1, );
 
         memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str) + 1);
         MRSTR_LEN(res) = MRSTR_LEN(str);
     }
 
-    if (len1 > MRSTR_LEN(str))
-        len1 = MRSTR_LEN(str);
+    if (llen > MRSTR_LEN(str))
+        llen = MRSTR_LEN(str);
 
-    if (len2 > MRSTR_LEN(str))
-        len2 = MRSTR_LEN(str);
+    if (rlen > MRSTR_LEN(str))
+        rlen = MRSTR_LEN(str);
 
-    mrstr_size i;
-    for (i = 0; i < len1; i++)
+    for (i = 0; i < llen; i++)
         if (!memchr(chrs, MRSTR_DATA(str)[i], clen))
             break;
 
-    mrstr_size eidx = MRSTR_LEN(str) - len2;
+    eidx = MRSTR_LEN(str) - rlen;
     if (eidx < i)
         eidx = i;
 
-    mrstr_size j;
     for (j = MRSTR_LEN(str); j != eidx;)
         if (!memchr(chrs, MRSTR_DATA(str)[--j], clen))
         {
@@ -58,18 +57,20 @@ void mrstr_nn_cstrim(mrstr_p res, mrstr_pc str, mrstr_cstr chrs, mrstr_size len1
 
     if (res == str)
     {
+        mrstr_str tdata;
+
         if (j == MRSTR_LEN(res))
             return;
 
         if (i == MRSTR_LEN(res))
-            mrstr_data_free("mrstr_nn_cstrim");
+            mrstr_data_free("mrstr_csnn_trim");
 
         memmove(MRSTR_DATA(res), MRSTR_DATA(res) + i, j);
 
-        mrstr_str tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              j + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_das_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
+                                    j + MRSTR_OFFSET(res) + 1);
         if (!tdata)
-            mrstr_dbg_aloc_err("mrstr_nn_cstrim", j + MRSTR_OFFSET(res) + 1, );
+            mrstr_dbg_aloc_err("mrstr_csnn_trim", j + MRSTR_OFFSET(res) + 1, );
 
         MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[j] = '\0';
@@ -82,7 +83,7 @@ void mrstr_nn_cstrim(mrstr_p res, mrstr_pc str, mrstr_cstr chrs, mrstr_size len1
 
     MRSTR_DATA(res) = __mrstr_das_alloc(j + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_nn_cstrim", j + 1, );
+        mrstr_dbg_aloc_err("mrstr_csnn_trim", j + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str) + i, j);
     MRSTR_DATA(res)[j] = '\0';

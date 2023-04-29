@@ -12,10 +12,11 @@
 
 mrstr_bool mrstr_isspace(mrstr_pc str)
 {
+    mrstr_size i;
+
     if (!MRSTR_LEN(str))
         return MRSTR_TRUE;
 
-    mrstr_size i;
     for (i = 0; i < MRSTR_LEN(str); i++)
         if (MRSTR_DATA(str)[i] != ' ' && MRSTR_DATA(str)[i] != '\f' &&
             MRSTR_DATA(str)[i] != '\n' && MRSTR_DATA(str)[i] != '\r' &&

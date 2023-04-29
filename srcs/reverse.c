@@ -19,11 +19,11 @@ void mrstr_reverse(mrstr_p res, mrstr_pc str)
 
     if (res == str)
     {
+        mrstr_chr tchr;
+        mrstr_size i, j;
+
         if (MRSTR_LEN(res) == 1)
             return;
-
-        char tchr;
-        mrstr_size i, j;
         for (i = 0; i < MRSTR_LEN(res) / 2; i++)
         {
             tchr = MRSTR_DATA(res)[i];

@@ -17,10 +17,11 @@
 
 void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data))
 {
+    mrstr_cdata_t data;
+
     if (!MRSTR_LEN(str))
         return;
 
-    mrstr_cdata_t data;
     data.str = str;
     data.idx = 0;
     data.prev = '\0';
