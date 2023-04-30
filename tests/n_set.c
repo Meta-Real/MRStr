@@ -9,7 +9,7 @@
 
 int main()
 {
-    char* s = malloc(22);
+    mrstr_str s = malloc(22);
     strcpy(s, "Some Interesting TEXT");
 
     mrstr_t a, b;

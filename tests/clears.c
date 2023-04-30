@@ -9,10 +9,10 @@
 
 int main()
 {
-    char* s1 = malloc(6);
+    mrstr_str s1 = malloc(6);
     strcpy(s1, "Hello");
 
-    char* s2 = malloc(12);
+    mrstr_str s2 = malloc(12);
     strcpy(s2, "Hello World");
 
     mrstr_t a, b, c;

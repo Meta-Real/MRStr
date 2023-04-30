@@ -14,7 +14,7 @@ int main()
     MRSTR_LEN(a) = 300;
     MRSTR_OFFSET(a) = 12;
 
-    char* s = malloc(6);
+    mrstr_str s = malloc(6);
     strcpy(s, "Hello");
 
     mrstr_init3(a, s, 5, 0);
