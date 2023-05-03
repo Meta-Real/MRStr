@@ -136,11 +136,15 @@ void mrstr_sn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2
 void mrstr_c_concat(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
+void mrstr_join(mrstr_p res, mrstr_pc sep, ...);
+void mrstr_s_join(mrstr_p res, mrstr_cstr sep, ...);
+void mrstr_c_join(mrstr_p res, mrstr_chr sep, ...);
+
 /* remove functions */
 
 void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_size idx);
-void mrstr_n_remove(mrstr_p res, mrstr_p str, mrstr_size idx, mrstr_size len);
-void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx);
+void mrstr_n_remove(mrstr_p res, mrstr_pc str, mrstr_size idx, mrstr_size len);
+void mrstr_r_remove(mrstr_p res, mrstr_pc str, mrstr_size sidx, mrstr_size eidx);
 
 void mrstr_c_remove(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_cn_remove(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
@@ -282,13 +286,13 @@ mrstr_size mrstr_cn_count(mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 /* check functions */
 
-mrstr_bool mrstr_start_with(mrstr_pc str, mrstr_pc sub);
-mrstr_bool mrstr_s_start_with(mrstr_pc str, mrstr_cstr sub);
-mrstr_bool mrstr_c_start_with(mrstr_pc str, mrstr_chr chr);
+mrstr_bool mrstr_startwith(mrstr_pc str, mrstr_pc sub);
+mrstr_bool mrstr_s_startwith(mrstr_pc str, mrstr_cstr sub);
+mrstr_bool mrstr_c_startwith(mrstr_pc str, mrstr_chr chr);
 
-mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc sub);
-mrstr_bool mrstr_s_end_with(mrstr_pc str, mrstr_cstr sub);
-mrstr_bool mrstr_c_end_with(mrstr_pc str, mrstr_chr chr);
+mrstr_bool mrstr_endwith(mrstr_pc str, mrstr_pc sub);
+mrstr_bool mrstr_s_endwith(mrstr_pc str, mrstr_cstr sub);
+mrstr_bool mrstr_c_endwith(mrstr_pc str, mrstr_chr chr);
 
 mrstr_bool mrstr_isdigit(mrstr_pc str);
 mrstr_bool mrstr_n_isdigit(mrstr_pc str, mrstr_size len);

@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_r_remove(mrstr_p, mrstr_p, mrstr_size, mrstr_size)
+ * void mrstr_r_remove(mrstr_p, mrstr_pc, mrstr_size, mrstr_size)
  * Removes the characters in the specified range of the string
  *
  * input reqs:
@@ -13,7 +13,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_r_remove(mrstr_p res, mrstr_p str, mrstr_size sidx, mrstr_size eidx)
+void mrstr_r_remove(mrstr_p res, mrstr_pc str, mrstr_size sidx, mrstr_size eidx)
 {
     mrstr_size diff;
 

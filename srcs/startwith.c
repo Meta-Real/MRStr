@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_start_with(mrstr_pc, mrstr_pc)
+ * mrstr_bool mrstr_startwith(mrstr_pc, mrstr_pc)
  * Checks whether the string starts with the substring
  *
  * input reqs:
@@ -12,7 +12,7 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_start_with(mrstr_pc str, mrstr_pc substr)
+mrstr_bool mrstr_startwith(mrstr_pc str, mrstr_pc substr)
 {
     if (str == substr || !MRSTR_LEN(substr))
         return MRSTR_TRUE;

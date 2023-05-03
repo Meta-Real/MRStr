@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_end_with(mrstr_pc, mrstr_pc)
+ * mrstr_bool mrstr_endwith(mrstr_pc, mrstr_pc)
  * Checks whether the string ends with the substring
  *
  * input reqs:
@@ -12,7 +12,7 @@
 #include <mrstr.h>
 #include <string.h>
 
-mrstr_bool mrstr_end_with(mrstr_pc str, mrstr_pc sub)
+mrstr_bool mrstr_endwith(mrstr_pc str, mrstr_pc sub)
 {
     if (str == sub || !MRSTR_LEN(sub))
         return MRSTR_TRUE;

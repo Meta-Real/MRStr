@@ -123,7 +123,7 @@ void mrstr_print(mrstr_cstr format, ...)
                        "offset = %llu}",
                        MRSTR_DATA(s), MRSTR_DATA(s) - MRSTR_OFFSET(s), MRSTR_DATA(s) + MRSTR_LEN(s),
                        MRSTR_DATA(s),
-                       MRSTR_LEN(s) + MRSTR_OFFSET(s), MRSTR_LEN(s),
+                       MRSTR_LEN(s) + MRSTR_OFFSET(s) + (MRSTR_DATA(s) != NULL), MRSTR_LEN(s),
                        MRSTR_OFFSET(s));
                 break;
             case 'l':

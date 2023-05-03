@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_c_end_with(mrstr_pc, mrstr_chr)
+ * mrstr_bool mrstr_c_endwith(mrstr_pc, mrstr_chr)
  * Checks whether the string ends with the character
  *
  * input reqs:
@@ -10,7 +10,7 @@
 
 #include <mrstr.h>
 
-mrstr_bool mrstr_c_end_with(mrstr_pc str, mrstr_chr chr)
+mrstr_bool mrstr_c_endwith(mrstr_pc str, mrstr_chr chr)
 {
     if (!MRSTR_LEN(str))
         return MRSTR_FALSE;
