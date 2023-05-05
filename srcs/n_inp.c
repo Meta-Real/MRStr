@@ -29,12 +29,10 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len)
         fgets(MRSTR_DATA(dst), len + 1, stdin);
         MRSTR_LEN(dst) = strlen(MRSTR_DATA(dst));
 
-        if (MRSTR_DATA(dst)[MRSTR_LEN(dst) - 1] == '\n')
-            MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
-
         if (MRSTR_LEN(dst) == len)
             return;
 
+        MRSTR_DATA(dst)[--MRSTR_LEN(dst)] = '\0';
         if (!MRSTR_LEN(dst))
         {
             __mrstr_free(MRSTR_DATA(dst));

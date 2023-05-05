@@ -28,13 +28,17 @@ void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len)
             return;
 
         nlen = MRSTR_LEN(res) + len;
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    nlen + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), nlen + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n2_concat", nlen + MRSTR_OFFSET(res) + 1, );
 
         MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
-        memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(str2), len);
+
+        if (res == str2)
+            memmove(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(res), len);
+        else
+            memcpy(MRSTR_DATA(res) + MRSTR_LEN(res), MRSTR_DATA(str2), len);
+
         MRSTR_DATA(res)[nlen] = '\0';
         MRSTR_LEN(res) = nlen;
         return;
@@ -50,8 +54,7 @@ void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len)
                 mrstr_data_free("mrstr_n2_concat");
 
             MRSTR_LEN(res) = MRSTR_LEN(str1);
-            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                        MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
             if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_n2_concat", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
@@ -66,8 +69,7 @@ void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len)
                 return;
 
             MRSTR_LEN(res) = len;
-            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                        len + MRSTR_OFFSET(res) + 1);
+            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), len + MRSTR_OFFSET(res) + 1);
             if (!tdata)
                 mrstr_dbg_aloc_err("mrstr_n2_concat", len + MRSTR_OFFSET(res) + 1, );
 
@@ -77,8 +79,7 @@ void mrstr_n2_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2, mrstr_size len)
         }
 
         MRSTR_LEN(res) = MRSTR_LEN(str1) + len;
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n2_concat", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 

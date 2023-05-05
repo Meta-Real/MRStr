@@ -19,7 +19,9 @@ void mrstr_c_join(mrstr_p res, mrstr_chr sep, ...)
 {
     va_list ap;
     mrstr_p str;
-    mrstr_size nlen;
+    mrstr_bool issrc = MRSTR_FALSE;
+    mrstr_str data = NULL, tdata;
+    mrstr_size len = 0, nlen;
 
     va_start(ap, sep);
     str = va_arg(ap, mrstr_p);
@@ -27,36 +29,66 @@ void mrstr_c_join(mrstr_p res, mrstr_chr sep, ...)
     if (!str)
         return;
 
+    if (res == str)
+        issrc = MRSTR_TRUE;
+
     if (MRSTR_LEN(str))
     {
-        MRSTR_DATA(res) = __mrstr_alloc(MRSTR_LEN(str) + 1);
-        if (!MRSTR_DATA(res))
+        data = __mrstr_alloc(MRSTR_LEN(str) + 1);
+        if (!data)
             mrstr_dbg_aloc_err("mrstr_c_join", MRSTR_LEN(str) + 1, );
 
-        memcpy(MRSTR_DATA(res), MRSTR_DATA(str), MRSTR_LEN(str));
-        MRSTR_LEN(res) = MRSTR_LEN(str);
+        memcpy(data, MRSTR_DATA(str), MRSTR_LEN(str));
+        len = MRSTR_LEN(str);
     }
 
     str = va_arg(ap, mrstr_p);
+
     while (str)
     {
-        nlen = MRSTR_LEN(res) + 1 + MRSTR_LEN(str);
+        if (res == str)
+            issrc = MRSTR_TRUE;
 
-        MRSTR_DATA(res) = __mrstr_realloc(MRSTR_DATA(res), nlen + 1);
-        if (!MRSTR_DATA(res))
+        nlen = len + 1 + MRSTR_LEN(str);
+
+        data = __mrstr_realloc(data, nlen + 1);
+        if (!data)
             mrstr_dbg_aloc_err("mrstr_c_join", nlen + 1, );
 
-        MRSTR_DATA(res)[MRSTR_LEN(res)] = sep;
+        data[len] = sep;
         if (MRSTR_LEN(str))
-            memcpy(MRSTR_DATA(res) + MRSTR_LEN(res) + 1, MRSTR_DATA(str), MRSTR_LEN(str));
+            memcpy(data + len + 1, MRSTR_DATA(str), MRSTR_LEN(str));
 
-        MRSTR_LEN(res) = nlen;
+        len = nlen;
 
         str = va_arg(ap, mrstr_p);
     }
 
     va_end(ap);
 
-    if (MRSTR_LEN(res))
-        MRSTR_DATA(res)[MRSTR_LEN(res)] = '\0';
+    if (len)
+        data[len] = '\0';
+
+    if (issrc)
+    {
+        if (!MRSTR_OFFSET(res))
+        {
+            __mrstr_free(MRSTR_DATA(res));
+            MRSTR_DATA(res) = data;
+            MRSTR_LEN(res) = len;
+            return;
+        }
+
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), len + MRSTR_OFFSET(res) + 1);
+        if (!tdata)
+            mrstr_dbg_aloc_err("mrstr_c_join", len + MRSTR_OFFSET(res) + 1, );
+
+        MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+        memcpy(MRSTR_DATA(res), data, len + 1);
+        MRSTR_LEN(res) = len;
+        return;
+    }
+
+    MRSTR_DATA(res) = data;
+    MRSTR_LEN(res) = len;
 }

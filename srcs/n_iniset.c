@@ -33,8 +33,7 @@ void mrstr_n_iniset(mrstr_p dst, mrstr_pc src, mrstr_size len)
             return;
         }
 
-        tdata = __mrstr_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst),
-                                    len + MRSTR_OFFSET(dst) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(dst) - MRSTR_OFFSET(dst), len + MRSTR_OFFSET(dst) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_iniset", len + MRSTR_OFFSET(dst) + 1, );
 

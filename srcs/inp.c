@@ -17,8 +17,8 @@ void mrstr_inp(mrstr_p dst, FILE *src)
     if (src == stdin || !src)
     {
         mrstr_size alloc;
-        mrstr_str tdata;
         mrstr_chr c;
+        mrstr_str tdata;
 
         MRSTR_DATA(dst) = __mrstr_alloc(MRSTR_DEF_LEN);
         if (!MRSTR_DATA(dst))

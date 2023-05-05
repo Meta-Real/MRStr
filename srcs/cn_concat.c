@@ -20,8 +20,7 @@ void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr)
 
     if (res == str)
     {
-        mrstr_str tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                              len + MRSTR_OFFSET(res) + 2);
+        mrstr_str tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), len + MRSTR_OFFSET(res) + 2);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_cn_concat", len + MRSTR_OFFSET(res) + 2, );
 
