@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * void mrstr_c_rtrim(mrstr_p, mrstr_pc, mrstr_chr)
+ * void mrstr_rtrim(mrstr_p, mrstr_pc, mrstr_chr)
  * Trims the right set of characters matching the character
  *
  * input reqs:
@@ -13,7 +13,7 @@
 #include <intern.h>
 #include <string.h>
 
-void mrstr_c_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
+void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
 {
     mrstr_size i;
 
@@ -35,12 +35,11 @@ void mrstr_c_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
             return;
 
         if (!i)
-            mrstr_data_free("mrstr_c_rtrim");
+            mrstr_data_free("mrstr_rtrim");
 
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    i + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), i + MRSTR_OFFSET(res) + 1);
         if (!tdata)
-            mrstr_dbg_aloc_err("mrstr_c_rtrim", i + MRSTR_OFFSET(res) + 1, );
+            mrstr_dbg_aloc_err("mrstr_rtrim", i + MRSTR_OFFSET(res) + 1, );
 
         MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
         MRSTR_DATA(res)[i] = '\0';
@@ -53,7 +52,7 @@ void mrstr_c_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr)
 
     MRSTR_DATA(res) = __mrstr_alloc(i + 1);
     if (!MRSTR_DATA(res))
-        mrstr_dbg_aloc_err("mrstr_c_rtrim", i + 1, );
+        mrstr_dbg_aloc_err("mrstr_rtrim", i + 1, );
 
     memcpy(MRSTR_DATA(res), MRSTR_DATA(str), i);
     MRSTR_DATA(res)[i] = '\0';

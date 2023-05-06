@@ -173,8 +173,8 @@ void mrstr_n_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 void mrstr_cs_ltrim(mrstr_p res, mrstr_pc str, mrstr_cstr chrs);
 void mrstr_csn_ltrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 
-void mrstr_c_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr);
-void mrstr_cn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
+void mrstr_rtrim(mrstr_p res, mrstr_pc str, mrstr_chr chr);
+void mrstr_n_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
 void mrstr_cs_rtrim(mrstr_p res, mrstr_pc str, mrstr_cstr chrs);
 void mrstr_csn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);

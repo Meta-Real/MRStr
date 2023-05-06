@@ -38,8 +38,7 @@ void mrstr_r_remove(mrstr_p res, mrstr_pc str, mrstr_size sidx, mrstr_size eidx)
         memmove(MRSTR_DATA(res) + sidx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= diff;
 
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_r_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 

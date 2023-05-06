@@ -49,8 +49,7 @@ void mrstr_n_repeat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_size cnt)
         if (!MRSTR_LEN(res) || MRSTR_LEN(res) / len != cnt)
             mrstr_dbg_movf_err("mrstr_n_repeat", );
 
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_n_repeat", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 

@@ -35,8 +35,7 @@ void mrstr_c_remove(mrstr_p res, mrstr_pc str, mrstr_chr chr)
         if (!j)
             mrstr_data_free("mrstr_c_remove");
 
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    j + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), j + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_c_remove", j + MRSTR_OFFSET(res) + 1, );
 

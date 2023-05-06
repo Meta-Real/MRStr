@@ -42,8 +42,7 @@ void mrstr_csn_remove(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs
         memmove(MRSTR_DATA(res) + j, MRSTR_DATA(res) + i, MRSTR_LEN(res) - i + 1);
         MRSTR_LEN(res) -= i - j;
 
-        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res),
-                                    MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
+        tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1);
         if (!tdata)
             mrstr_dbg_aloc_err("mrstr_csn_remove", MRSTR_LEN(res) + MRSTR_OFFSET(res) + 1, );
 
