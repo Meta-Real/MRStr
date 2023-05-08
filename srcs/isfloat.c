@@ -48,6 +48,18 @@ mrstr_bool mrstr_isfloat(mrstr_pc str)
             continue;
         }
 
+        if (MRSTR_DATA(str)[i] == 'e' || MRSTR_DATA(str)[i] == 'E')
+        {
+            if (++i == MRSTR_LEN(str))
+                return MRSTR_FALSE;
+
+            for (; i < MRSTR_LEN(str); i++)
+                if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '9')
+                    return MRSTR_FALSE;
+
+            return MRSTR_TRUE;
+        }
+
         if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '9')
             return MRSTR_FALSE;
     }

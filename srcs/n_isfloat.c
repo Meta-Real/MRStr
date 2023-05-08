@@ -51,6 +51,18 @@ mrstr_bool mrstr_n_isfloat(mrstr_pc str, mrstr_size len)
             continue;
         }
 
+        if (MRSTR_DATA(str)[i] == 'e' || MRSTR_DATA(str)[i] == 'E')
+        {
+            if (++i == len)
+                return MRSTR_FALSE;
+
+            for (; i < len; i++)
+                if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '9')
+                    return MRSTR_FALSE;
+
+            return MRSTR_TRUE;
+        }
+
         if (MRSTR_DATA(str)[i] < '0' || MRSTR_DATA(str)[i] > '9')
             return MRSTR_FALSE;
     }
