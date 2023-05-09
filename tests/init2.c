@@ -10,11 +10,13 @@
 int main()
 {
     mrstr_t a;
+    mrstr_str s;
+
     MRSTR_DATA(a) = (mrstr_str)0xdeadbeef;
     MRSTR_LEN(a) = 300;
     MRSTR_OFFSET(a) = 12;
 
-    mrstr_str s = malloc(6);
+    s = malloc(6);
     strcpy(s, "Hello");
 
     mrstr_init2(a, s);

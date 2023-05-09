@@ -9,13 +9,15 @@
 
 int main()
 {
-    mrstr_str s = malloc(12);
+    mrstr_str s, r;
+    mrstr_t a;
+
+    s = malloc(12);
     strcpy(s, "Hello World");
 
-    mrstr_t a;
     mrstr_init2(a, s);
 
-    mrstr_str r = mrstr_sn_get(a, 100);
+    r = mrstr_sn_get(a, 100);
 
     UTEST_EXPECT(!strcmp(r, "Hello World"), "mrstr_sn_get",
                  "test1: 'r' must be \"Hello World\" but it is \"%s\"\n",

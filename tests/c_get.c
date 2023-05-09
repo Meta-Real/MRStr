@@ -9,13 +9,16 @@
 
 int main()
 {
-    mrstr_str s = malloc(12);
+    mrstr_str s;
+    mrstr_t a;
+    mrstr_chr r;
+
+    s = malloc(12);
     strcpy(s, "Hello World");
 
-    mrstr_t a;
     mrstr_init2(a, s);
 
-    mrstr_chr r = mrstr_c_get(a, 0);
+    r = mrstr_c_get(a, 0);
 
     UTEST_EXPECT(r == 'H', "mrstr_c_get",
                  "test1: 'r' must be 'H' but it is '%c'\n",

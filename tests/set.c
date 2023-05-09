@@ -9,10 +9,12 @@
 
 int main()
 {
-    mrstr_str s = malloc(12);
+    mrstr_str s;
+    mrstr_t a, b;
+
+    s = malloc(12);
     strcpy(s, "Hello World");
 
-    mrstr_t a, b;
     mrstr_init2(a, s);
     mrstr_init(b);
 
