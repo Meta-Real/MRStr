@@ -115,14 +115,6 @@ mrstr_str mrstr_sn_get(mrstr_pc src, mrstr_size len);
 
 mrstr_chr mrstr_c_get(mrstr_pc src, mrstr_size idx);
 
-/* io functions */
-
-void mrstr_inp(mrstr_p dst, FILE *src);
-void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len);
-
-void mrstr_out(FILE *dst, mrstr_pc src);
-void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
-
 /* concat functions */
 
 void mrstr_concat(mrstr_p res, mrstr_pc str1, mrstr_pc str2);
@@ -136,6 +128,8 @@ void mrstr_sn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len, mrstr_cstr str2
 void mrstr_c_concat(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_cn_concat(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
 
+/* join functions */
+
 void mrstr_join(mrstr_p res, mrstr_pc sep, ...);
 void mrstr_s_join(mrstr_p res, mrstr_cstr sep, ...);
 void mrstr_c_join(mrstr_p res, mrstr_chr sep, ...);
@@ -146,11 +140,19 @@ void mrstr_remove(mrstr_p res, mrstr_pc str, mrstr_size idx);
 void mrstr_n_remove(mrstr_p res, mrstr_pc str, mrstr_size idx, mrstr_size len);
 void mrstr_r_remove(mrstr_p res, mrstr_pc str, mrstr_size sidx, mrstr_size eidx);
 
-void mrstr_c_remove(mrstr_p res, mrstr_pc str, mrstr_chr chr);
-void mrstr_cn_remove(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
+/* erase functions */
 
-void mrstr_cs_remove(mrstr_p res, mrstr_pc str, mrstr_cstr chrs);
-void mrstr_csn_remove(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
+void mrstr_erase(mrstr_p res, mrstr_pc str, mrstr_pc sub); //
+void mrstr_n_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_pc sub); //
+
+void mrstr_s_erase(mrstr_p res, mrstr_pc str, mrstr_cstr sub); //
+void mrstr_sn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr sub); //
+
+void mrstr_c_erase(mrstr_p res, mrstr_pc str, mrstr_chr chr);
+void mrstr_cn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
+
+void mrstr_cs_erase(mrstr_p res, mrstr_pc str, mrstr_cstr chrs);
+void mrstr_csn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 
 /* repeat functions */
 
@@ -341,17 +343,32 @@ mrstr_bool mrstr_csn_are(mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 
 /* customizable functions */
 
-mrstr_bool mrstr_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr));
-mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len, mrstr_bool (*func)(mrstr_chr chr));
-mrstr_bool mrstr_d_all(mrstr_pc str, mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
+void mrstr_map(mrstr_p res, mrstr_pc str,
+               mrstr_chr (*func)(mrstr_chr chr));
+void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len,
+                 mrstr_chr (*func)(mrstr_chr chr));
+void mrstr_d_map(mrstr_p res, mrstr_pc str,
+                 mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
+                  mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+
+mrstr_bool mrstr_all(mrstr_pc str,
+                     mrstr_bool (*func)(mrstr_chr chr));
+mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len,
+                       mrstr_bool (*func)(mrstr_chr chr));
+mrstr_bool mrstr_d_all(mrstr_pc str,
+                       mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
 mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
                         mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
 
-void mrstr_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr));
-void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr (*func)(mrstr_chr chr));
-void mrstr_d_map(mrstr_p res, mrstr_pc str, mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
-void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                  mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+mrstr_bool mrstr_similarity(mrstr_pc str1, mrstr_pc str2,
+                            mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+mrstr_bool mrstr_n_similarity(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
+                              mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+mrstr_bool mrstr_d_similarity(mrstr_pc str1, mrstr_pc str2,
+                              mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
+mrstr_bool mrstr_dn_similarity(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
+                               mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
 
 /* print functions */
 
@@ -364,6 +381,25 @@ mrstr_str mrstr_s_print(mrstr_cstr format, ...); //
 mrstr_str mrstr_sf_print(FILE* stream, mrstr_cstr format, ...); //
 mrstr_str mrstr_sv_print(mrstr_cstr format, va_list args); //
 mrstr_str mrstr_svf_print(FILE* stream, mrstr_cstr format, va_list args); //
+
+/* io functions */
+
+void mrstr_inp(mrstr_p dst, FILE *src);
+void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len);
+
+void mrstr_out(FILE *dst, mrstr_pc src);
+void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
+
+/* stdio functions */
+
+void mrstr_get(mrstr_p dst); //
+void mrstr_n_get(mrstr_p dst, mrstr_size len); //
+
+void mrstr_put(mrstr_pc src); //
+void mrstr_n_put(mrstr_pc src, mrstr_size len); //
+
+void mrstr_label(mrstr_pc src); //
+void mrstr_n_label(mrstr_pc src, mrstr_size len); //
 
 /* property functions */
 
