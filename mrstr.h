@@ -361,14 +361,14 @@ mrstr_bool mrstr_d_all(mrstr_pc str,
 mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
                         mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
 
-mrstr_bool mrstr_similarity(mrstr_pc str1, mrstr_pc str2,
-                            mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
-mrstr_bool mrstr_n_similarity(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
-                              mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
-mrstr_bool mrstr_d_similarity(mrstr_pc str1, mrstr_pc str2,
-                              mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
-mrstr_bool mrstr_dn_similarity(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
-                               mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
+mrstr_bool mrstr_similar(mrstr_pc str1, mrstr_pc str2,
+                         mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+mrstr_bool mrstr_n_similar(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
+                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+mrstr_bool mrstr_d_similar(mrstr_pc str1, mrstr_pc str2,
+                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
+mrstr_bool mrstr_dn_similar(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
+                            mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
 
 /* print functions */
 
@@ -390,16 +390,19 @@ void mrstr_n_inp(mrstr_p dst, FILE *src, mrstr_size len);
 void mrstr_out(FILE *dst, mrstr_pc src);
 void mrstr_n_out(FILE *dst, mrstr_pc src, mrstr_size len);
 
+void mrstr_rout(FILE* dst, mrstr_pc src);
+void mrstr_n_rout(FILE* dst, mrstr_pc src, mrstr_size len);
+
 /* stdio functions */
 
-void mrstr_get(mrstr_p dst); //
-void mrstr_n_get(mrstr_p dst, mrstr_size len); //
+void mrstr_get(mrstr_p dst);
+void mrstr_n_get(mrstr_p dst, mrstr_size len);
 
-void mrstr_put(mrstr_pc src); //
-void mrstr_n_put(mrstr_pc src, mrstr_size len); //
+void mrstr_put(mrstr_pc src);
+void mrstr_n_put(mrstr_pc src, mrstr_size len);
 
-void mrstr_label(mrstr_pc src); //
-void mrstr_n_label(mrstr_pc src, mrstr_size len); //
+void mrstr_rput(mrstr_pc src);
+void mrstr_n_rput(mrstr_pc src, mrstr_size len);
 
 /* property functions */
 

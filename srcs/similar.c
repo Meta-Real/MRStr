@@ -1,7 +1,7 @@
 /*/
  * MetaReal String Library version 1.0.0
  *
- * mrstr_bool mrstr_similarity(mrstr_pc, mrstr_pc, mrstr_bool (*)(mrstr_chr, mrstr_chr))
+ * mrstr_bool mrstr_similar(mrstr_pc, mrstr_pc, mrstr_bool (*)(mrstr_chr, mrstr_chr))
  * Checks whether all the characters of the strings are similar in the defined way
  * The similarity must be checked by the function
  *
@@ -14,8 +14,8 @@
 
 #include <mrstr.h>
 
-mrstr_bool mrstr_similarity(mrstr_pc str1, mrstr_pc str2,
-                            mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2))
+mrstr_bool mrstr_similar(mrstr_pc str1, mrstr_pc str2,
+                         mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2))
 {
     mrstr_size i;
 
