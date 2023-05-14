@@ -142,11 +142,11 @@ void mrstr_r_remove(mrstr_p res, mrstr_pc str, mrstr_size sidx, mrstr_size eidx)
 
 /* erase functions */
 
-void mrstr_erase(mrstr_p res, mrstr_pc str, mrstr_pc sub); //
-void mrstr_n_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_pc sub); //
+void mrstr_erase(mrstr_p res, mrstr_pc str, mrstr_pc sub);
+void mrstr_n_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_pc sub);
 
-void mrstr_s_erase(mrstr_p res, mrstr_pc str, mrstr_cstr sub); //
-void mrstr_sn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr sub); //
+void mrstr_s_erase(mrstr_p res, mrstr_pc str, mrstr_cstr sub);
+void mrstr_sn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr sub);
 
 void mrstr_c_erase(mrstr_p res, mrstr_pc str, mrstr_chr chr);
 void mrstr_cn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr chr);
