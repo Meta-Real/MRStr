@@ -6,7 +6,7 @@
  *
  * input reqs:
  *  (dst) pointer must be valid
- *  (dst) must not be allocated (except when (dst) pointer equals (src) pointer) (memory leak)
+ *  (dst) must not be allocated (memory leak)
  *  (src) pointer must be valid
 /*/
 

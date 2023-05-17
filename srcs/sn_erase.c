@@ -6,7 +6,7 @@
  *
  * input reqs:
  *  (res) pointer must be valid
- *  (res) pointer must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
+ *  (res) pointer must not be allocated (memory leak)
  *  (str) pointer must be valid
  *  (sub) pointer must be valid
 /*/
@@ -64,7 +64,22 @@ void mrstr_sn_erase(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr sub)
 
         MRSTR_LEN(res) -= i;
         if (!(j || MRSTR_LEN(res)))
-            mrstr_data_free("mrstr_sn_erase");
+        {
+            if (!MRSTR_OFFSET(res))
+            {
+                __mrstr_free(MRSTR_DATA(res));
+                MRSTR_DATA(res) = NULL;
+                return;
+            }
+
+            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_OFFSET(res) + 1);
+            if (!tdata)
+                mrstr_dbg_aloc_err("mrstr_sn_erase", MRSTR_OFFSET(res) + 1, );
+
+            MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+            *MRSTR_DATA(res) = '\0';
+            return;
+        }
 
         memmove(MRSTR_DATA(res) + j, MRSTR_DATA(res) + i, MRSTR_LEN(res) + 1);
         MRSTR_LEN(res) += j;

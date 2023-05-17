@@ -6,7 +6,7 @@
  *
  * input reqs:
  *  (res) pointer must be valid
- *  (res) must not be allocated (except when (res) pointer equals (str1) or (str2) pointers) (memory leak)
+ *  (res) must not be allocated (memory leak)
  *  (str1) pointer must be valid
  *  (str2) pointer must be valid
 /*/
@@ -29,7 +29,24 @@ void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2,
         if (!len1)
         {
             if (!len2)
-                mrstr_data_free("mrstr_nn_concat");
+            {
+                MRSTR_LEN(res) = 0;
+
+                if (!MRSTR_OFFSET(res))
+                {
+                    __mrstr_free(MRSTR_DATA(res));
+                    MRSTR_DATA(res) = NULL;
+                    return;
+                }
+
+                tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_OFFSET(res) + 1);
+                if (!tdata)
+                    mrstr_dbg_aloc_err("mrstr_nn_concat", MRSTR_OFFSET(res) + 1, );
+
+                MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+                *MRSTR_DATA(res) = '\0';
+                return;
+            }
 
             MRSTR_LEN(res) = len2;
             tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), len2 + MRSTR_OFFSET(res) + 1);
@@ -83,7 +100,24 @@ void mrstr_nn_concat(mrstr_p res, mrstr_pc str1, mrstr_size len1, mrstr_pc str2,
         if (!len2)
         {
             if (!len1)
-                mrstr_data_free("mrstr_nn_concat");
+            {
+                MRSTR_LEN(res) = 0;
+
+                if (!MRSTR_OFFSET(res))
+                {
+                    __mrstr_free(MRSTR_DATA(res));
+                    MRSTR_DATA(res) = NULL;
+                    return;
+                }
+
+                tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_OFFSET(res) + 1);
+                if (!tdata)
+                    mrstr_dbg_aloc_err("mrstr_nn_concat", MRSTR_OFFSET(res) + 1, );
+
+                MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+                *MRSTR_DATA(res) = '\0';
+                return;
+            }
 
             MRSTR_LEN(res) = len1;
             tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), len1 + MRSTR_OFFSET(res) + 1);

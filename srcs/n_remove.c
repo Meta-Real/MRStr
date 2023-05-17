@@ -7,7 +7,7 @@
  *
  * input reqs:
  *  (res) pointer must be valid
- *  (res) pointer must not be allocated (except when (res) pointer equals (str) pointer) (memory leak)
+ *  (res) pointer must not be allocated (memory leak)
  *  (str) pointer must be valid
 /*/
 
@@ -36,7 +36,24 @@ void mrstr_n_remove(mrstr_p res, mrstr_pc str, mrstr_size idx, mrstr_size len)
         mrstr_str tdata;
 
         if (len == MRSTR_LEN(res))
-            mrstr_data_free("mrstr_n_remove");
+        {
+            MRSTR_LEN(res) = 0;
+
+            if (!MRSTR_OFFSET(res))
+            {
+                __mrstr_free(MRSTR_DATA(res));
+                MRSTR_DATA(res) = NULL;
+                return;
+            }
+
+            tdata = __mrstr_realloc(MRSTR_DATA(res) - MRSTR_OFFSET(res), MRSTR_OFFSET(res) + 1);
+            if (!tdata)
+                mrstr_dbg_aloc_err("mrstr_n_remove", MRSTR_OFFSET(res) + 1, );
+
+            MRSTR_DATA(res) = tdata + MRSTR_OFFSET(res);
+            *MRSTR_DATA(res) = '\0';
+            return;
+        }
 
         memmove(MRSTR_DATA(res) + idx, MRSTR_DATA(res) + eidx, MRSTR_LEN(res) - eidx + 1);
         MRSTR_LEN(res) -= len;

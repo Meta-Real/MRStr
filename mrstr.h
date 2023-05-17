@@ -183,11 +183,11 @@ void mrstr_csn_rtrim(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr chrs)
 
 /* replace functions */
 
-void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_pc old, mrstr_pc new); //
-void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_pc old, mrstr_pc new); //
+void mrstr_replace(mrstr_p res, mrstr_pc str, mrstr_pc old, mrstr_pc new);
+void mrstr_n_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_pc old, mrstr_pc new);
 
-void mrstr_s_replace(mrstr_p res, mrstr_pc str, mrstr_cstr old, mrstr_cstr new); //
-void mrstr_sn_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr old, mrstr_cstr new); //
+void mrstr_s_replace(mrstr_p res, mrstr_pc str, mrstr_cstr old, mrstr_cstr new);
+void mrstr_sn_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_cstr old, mrstr_cstr new);
 
 void mrstr_c_replace(mrstr_p res, mrstr_pc str, mrstr_chr old, mrstr_chr new);
 void mrstr_cn_replace(mrstr_p res, mrstr_pc str, mrstr_size len, mrstr_chr old, mrstr_chr new);

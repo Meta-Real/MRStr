@@ -6,7 +6,7 @@
  *
  * input reqs:
  *  (res) pointer must be valid
- *  (res) must not be allocated (except when (res) pointer equals (str1) or (str2) pointers) (memory leak)
+ *  (res) must not be allocated (memory leak)
  *  (str1) pointer must be valid
  *  (str2) pointer must be valid
 /*/
