@@ -14,7 +14,7 @@
 #include <mrstr.h>
 
 mrstr_bool mrstr_all(mrstr_pc str,
-                     mrstr_bool (*func)(mrstr_chr chr))
+                     mrstr_bool (*func)(mrstr_chr))
 {
     mrstr_size i;
 

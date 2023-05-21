@@ -15,7 +15,7 @@
 #include <mrstr.h>
 
 mrstr_bool mrstr_n_similar(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
-                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2))
+                           mrstr_bool (*func)(mrstr_chr, mrstr_chr))
 {
     mrstr_size i;
 

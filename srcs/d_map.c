@@ -16,7 +16,7 @@
 #include <string.h>
 
 void mrstr_d_map(mrstr_p res, mrstr_pc str,
-                 mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data))
+                 mrstr_chr (*func)(mrstr_chr, mrstr_cdata_t))
 {
     mrstr_cdata_t data;
 

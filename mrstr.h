@@ -344,43 +344,41 @@ mrstr_bool mrstr_csn_are(mrstr_pc str, mrstr_size len, mrstr_cstr chrs);
 /* customizable functions */
 
 void mrstr_map(mrstr_p res, mrstr_pc str,
-               mrstr_chr (*func)(mrstr_chr chr));
+               mrstr_chr (*func)(mrstr_chr));
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                 mrstr_chr (*func)(mrstr_chr chr));
+                 mrstr_chr (*func)(mrstr_chr));
 void mrstr_d_map(mrstr_p res, mrstr_pc str,
-                 mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+                 mrstr_chr (*func)(mrstr_chr, mrstr_cdata_t));
 void mrstr_dn_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                  mrstr_chr (*func)(mrstr_chr chr, mrstr_cdata_t data));
+                  mrstr_chr (*func)(mrstr_chr, mrstr_cdata_t));
 
 mrstr_bool mrstr_all(mrstr_pc str,
-                     mrstr_bool (*func)(mrstr_chr chr));
+                     mrstr_bool (*func)(mrstr_chr));
 mrstr_bool mrstr_n_all(mrstr_pc str, mrstr_size len,
-                       mrstr_bool (*func)(mrstr_chr chr));
+                       mrstr_bool (*func)(mrstr_chr));
 mrstr_bool mrstr_d_all(mrstr_pc str,
-                       mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
+                       mrstr_bool (*func)(mrstr_chr, mrstr_cdata_t));
 mrstr_bool mrstr_dn_all(mrstr_pc str, mrstr_size len,
-                        mrstr_bool (*func)(mrstr_chr chr, mrstr_cdata_t data));
+                        mrstr_bool (*func)(mrstr_chr, mrstr_cdata_t));
 
 mrstr_bool mrstr_similar(mrstr_pc str1, mrstr_pc str2,
-                         mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+                         mrstr_bool (*func)(mrstr_chr, mrstr_chr));
 mrstr_bool mrstr_n_similar(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
-                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_chr chr2));
+                           mrstr_bool (*func)(mrstr_chr, mrstr_chr));
 mrstr_bool mrstr_d_similar(mrstr_pc str1, mrstr_pc str2,
-                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
+                           mrstr_bool (*func)(mrstr_chr, mrstr_cdata_t, mrstr_chr, mrstr_cdata_t));
 mrstr_bool mrstr_dn_similar(mrstr_pc str1, mrstr_pc str2, mrstr_size len,
-                            mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2));
+                            mrstr_bool (*func)(mrstr_chr, mrstr_cdata_t, mrstr_chr, mrstr_cdata_t));
 
 /* print functions */
 
 void mrstr_print(mrstr_cstr format, ...);
+void mrstr_v_print(mrstr_cstr format, va_list args); //
 void mrstr_f_print(FILE* stream, mrstr_cstr format, ...); //
-void mrstr_v_print(FILE* stream, mrstr_cstr format, va_list args); //
 void mrstr_vf_print(FILE* stream, mrstr_cstr format, va_list args); //
 
 mrstr_str mrstr_s_print(mrstr_cstr format, ...); //
-mrstr_str mrstr_sf_print(FILE* stream, mrstr_cstr format, ...); //
 mrstr_str mrstr_sv_print(mrstr_cstr format, va_list args); //
-mrstr_str mrstr_svf_print(FILE* stream, mrstr_cstr format, va_list args); //
 
 /* io functions */
 
@@ -475,14 +473,14 @@ extern mrstr_err_code_t mrstr_err_code;
 
 /* alloc system */
 
-extern void *(*__mrstr_alloc)(mrstr_size size);
-extern void *(*__mrstr_realloc)(void *block, mrstr_size size);
-extern void (*__mrstr_free)(void *block);
+extern void *(*__mrstr_alloc)(mrstr_size);
+extern void *(*__mrstr_realloc)(void*, mrstr_size);
+extern void (*__mrstr_free)(void*);
 
 void mrstr_set_alloc_sys(
-    void *(*mrstr_alloc)(mrstr_size size),
-    void *(*mrstr_realloc)(void *block, mrstr_size size),
-    void (*mrstr_free)(void *block));
+    void *(*mrstr_alloc)(mrstr_size),
+    void *(*mrstr_realloc)(void*, mrstr_size),
+    void (*mrstr_free)(void*));
 
 void *mrstr_def_alloc(mrstr_size size);
 void *mrstr_def_realloc(void *block, mrstr_size size);

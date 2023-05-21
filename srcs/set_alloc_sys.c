@@ -13,9 +13,9 @@
 #include <mrstr.h>
 
 void mrstr_set_alloc_sys(
-    void *(*mrstr_alloc)(mrstr_size size),
-    void *(*mrstr_realloc)(void *block, mrstr_size size),
-    void (*mrstr_free)(void *block))
+    void *(*mrstr_alloc)(mrstr_size),
+    void *(*mrstr_realloc)(void*, mrstr_size),
+    void (*mrstr_free)(void*))
 {
     if (mrstr_alloc)
         __mrstr_alloc = mrstr_alloc;

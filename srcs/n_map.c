@@ -16,7 +16,7 @@
 #include <string.h>
 
 void mrstr_n_map(mrstr_p res, mrstr_pc str, mrstr_size len,
-                 mrstr_chr (*func)(mrstr_chr chr))
+                 mrstr_chr (*func)(mrstr_chr))
 {
     if (!MRSTR_LEN(str))
         return;

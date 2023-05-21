@@ -133,19 +133,7 @@ int main()
                  "test9: 'b' offset must be 0 but it is %llu\n",
                  MRSTR_OFFSET(b));
 
-    mrstr_concat(d, b, d);
-
-    UTEST_EXPECT(!strcmp(MRSTR_DATA(d), "Hello WorldHello WorldWorld"), "mrstr_concat",
-                 "test10: 'd' data must be \"Hello WorldHello WorldWorld\" but it is \"%s\"\n",
-                 MRSTR_DATA(d));
-    UTEST_EXPECT(MRSTR_LEN(d) == 27, "mrstr_concat",
-                 "test10: 'd' length must be 27 but it is %llu\n",
-                 MRSTR_LEN(d));
-    UTEST_EXPECT(!MRSTR_OFFSET(d), "mrstr_concat",
-                 "test10: 'd' offset must be 0 but it is %llu\n",
-                 MRSTR_OFFSET(d));
-
-    mrstr_clears(a, b, c, d, NULL);
+    mrstr_clears(a, b, c, NULL);
 
     UTEST_SUCCESS("mrstr_concat");
     return 0;

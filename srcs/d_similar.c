@@ -15,7 +15,7 @@
 #include <mrstr.h>
 
 mrstr_bool mrstr_d_similar(mrstr_pc str1, mrstr_pc str2,
-                           mrstr_bool (*func)(mrstr_chr chr1, mrstr_cdata_t data1, mrstr_chr chr2, mrstr_cdata_t data2))
+                           mrstr_bool (*func)(mrstr_chr, mrstr_cdata_t, mrstr_chr, mrstr_cdata_t))
 {
     mrstr_cdata_t data1, data2;
 
